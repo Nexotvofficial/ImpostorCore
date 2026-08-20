@@ -30,3 +30,12 @@
     }
   ]
 }
+    {
+      "id": "anime-ultra-instinct-001",
+      "title": "Goku Ultra Instinct (AI Art)",
+      "type": "image",
+      "category": "anime",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/1787232691245.png",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/1787232691245.png",
+      "resolution": "4K"
+    },
