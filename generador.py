@@ -1,4 +1,4 @@
-import json
+    import json
 import os
 import re
 from PIL import Image
@@ -48,6 +48,9 @@ def get_media_info(file_path):
 
 def detect_category(filename):
   name = filename.lower()
+  if name.startswith("vip_"):
+    name = name[4:]  # Omitir el prefijo vip_ para detectar bien la categoría
+
   if name.startswith("fa_") or "fantasia" in name or "fantasía" in name:
     return "Fantasía"
   if name.startswith("mi_") or "minimal" in name:
@@ -69,6 +72,11 @@ def detect_category(filename):
 
 def format_title(filename):
   name = filename.rsplit(".", 1)[0]
+
+  # Limpiar primero el prefijo vip_ si lo tiene
+  if name.lower().startswith("vip_"):
+    name = name[4:]
+
   prefixes = ["an_", "cy_", "na_", "fa_", "mi_", "lv_"]
   for pref in prefixes:
     if name.lower().startswith(pref):
@@ -102,6 +110,9 @@ archivos = [
 for i, archivo in enumerate(archivos):
   ruta_completa = os.path.join(folder, archivo)
 
+  # Detección de VIP basada en el prefijo
+  es_vip = archivo.lower().startswith("vip_")
+
   # Información y categoría
   resolucion_real = get_media_info(ruta_completa)
   cat_detectada = detect_category(archivo)
@@ -112,7 +123,7 @@ for i, archivo in enumerate(archivos):
   es_video = (
       archivo.lower().endswith((".mp4", ".webm"))
       or "live" in archivo.lower()
-      or archivo.lower().startswith("lv_")
+      or "lv_" in archivo.lower()
   )
 
   data["wallpapers"].append({
@@ -130,7 +141,7 @@ for i, archivo in enumerate(archivos):
           + url_archivo
       ),
       "resolution": resolucion_real,
-      "is_vip": False,
+      "is_vip": es_vip,
   })
 
 with open("wallpapers.json", "w", encoding="utf-8") as f:
