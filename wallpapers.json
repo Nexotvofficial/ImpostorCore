@@ -1,35 +1,40 @@
 {
-  "categories": ["Todos", "Anime", "Cyberpunk", "Naturaleza", "Minimalista", "Live Video"],
+  "categories": [
+    { "id": "todos", "name": "Todos" },
+    { "id": "anime", "name": "Anime" },
+    { "id": "cyberpunk", "name": "Cyberpunk" },
+    { "id": "naturaleza", "name": "Naturaleza" },
+    { "id": "minimalista", "name": "Minimalista" },
+    { "id": "live-video", "name": "Live Video" }
+  ],
   "wallpapers": [
     {
       "id": "1",
       "title": "Neon City Cyberpunk",
       "type": "image",
-      "category": "Cyberpunk",
-      "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
-      "hd_url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2160&q=100",
+      "category": "cyberpunk",
+      "thumbnail": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80",
+      "hd_url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80",
       "resolution": "4K Ultra HD"
     },
     {
       "id": "2",
-      "title": "Bosque Místico HD",
+      "title": "Bosque Mistico HD",
       "type": "image",
-      "category": "Naturaleza",
-      "thumbnail": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=400&q=80",
-      "hd_url": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2160&q=100",
+      "category": "naturaleza",
+      "thumbnail": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=600&q=80",
+      "hd_url": "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80",
       "resolution": "Full HD"
     },
     {
       "id": "3",
       "title": "Fondo Animado Matrix",
       "type": "video",
-      "category": "Live Video",
-      "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80",
-      "hd_url": "https://assets.mixkit.co/videos/preview/mixkit-code-running-on-a-black-screen-42358-large.mp4",
+      "category": "live-video",
+      "thumbnail": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
+      "hd_url": "https://assets.mixkit.co/videos/preview/mixkit-code-running-on-a-black-screen-1241-large.mp4",
       "resolution": "Live HD"
-    }
-  ]
-}
+    },
     {
       "id": "anime-ultra-instinct-001",
       "title": "Goku Ultra Instinct (AI Art)",
@@ -38,4 +43,6 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/1787232691245.png",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/1787232691245.png",
       "resolution": "4K"
-    },
+    }
+  ]
+}
