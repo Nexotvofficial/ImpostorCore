@@ -1,30 +1,47 @@
 import os
 import json
 
-# Lista de archivos en la carpeta img
-carpeta = "./img"
-archivos = os.listdir(carpeta)
+# Configuración
+folder = "./img"
+# Aquí añadimos las categorías que faltaban
+categories = ["Todos", "Anime", "Cyberpunk", "Naturaleza", "Fantasía", "Minimalista", "Live Video"]
 
-# Estructura base
+# Función para clasificar automáticamente según el nombre del archivo
+def detect_category(filename):
+    name = filename.lower()
+    if "fantasia" in name or "fantasía" in name: return "Fantasía"
+    if "minimal" in name: return "Minimalista"
+    if "cyber" in name: return "Cyberpunk"
+    if "naturaleza" in name: return "Naturaleza"
+    if "anime" in name: return "Anime"
+    if "live" in name: return "Live Video"
+    return "Todos"
+
 data = {
-    "categories": ["Todos", "Anime", "Cyberpunk", "Naturaleza", "Live Video"],
+    "categories": categories,
     "wallpapers": []
 }
 
+# Obtener lista de archivos
+archivos = [f for f in os.listdir(folder) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
+
 for i, archivo in enumerate(archivos):
-    if archivo.endswith((".jpg", ".jpeg", ".png")):
-        data["wallpapers"].append({
-            "id": str(i + 1),
-            "title": archivo.split('.')[0],
-            "type": "image",
-            "category": "Todos", # Puedes cambiar esto con lógica simple
-            "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{archivo}",
-            "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{archivo}",
-            "is_vip": False
-        })
+    cat_detectada = detect_category(archivo)
+    
+    data["wallpapers"].append({
+        "id": str(i + 1),
+        "title": archivo.split('.')[0].replace("_", " ").title(), # Formato bonito para el título
+        "type": "video" if "live" in archivo.lower() else "image",
+        "category": cat_detectada,
+        "color": "blue", # Puedes ajustar esto luego
+        "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{archivo.replace(' ', '%20')}",
+        "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{archivo.replace(' ', '%20')}",
+        "resolution": "8K Ultra HD",
+        "is_vip": False
+    })
 
 # Guardar el JSON
-with open('wallpapers.json', 'w') as f:
-    json.dump(data, f, indent=2)
+with open('wallpapers.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, indent=2, ensure_ascii=False)
 
-print("¡JSON actualizado automáticamente!")
+print(f"¡Listo! JSON generado con {len(data['wallpapers'])} imágenes.")
