@@ -17,51 +17,62 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
-      "resolution": "8K Ultra HD",
+      "resolution": "2K Quad HD",
       "is_vip": false
     },
     {
       "id": "2",
+      "title": "God Nise",
+      "type": "image",
+      "category": "Todos",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_God_Nise.jpeg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_God_Nise.jpeg",
+      "resolution": "SD",
+      "is_vip": true
+    },
+    {
+      "id": "3",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vandesart-anime-8788959_1920.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vandesart-anime-8788959_1920.jpg",
-      "resolution": "8K Ultra HD",
+      "resolution": "1080p Full HD",
       "is_vip": false
     },
     {
-      "id": "3",
+      "id": "4",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-backpacker-7628303_1920.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-backpacker-7628303_1920.jpg",
-      "resolution": "8K Ultra HD",
+      "resolution": "1080p Full HD",
       "is_vip": false
     },
     {
-      "id": "4",
-      "title": "",
+      "id": "5",
+      "title": "Live Wallpaper",
       "type": "image",
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/foto.png",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/foto.png",
-      "resolution": "8K Ultra HD",
+      "resolution": "1080p Full HD",
       "is_vip": false
     },
     {
-      "id": "5",
+      "id": "6",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
-      "resolution": "8K Ultra HD",
+      "resolution": "1080p Full HD",
       "is_vip": false
     }
   ]
