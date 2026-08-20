@@ -16,30 +16,34 @@ categories = [
 ]
 
 
-# Función para detectar la resolución exacta según el alto/ancho en píxeles
-def get_image_info(image_path):
+# Obtiene la resolución de fotos y asigna la de videos de forma segura sin romper Pillow
+def get_media_info(file_path):
+  ext = file_path.lower().rsplit(".", 1)[-1]
+
+  # Si es video, asignamos resolución estándar directamente
+  if ext in ["mp4", "webm", "gif"]:
+    return "1080p Full HD"
+
+  # Si es imagen, leemos sus píxeles reales con Pillow
   try:
-    with Image.open(image_path) as img:
+    with Image.open(file_path) as img:
       width, height = img.size
       max_dim = max(width, height)
 
-      # Clasificación según dimensiones de la foto
       if max_dim >= 7680:
-        resolution = "8K Ultra HD"
+        return "8K Ultra HD"
       elif max_dim >= 3840:
-        resolution = "4K Ultra HD"
+        return "4K Ultra HD"
       elif max_dim >= 2560:
-        resolution = "2K Quad HD"
+        return "2K Quad HD"
       elif max_dim >= 1920:
-        resolution = "1080p Full HD"
+        return "1080p Full HD"
       elif max_dim >= 1280:
-        resolution = "720p HD"
+        return "720p HD"
       else:
-        resolution = "SD"
-
-      return resolution
+        return "SD"
   except Exception:
-    return "HD"
+    return "1080p Full HD"
 
 
 def detect_category(filename):
@@ -54,7 +58,11 @@ def detect_category(filename):
     return "Naturaleza"
   if name.startswith("an_") or "anime" in name:
     return "Anime"
-  if name.startswith("lv_") or "live" in name:
+  if (
+      name.startswith("lv_")
+      or "live" in name
+      or name.endswith((".mp4", ".webm"))
+  ):
     return "Live Video"
   return "Todos"
 
@@ -74,35 +82,43 @@ def format_title(filename):
     name = re.sub(r"\b" + word + r"\b", "", name, flags=re.IGNORECASE)
 
   title = " ".join(name.split()).title()
-  return title if title else "Wallpaper HD"
+  return title if title else "Live Wallpaper"
 
 
-# Estructura base
+# Estructura principal
 data = {"categories": categories, "wallpapers": []}
 
 if not os.path.exists(folder):
   os.makedirs(folder)
 
+# Acepta tanto imágenes como formatos de video
+valid_extensions = (".jpg", ".jpeg", ".png", ".mp4", ".webm")
 archivos = [
     f
     for f in os.listdir(folder)
-    if f.lower().endswith((".jpg", ".jpeg", ".png"))
+    if f.lower().endswith(valid_extensions)
 ]
 
 for i, archivo in enumerate(archivos):
   ruta_completa = os.path.join(folder, archivo)
 
-  # Detectamos resolución real
-  resolucion_real = get_image_info(ruta_completa)
-
+  # Información y categoría
+  resolucion_real = get_media_info(ruta_completa)
   cat_detectada = detect_category(archivo)
   titulo_bonito = format_title(archivo)
   url_archivo = archivo.replace(" ", "%20")
 
+  # Detecta si es un archivo de video
+  es_video = (
+      archivo.lower().endswith((".mp4", ".webm"))
+      or "live" in archivo.lower()
+      or archivo.lower().startswith("lv_")
+  )
+
   data["wallpapers"].append({
       "id": str(i + 1),
       "title": titulo_bonito,
-      "type": "video" if "live" in archivo.lower() else "image",
+      "type": "video" if es_video else "image",
       "category": cat_detectada,
       "color": "blue",
       "thumbnail": (
@@ -121,6 +137,6 @@ with open("wallpapers.json", "w", encoding="utf-8") as f:
   json.dump(data, f, indent=2, ensure_ascii=False)
 
 print(
-    f"¡Listo! Procesadas {len(data['wallpapers'])} imágenes con resolución"
-    " detectada."
+    f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])}"
+    " archivos."
 )
