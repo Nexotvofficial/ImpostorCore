@@ -1,11 +1,11 @@
 {
   "categories": [
-    "Todos", 
-    "Anime", 
-    "Cyberpunk", 
-    "Naturaleza", 
+    "Todos",
+    "Anime",
+    "Cyberpunk",
+    "Naturaleza",
     "Fantasía",
-    "Minimalista", 
+    "Minimalista",
     "Live Video"
   ],
   "wallpapers": [
@@ -197,97 +197,5 @@
       "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(18).jpeg",
       "is_vip": false
     }
-  ]
-}
-    "category": "Anime",
-    "color": "blue",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(8).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(8).jpeg",
-    "is_vip": true
-  },
-  {
-    "title": "Amanecer Fantasía",
-    "category": "Fantasía",
-    "color": "red",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(9).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(9).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Auto Ciberpunk Drifting",
-    "category": "Ciberpunk",
-    "color": "purple",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(10).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(10).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Nave Espacial Órbita",
-    "category": "Fantasía",
-    "color": "dark",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(11).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(11).jpeg",
-    "is_vip": true
-  },
-  {
-    "title": "Chibi Astronauta 8K",
-    "category": "Anime",
-    "color": "blue",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(12).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(12).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Minimalist Red Moon",
-    "category": "Anime",
-    "color": "red",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(13).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(13).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Portal Neón Abstracto",
-    "category": "Ciberpunk",
-    "color": "green",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(14).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(14).jpeg",
-    "is_vip": true
-  },
-  {
-    "title": "Gato Galáctico 8K",
-    "category": "Anime",
-    "color": "purple",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(15).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(15).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Chica Boba Tea Neón",
-    "category": "Anime",
-    "color": "red",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(16).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(16).jpeg",
-    "is_vip": false
-  },
-  {
-    "title": "Guerrero de Rayos",
-    "category": "Anime",
-    "color": "dark",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(17).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(17).jpeg",
-    "is_vip": true
-  },
-  {
-    "title": "Mech Robot Ciberpunk",
-    "category": "Ciberpunk",
-    "color": "blue",
-    "thumbnail": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(18).jpeg",
-    "hd_url": "https://raw.githubusercontent.com/Nexotvofficial/ImpostorCore/main/img/descarga%20(18).jpeg",
-    "is_vip": false
-  }
-]
-
-    }
-    
   ]
 }
