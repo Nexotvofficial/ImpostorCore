@@ -77,17 +77,6 @@
     },
     {
       "id": "7",
-      "title": "Live Wallpaper",
-      "type": "image",
-      "category": "Todos",
-      "color": "blue",
-      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/foto.png",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/foto.png",
-      "resolution": "1080p Full HD",
-      "is_vip": false
-    },
-    {
-      "id": "8",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "category": "Anime",
@@ -98,7 +87,7 @@
       "is_vip": false
     },
     {
-      "id": "9",
+      "id": "8",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "category": "Todos",
@@ -109,7 +98,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "9",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "category": "Anime",
@@ -120,7 +109,7 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "10",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "category": "Anime",
@@ -131,7 +120,7 @@
       "is_vip": false
     },
     {
-      "id": "12",
+      "id": "11",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "category": "Anime",
