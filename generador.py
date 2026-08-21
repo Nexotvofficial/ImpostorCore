@@ -125,11 +125,11 @@ for i, archivo in enumerate(archivos):
       or "live" in archivo.lower()
       or "lv_" in archivo.lower()
   )
-
   data["wallpapers"].append({
       "id": str(i + 1),
       "title": titulo_bonito,
       "type": "video" if es_video else "image",
+      "is_video": es_video,  # <--- ¡AÑADE ESTA LÍNEA!
       "category": cat_detectada,
       "color": "blue",
       "thumbnail": (
@@ -143,6 +143,7 @@ for i, archivo in enumerate(archivos):
       "resolution": resolucion_real,
       "is_vip": es_vip,
   })
+
 
 with open("wallpapers.json", "w", encoding="utf-8") as f:
   json.dump(data, f, indent=2, ensure_ascii=False)
