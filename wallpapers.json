@@ -11,8 +11,21 @@
   "wallpapers": [
     {
       "id": "1",
+      "title": "Ojos Red",
+      "type": "video",
+      "is_video": true,
+      "category": "Live Video",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Ojos_Red.mp4",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Ojos_Red.mp4",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "2",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
@@ -21,9 +34,10 @@
       "is_vip": false
     },
     {
-      "id": "2",
+      "id": "3",
       "title": "God Nise",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_God_Nise.jpeg",
@@ -32,9 +46,10 @@
       "is_vip": true
     },
     {
-      "id": "3",
+      "id": "4",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
+      "is_video": false,
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vandesart-anime-8788959_1920.jpg",
@@ -43,9 +58,10 @@
       "is_vip": false
     },
     {
-      "id": "4",
+      "id": "5",
       "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
@@ -54,9 +70,10 @@
       "is_vip": true
     },
     {
-      "id": "5",
+      "id": "6",
       "title": "Satoru Gojode Jjk",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru_gojode_jjk.jpg",
@@ -65,9 +82,10 @@
       "is_vip": true
     },
     {
-      "id": "6",
+      "id": "7",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-backpacker-7628303_1920.jpg",
@@ -76,9 +94,10 @@
       "is_vip": false
     },
     {
-      "id": "7",
+      "id": "8",
       "title": "Makima De Chainsaw Man",
       "type": "image",
+      "is_video": false,
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
@@ -87,9 +106,10 @@
       "is_vip": false
     },
     {
-      "id": "8",
+      "id": "9",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
+      "is_video": false,
       "category": "Todos",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
@@ -98,9 +118,10 @@
       "is_vip": false
     },
     {
-      "id": "9",
+      "id": "10",
       "title": "Dabi De My Hero Academia",
       "type": "image",
+      "is_video": false,
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
@@ -109,9 +130,10 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "11",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
+      "is_video": false,
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_itachi-uchiha-de-anime-naruto.jpg",
@@ -120,9 +142,10 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "12",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
+      "is_video": false,
       "category": "Anime",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
