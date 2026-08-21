@@ -74,6 +74,17 @@
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
       "resolution": "1080p Full HD",
       "is_vip": false
+    },
+    {
+      "id": "7",
+      "title": "Satoru Gojo De Jjk",
+      "type": "image",
+      "category": "Todos",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-de-jjk.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-de-jjk.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
     }
   ]
 }
