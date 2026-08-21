@@ -55,6 +55,17 @@
     },
     {
       "id": "5",
+      "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
+      "type": "image",
+      "category": "Todos",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
+      "resolution": "2K Quad HD",
+      "is_vip": true
+    },
+    {
+      "id": "6",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "category": "Todos",
@@ -65,7 +76,7 @@
       "is_vip": true
     },
     {
-      "id": "6",
+      "id": "7",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "category": "Todos",
@@ -76,7 +87,7 @@
       "is_vip": false
     },
     {
-      "id": "7",
+      "id": "8",
       "title": "Live Wallpaper",
       "type": "image",
       "category": "Todos",
@@ -87,7 +98,18 @@
       "is_vip": false
     },
     {
-      "id": "8",
+      "id": "9",
+      "title": "Makima De Chainsaw Man",
+      "type": "image",
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
+      "resolution": "2K Quad HD",
+      "is_vip": false
+    },
+    {
+      "id": "10",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "category": "Todos",
@@ -95,6 +117,39 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/jensenartofficial-ai-generated-7628305_1920.jpg",
       "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "11",
+      "title": "Dabi De My Hero Academia",
+      "type": "image",
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "12",
+      "title": "Itachi Uchiha De Anime Naruto",
+      "type": "image",
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_itachi-uchiha-de-anime-naruto.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_itachi-uchiha-de-anime-naruto.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "13",
+      "title": "Akaza De Kimetsu No Yaiba",
+      "type": "image",
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
+      "resolution": "2K Quad HD",
       "is_vip": false
     }
   ]
