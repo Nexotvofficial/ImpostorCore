@@ -11,17 +11,6 @@
   "wallpapers": [
     {
       "id": "1",
-      "title": "Vip Satoru Gojo De Jjk",
-      "type": "image",
-      "category": "Todos",
-      "color": "blue",
-      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip-satoru-gojo-de-jjk.jpg",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip-satoru-gojo-de-jjk.jpg",
-      "resolution": "4K Ultra HD",
-      "is_vip": false
-    },
-    {
-      "id": "2",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "category": "Todos",
@@ -32,7 +21,7 @@
       "is_vip": false
     },
     {
-      "id": "3",
+      "id": "2",
       "title": "God Nise",
       "type": "image",
       "category": "Todos",
@@ -43,7 +32,7 @@
       "is_vip": true
     },
     {
-      "id": "4",
+      "id": "3",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
       "category": "Anime",
@@ -54,7 +43,7 @@
       "is_vip": false
     },
     {
-      "id": "5",
+      "id": "4",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "category": "Todos",
@@ -65,7 +54,7 @@
       "is_vip": false
     },
     {
-      "id": "6",
+      "id": "5",
       "title": "Live Wallpaper",
       "type": "image",
       "category": "Todos",
@@ -76,7 +65,7 @@
       "is_vip": false
     },
     {
-      "id": "7",
+      "id": "6",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "category": "Todos",
