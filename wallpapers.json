@@ -11,18 +11,6 @@
   "wallpapers": [
     {
       "id": "1",
-      "title": "Ojos Red",
-      "type": "video",
-      "is_video": true,
-      "category": "Live Video",
-      "color": "blue",
-      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_lv_Ojos_Red.jpg",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Ojos_Red.mp4",
-      "resolution": "1080p Full HD",
-      "is_vip": false
-    },
-    {
-      "id": "2",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "is_video": false,
@@ -34,7 +22,7 @@
       "is_vip": false
     },
     {
-      "id": "3",
+      "id": "2",
       "title": "God Nise",
       "type": "image",
       "is_video": false,
@@ -46,7 +34,7 @@
       "is_vip": true
     },
     {
-      "id": "4",
+      "id": "3",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
       "is_video": false,
@@ -58,7 +46,7 @@
       "is_vip": false
     },
     {
-      "id": "5",
+      "id": "4",
       "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
       "type": "image",
       "is_video": false,
@@ -70,7 +58,7 @@
       "is_vip": true
     },
     {
-      "id": "6",
+      "id": "5",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "is_video": false,
@@ -82,7 +70,7 @@
       "is_vip": true
     },
     {
-      "id": "7",
+      "id": "6",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "is_video": false,
@@ -94,7 +82,7 @@
       "is_vip": false
     },
     {
-      "id": "8",
+      "id": "7",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "is_video": false,
@@ -106,7 +94,7 @@
       "is_vip": false
     },
     {
-      "id": "9",
+      "id": "8",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "is_video": false,
@@ -118,7 +106,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "9",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "is_video": false,
@@ -130,7 +118,7 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "10",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "is_video": false,
@@ -142,7 +130,7 @@
       "is_vip": false
     },
     {
-      "id": "12",
+      "id": "11",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "is_video": false,
