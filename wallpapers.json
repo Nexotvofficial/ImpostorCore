@@ -18,7 +18,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "2K Quad HD",
       "is_vip": false
     },
     {
@@ -30,7 +30,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_God_Nise.jpeg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_God_Nise.jpeg",
-      "resolution": "1080p Full HD",
+      "resolution": "SD",
       "is_vip": true
     },
     {
@@ -54,7 +54,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "2K Quad HD",
       "is_vip": true
     },
     {
@@ -65,7 +65,7 @@
       "category": "Live Video",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_vip_Chainsawman_Girl.jpg",
-      "hd_url": "https://hueunbyxgnarbsttfgjr.supabase.co/rest/v1//storage/v1/object/public/wallpapers/vip_Chainsawman_Girl.mp4",
+      "hd_url": null,
       "resolution": "1080p Full HD",
       "is_vip": true
     },
@@ -78,7 +78,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru_gojode_jjk.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru_gojode_jjk.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "4K Ultra HD",
       "is_vip": true
     },
     {
@@ -102,7 +102,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "2K Quad HD",
       "is_vip": false
     },
     {
@@ -126,7 +126,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "4K Ultra HD",
       "is_vip": false
     },
     {
@@ -150,7 +150,7 @@
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
-      "resolution": "1080p Full HD",
+      "resolution": "2K Quad HD",
       "is_vip": false
     }
   ]
