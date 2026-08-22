@@ -17,7 +17,7 @@
       "category": "Live Video",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_lv_Ojos_Red.jpg",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Ojos_Red.mp4",
+      "hd_url": "https://hueunbyxgnarbsttfgjr.supabase.co/rest/v1//storage/v1/object/public/fondos%20de%20pantalla/lv_Ojos_Red.mp4",
       "resolution": "1080p Full HD",
       "is_vip": false
     },
@@ -29,7 +29,7 @@
       "category": "Live Video",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_lv_Hiyuki_4k.jpg",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Hiyuki_4k.mp4",
+      "hd_url": "https://hueunbyxgnarbsttfgjr.supabase.co/rest/v1//storage/v1/object/public/fondos%20de%20pantalla/lv_Hiyuki_4k.mp4",
       "resolution": "1080p Full HD",
       "is_vip": false
     },
@@ -83,6 +83,18 @@
     },
     {
       "id": "7",
+      "title": "Chainsawman Girl",
+      "type": "video",
+      "is_video": true,
+      "category": "Live Video",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_vip_Chainsawman_Girl.jpg",
+      "hd_url": "https://hueunbyxgnarbsttfgjr.supabase.co/rest/v1//storage/v1/object/public/fondos%20de%20pantalla/vip_Chainsawman_Girl.mp4",
+      "resolution": "1080p Full HD",
+      "is_vip": true
+    },
+    {
+      "id": "8",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "is_video": false,
@@ -94,7 +106,7 @@
       "is_vip": true
     },
     {
-      "id": "8",
+      "id": "9",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "is_video": false,
@@ -106,7 +118,7 @@
       "is_vip": false
     },
     {
-      "id": "9",
+      "id": "10",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "is_video": false,
@@ -118,7 +130,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "11",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "is_video": false,
@@ -130,19 +142,19 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "12",
       "title": "The Garden Of Words",
       "type": "video",
       "is_video": true,
       "category": "Live Video",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_lv_The_Garden_of_Words.jpg",
-      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_The_Garden_of_Words.mp4",
+      "hd_url": "https://hueunbyxgnarbsttfgjr.supabase.co/rest/v1//storage/v1/object/public/fondos%20de%20pantalla/lv_The_Garden_of_Words.mp4",
       "resolution": "1080p Full HD",
       "is_vip": false
     },
     {
-      "id": "12",
+      "id": "13",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "is_video": false,
@@ -154,7 +166,7 @@
       "is_vip": false
     },
     {
-      "id": "13",
+      "id": "14",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "is_video": false,
@@ -166,7 +178,7 @@
       "is_vip": false
     },
     {
-      "id": "14",
+      "id": "15",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "is_video": false,
