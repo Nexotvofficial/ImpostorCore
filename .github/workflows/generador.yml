@@ -30,9 +30,6 @@ jobs:
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python generador.py
 
-      - name: Eliminar videos locales antes de guardar cambios
-        run: rm -f img/*.mp4 img/*.webm
-
       - name: Guardar wallpapers.json en GitHub
         run: |
           git config --global user.name "github-actions[bot]"
