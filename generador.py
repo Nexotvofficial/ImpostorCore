@@ -2,18 +2,25 @@ import json
 import os
 import re
 import urllib.parse
-import cv2  # Extrae fotogramas de video
 from PIL import Image
 from supabase import create_client, Client
 
-# Configuración de Supabase
+# Variables de entorno
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-BUCKET_NAME = "wallpapers"  # Nombre exacto corregido
+BUCKET_NAME = "wallpapers"
+
+print(f"--- INICIANDO PROCESO ---")
+print(f"URL de Supabase detectada: {'Sí' if SUPABASE_URL else 'No'}")
+print(f"Key de Supabase detectada: {'Sí' if SUPABASE_KEY else 'No'}")
 
 supabase: Client = None
 if SUPABASE_URL and SUPABASE_KEY:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    try:
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+        print("Cliente de Supabase inicializado correctamente.")
+    except Exception as e:
+        print(f"Error al inicializar cliente de Supabase: {e}")
 
 folder = "./img"
 categories = [
@@ -28,67 +35,31 @@ categories = [
 
 def upload_to_supabase(file_path, destination_name):
     if not supabase:
-        print("⚠️ Supabase no está configurado. Revisa tus variables de entorno.")
-        return None
+        print(f"⚠️ Omite subida de {destination_name}: No hay cliente Supabase.")
+        safe_bucket = urllib.parse.quote(BUCKET_NAME)
+        safe_file = urllib.parse.quote(destination_name)
+        return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
 
     try:
+        print(f"Subiendo a Supabase Storage: {destination_name}...")
         with open(file_path, "rb") as f:
             file_bytes = f.read()
 
-        content_type = "video/mp4"
-        if destination_name.lower().endswith(".webm"):
-            content_type = "video/webm"
+        content_type = "video/webm" if destination_name.lower().endswith(".webm") else "video/mp4"
 
-        supabase.storage.from_(BUCKET_NAME).upload(
+        # Intentar subir el archivo
+        res = supabase.storage.from_(BUCKET_NAME).upload(
             file=file_bytes,
             path=destination_name,
             file_options={"x-upsert": "true", "content-type": content_type}
         )
-
-        safe_bucket = urllib.parse.quote(BUCKET_NAME)
-        safe_file = urllib.parse.quote(destination_name)
-        return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
+        print(f"✅ ¡Éxito al subir {destination_name}!")
     except Exception as e:
-        print(f"Error subiendo {destination_name} a Supabase: {e}")
-        safe_bucket = urllib.parse.quote(BUCKET_NAME)
-        safe_file = urllib.parse.quote(destination_name)
-        return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
+        print(f"⚠️ Aviso o Error al subir {destination_name}: {e}")
 
-def extract_video_frame(video_path, output_jpg):
-    try:
-        cap = cv2.VideoCapture(video_path)
-        success, frame = cap.read()
-        if success:
-            cv2.imwrite(output_jpg, frame)
-        cap.release()
-        return success
-    except Exception as e:
-        print(f"Error generando miniatura para {video_path}: {e}")
-        return False
-
-def get_media_info(file_path):
-    ext = file_path.lower().rsplit(".", 1)[-1]
-    if ext in ["mp4", "webm", "gif"]:
-        return "1080p Full HD"
-
-    try:
-        with Image.open(file_path) as img:
-            width, height = img.size
-            max_dim = max(width, height)
-            if max_dim >= 7680:
-                return "8K Ultra HD"
-            elif max_dim >= 3840:
-                return "4K Ultra HD"
-            elif max_dim >= 2560:
-                return "2K Quad HD"
-            elif max_dim >= 1920:
-                return "1080p Full HD"
-            elif max_dim >= 1280:
-                return "720p HD"
-            else:
-                return "SD"
-    except Exception:
-        return "1080p Full HD"
+    safe_bucket = urllib.parse.quote(BUCKET_NAME)
+    safe_file = urllib.parse.quote(destination_name)
+    return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
 
 def detect_category(filename):
     name = filename.lower()
@@ -140,10 +111,11 @@ archivos = [
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
 ]
 
+print(f"Archivos encontrados en /img: {len(archivos)}")
+
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
     es_vip = archivo.lower().startswith("vip_")
-    resolucion_real = get_media_info(ruta_completa)
     cat_detectada = detect_category(archivo)
     titulo_bonito = format_title(archivo)
 
@@ -154,18 +126,8 @@ for i, archivo in enumerate(archivos):
     )
 
     if es_video:
-        nombre_base = os.path.splitext(archivo)[0]
-        thumb_file = f"thumb_{nombre_base}.jpg"
-        thumb_path = os.path.join(folder, thumb_file)
-
-        if not os.path.exists(thumb_path):
-            extract_video_frame(ruta_completa, thumb_path)
-
-        safe_thumb = urllib.parse.quote(thumb_file)
-        url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_thumb}"
-
-        print(f"Subiendo video a Supabase: {archivo}...")
         hd_url = upload_to_supabase(ruta_completa, archivo)
+        url_thumbnail = hd_url
     else:
         safe_img = urllib.parse.quote(archivo)
         url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_img}"
@@ -180,11 +142,12 @@ for i, archivo in enumerate(archivos):
         "color": "blue",
         "thumbnail": url_thumbnail,
         "hd_url": hd_url,
-        "resolution": resolucion_real,
+        "resolution": "1080p Full HD",
         "is_vip": es_vip,
     })
 
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
+print(f"--- PROCESO FINALIZADO: {len(data['wallpapers'])} Elementos grabados en wallpapers.json ---")
+
