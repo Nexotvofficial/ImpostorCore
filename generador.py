@@ -1,4 +1,4 @@
-Import json
+import json
 import os
 import re
 import cv2  # Extrae fotogramas de video
