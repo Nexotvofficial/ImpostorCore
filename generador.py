@@ -1,20 +1,20 @@
 import json
 import os
 import re
+import urllib.parse
 import cv2  # Extrae fotogramas de video
 from PIL import Image
 from supabase import create_client, Client
 
-# Configuración de Supabase desde las variables de entorno
+# Configuración de Supabase
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-BUCKET_NAME = "fondos de pantalla"
+BUCKET_NAME = "wallpapers"  # Nombre exacto corregido
 
 supabase: Client = None
 if SUPABASE_URL and SUPABASE_KEY:
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# Configuración de carpetas y categorías
 folder = "./img"
 categories = [
     "Todos",
@@ -26,7 +26,6 @@ categories = [
     "Live Video",
 ]
 
-# Función para subir archivos a Supabase Storage
 def upload_to_supabase(file_path, destination_name):
     if not supabase:
         print("⚠️ Supabase no está configurado. Revisa tus variables de entorno.")
@@ -36,27 +35,24 @@ def upload_to_supabase(file_path, destination_name):
         with open(file_path, "rb") as f:
             file_bytes = f.read()
 
-        # Determinamos el tipo de contenido (MIME type)
         content_type = "video/mp4"
         if destination_name.lower().endswith(".webm"):
             content_type = "video/webm"
 
-        # Intentamos subir (o sobreescribir si ya existe)
-        res = supabase.storage.from_(BUCKET_NAME).upload(
+        supabase.storage.from_(BUCKET_NAME).upload(
             file=file_bytes,
             path=destination_name,
             file_options={"x-upsert": "true", "content-type": content_type}
         )
 
-        # Construimos la URL pública (codificando espacios como %20 en el bucket)
-        encoded_bucket = BUCKET_NAME.replace(" ", "%20")
-        public_url = f"{SUPABASE_URL}/storage/v1/object/public/{encoded_bucket}/{destination_name}"
-        return public_url
+        safe_bucket = urllib.parse.quote(BUCKET_NAME)
+        safe_file = urllib.parse.quote(destination_name)
+        return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
     except Exception as e:
         print(f"Error subiendo {destination_name} a Supabase: {e}")
-        # Si ya existe o falla, generamos la URL pública de respaldo
-        encoded_bucket = BUCKET_NAME.replace(" ", "%20")
-        return f"{SUPABASE_URL}/storage/v1/object/public/{encoded_bucket}/{destination_name}"
+        safe_bucket = urllib.parse.quote(BUCKET_NAME)
+        safe_file = urllib.parse.quote(destination_name)
+        return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
 
 def extract_video_frame(video_path, output_jpg):
     try:
@@ -150,7 +146,6 @@ for i, archivo in enumerate(archivos):
     resolucion_real = get_media_info(ruta_completa)
     cat_detectada = detect_category(archivo)
     titulo_bonito = format_title(archivo)
-    url_archivo_github = archivo.replace(" ", "%20")
 
     es_video = (
         archivo.lower().endswith((".mp4", ".webm"))
@@ -159,7 +154,6 @@ for i, archivo in enumerate(archivos):
     )
 
     if es_video:
-        # Extraer miniatura si no existe
         nombre_base = os.path.splitext(archivo)[0]
         thumb_file = f"thumb_{nombre_base}.jpg"
         thumb_path = os.path.join(folder, thumb_file)
@@ -167,19 +161,14 @@ for i, archivo in enumerate(archivos):
         if not os.path.exists(thumb_path):
             extract_video_frame(ruta_completa, thumb_path)
 
-        url_thumbnail = (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + thumb_file.replace(" ", "%20")
-        )
+        safe_thumb = urllib.parse.quote(thumb_file)
+        url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_thumb}"
 
-        # Subir el archivo de video a Supabase Storage
         print(f"Subiendo video a Supabase: {archivo}...")
         hd_url = upload_to_supabase(ruta_completa, archivo)
     else:
-        url_thumbnail = (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + url_archivo_github
-        )
+        safe_img = urllib.parse.quote(archivo)
+        url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_img}"
         hd_url = url_thumbnail
 
     data["wallpapers"].append({
