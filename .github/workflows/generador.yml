@@ -21,19 +21,16 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Instalar librerias
-        run: pip install Pillow opencv-python-headless supabase
+      - name: Instalar librerias de imagenes y video
+        run: pip install Pillow opencv-python-headless
 
       - name: Ejecutar script generador
         run: python generador.py
 
-      - name: Eliminar videos locales antes de guardar cambios
-        run: rm -f img/*.mp4 img/*.webm
-
-      - name: Guardar wallpapers.json en GitHub
+      - name: Guardar wallpapers.json y miniaturas en GitHub
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/
-          git commit -m "Auto-actualizacion de wallpapers.json y miniaturas" || echo "Sin cambios"
+          git commit -m "Auto-actualizacion de wallpapers.json con imagenes y videos" || echo "Sin cambios"
           git push
