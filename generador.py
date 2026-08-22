@@ -172,46 +172,5 @@ for i, archivo in enumerate(archivos):
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(
-    f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])}"
-    " archivos."
-)ese es mi generado,py
+print(f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
 
-
-Y mi yml 
-name: Generar Wallpapers JSON Automatico
-
-on:
-  push:
-    paths:
-      - 'img/**'
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-      - name: Descargar codigo
-        uses: actions/checkout@v3
-
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Instalar librerias de imagenes y video
-        run: pip install Pillow opencv-python-headless
-
-      - name: Ejecutar script generador
-        run: python generador.py
-
-      - name: Guardar wallpapers.json en GitHub
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add wallpapers.json
-          git commit -m "Auto-actualizacion de wallpapers.json con imagenes y videos" || echo "Sin cambios"
-          git push
