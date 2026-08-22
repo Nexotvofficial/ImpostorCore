@@ -1,19 +1,8 @@
-import json
+Import json
 import os
 import re
-import urllib.parse
 import cv2  # Extrae fotogramas de video
 from PIL import Image
-from supabase import create_client, Client
-
-# Configuración de Supabase desde las variables de entorno
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-BUCKET_NAME = "wallpapers"
-
-supabase: Client = None
-if SUPABASE_URL and SUPABASE_KEY:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Configuración de carpetas y categorías
 folder = "./img"
@@ -27,40 +16,7 @@ categories = [
     "Live Video",
 ]
 
-# Función para subir archivos a Supabase Storage
-def upload_to_supabase(file_path, destination_name):
-    if not supabase:
-        print("⚠️ Supabase no está configurado. Revisa tus variables de entorno.")
-        return None
-
-    try:
-        with open(file_path, "rb") as f:
-            file_bytes = f.read()
-
-        # Determinamos el tipo de contenido (MIME type)
-        content_type = "video/mp4"
-        if destination_name.lower().endswith(".webm"):
-            content_type = "video/webm"
-
-        # Intentamos subir (o sobreescribir si ya existe)
-        res = supabase.storage.from_(BUCKET_NAME).upload(
-            file=file_bytes,
-            path=destination_name,
-            file_options={"x-upsert": "true", "content-type": content_type}
-        )
-
-        # Construimos la URL pública (codificando adecuadamente el bucket y nombre)
-        encoded_bucket = urllib.parse.quote(BUCKET_NAME)
-        encoded_dest = urllib.parse.quote(destination_name)
-        public_url = f"{SUPABASE_URL}/storage/v1/object/public/{encoded_bucket}/{encoded_dest}"
-        return public_url
-    except Exception as e:
-        print(f"Error subiendo {destination_name} a Supabase: {e}")
-        # Si ya existe o falla, generamos la URL pública de respaldo
-        encoded_bucket = urllib.parse.quote(BUCKET_NAME)
-        encoded_dest = urllib.parse.quote(destination_name)
-        return f"{SUPABASE_URL}/storage/v1/object/public/{encoded_bucket}/{encoded_dest}"
-
+# Función para extraer automáticamente una miniatura JPG del video
 def extract_video_frame(video_path, output_jpg):
     try:
         cap = cv2.VideoCapture(video_path)
@@ -73,15 +29,20 @@ def extract_video_frame(video_path, output_jpg):
         print(f"Error generando miniatura para {video_path}: {e}")
         return False
 
+# Obtiene la resolución de fotos y asigna la de videos de forma segura sin romper Pillow
 def get_media_info(file_path):
     ext = file_path.lower().rsplit(".", 1)[-1]
+
+    # Si es video, asignamos resolución estándar directamente
     if ext in ["mp4", "webm", "gif"]:
         return "1080p Full HD"
 
+    # Si es imagen, leemos sus píxeles reales con Pillow
     try:
         with Image.open(file_path) as img:
             width, height = img.size
             max_dim = max(width, height)
+
             if max_dim >= 7680:
                 return "8K Ultra HD"
             elif max_dim >= 3840:
@@ -100,7 +61,7 @@ def get_media_info(file_path):
 def detect_category(filename):
     name = filename.lower()
     if name.startswith("vip_"):
-        name = name[4:]
+        name = name[4:]  # Omitir el prefijo vip_ para detectar bien la categoría
 
     if name.startswith("fa_") or "fantasia" in name or "fantasía" in name:
         return "Fantasía"
@@ -112,12 +73,18 @@ def detect_category(filename):
         return "Naturaleza"
     if name.startswith("an_") or "anime" in name:
         return "Anime"
-    if name.startswith("lv_") or "live" in name or name.endswith((".mp4", ".webm")):
+    if (
+        name.startswith("lv_")
+        or "live" in name
+        or name.endswith((".mp4", ".webm"))
+    ):
         return "Live Video"
     return "Todos"
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
+
+    # Limpiar primero el prefijo vip_ si lo tiene
     if name.lower().startswith("vip_"):
         name = name[4:]
 
@@ -136,54 +103,52 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Live Wallpaper"
 
+# Estructura principal
 data = {"categories": categories, "wallpapers": []}
 
 if not os.path.exists(folder):
     os.makedirs(folder)
 
+# Acepta imágenes y videos, ignorando las miniaturas autogeneradas que empiezan con "thumb_"
 valid_extensions = (".jpg", ".jpeg", ".png", ".mp4", ".webm")
 archivos = [
-    f for f in os.listdir(folder)
+    f
+    for f in os.listdir(folder)
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
 ]
 
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
+
+    # Detección de VIP basada en el prefijo
     es_vip = archivo.lower().startswith("vip_")
+
+    # Información y categoría
     resolucion_real = get_media_info(ruta_completa)
     cat_detectada = detect_category(archivo)
     titulo_bonito = format_title(archivo)
-    url_archivo_github = urllib.parse.quote(archivo)
+    url_archivo = archivo.replace(" ", "%20")
 
+    # Detecta si es un archivo de video
     es_video = (
         archivo.lower().endswith((".mp4", ".webm"))
         or "live" in archivo.lower()
         or "lv_" in archivo.lower()
     )
 
+    # Lógica para la miniatura
     if es_video:
-        # Extraer miniatura si no existe
         nombre_base = os.path.splitext(archivo)[0]
         thumb_file = f"thumb_{nombre_base}.jpg"
         thumb_path = os.path.join(folder, thumb_file)
 
+        # Si no existe la miniatura, se extrae el primer frame automáticamente
         if not os.path.exists(thumb_path):
             extract_video_frame(ruta_completa, thumb_path)
 
-        url_thumbnail = (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + urllib.parse.quote(thumb_file)
-        )
-
-        # Subir el archivo de video a Supabase Storage
-        print(f"Subiendo video a Supabase: {archivo}...")
-        hd_url = upload_to_supabase(ruta_completa, archivo)
+        url_thumbnail = thumb_file.replace(" ", "%20")
     else:
-        url_thumbnail = (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + url_archivo_github
-        )
-        hd_url = url_thumbnail
+        url_thumbnail = url_archivo
 
     data["wallpapers"].append({
         "id": str(i + 1),
@@ -192,8 +157,14 @@ for i, archivo in enumerate(archivos):
         "is_video": es_video,
         "category": cat_detectada,
         "color": "blue",
-        "thumbnail": url_thumbnail,
-        "hd_url": hd_url,
+        "thumbnail": (
+            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
+            + url_thumbnail
+        ),
+        "hd_url": (
+            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
+            + url_archivo
+        ),
         "resolution": resolucion_real,
         "is_vip": es_vip,
     })
@@ -201,5 +172,46 @@ for i, archivo in enumerate(archivos):
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
+print(
+    f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])}"
+    " archivos."
+)ese es mi generado,py
 
+
+Y mi yml 
+name: Generar Wallpapers JSON Automatico
+
+on:
+  push:
+    paths:
+      - 'img/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar librerias de imagenes y video
+        run: pip install Pillow opencv-python-headless
+
+      - name: Ejecutar script generador
+        run: python generador.py
+
+      - name: Guardar wallpapers.json en GitHub
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add wallpapers.json
+          git commit -m "Auto-actualizacion de wallpapers.json con imagenes y videos" || echo "Sin cambios"
+          git push
