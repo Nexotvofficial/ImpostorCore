@@ -2,25 +2,21 @@ import json
 import os
 import re
 import urllib.parse
+import cv2  # Extrae fotogramas de video
 from PIL import Image
 from supabase import create_client, Client
 
-# Variables de entorno
+# Configuración de Supabase
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-BUCKET_NAME = "wallpapers"
-
-print(f"--- INICIANDO PROCESO ---")
-print(f"URL de Supabase detectada: {'Sí' if SUPABASE_URL else 'No'}")
-print(f"Key de Supabase detectada: {'Sí' if SUPABASE_KEY else 'No'}")
+BUCKET_NAME = "wallpapers"  # Corregido al nombre real de tu bucket
 
 supabase: Client = None
 if SUPABASE_URL and SUPABASE_KEY:
     try:
         supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-        print("Cliente de Supabase inicializado correctamente.")
     except Exception as e:
-        print(f"Error al inicializar cliente de Supabase: {e}")
+        print(f"Error iniciando cliente Supabase: {e}")
 
 folder = "./img"
 categories = [
@@ -35,31 +31,45 @@ categories = [
 
 def upload_to_supabase(file_path, destination_name):
     if not supabase:
-        print(f"⚠️ Omite subida de {destination_name}: No hay cliente Supabase.")
         safe_bucket = urllib.parse.quote(BUCKET_NAME)
         safe_file = urllib.parse.quote(destination_name)
         return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
 
     try:
-        print(f"Subiendo a Supabase Storage: {destination_name}...")
         with open(file_path, "rb") as f:
             file_bytes = f.read()
 
         content_type = "video/webm" if destination_name.lower().endswith(".webm") else "video/mp4"
 
-        # Intentar subir el archivo
-        res = supabase.storage.from_(BUCKET_NAME).upload(
+        supabase.storage.from_(BUCKET_NAME).upload(
             file=file_bytes,
             path=destination_name,
             file_options={"x-upsert": "true", "content-type": content_type}
         )
-        print(f"✅ ¡Éxito al subir {destination_name}!")
     except Exception as e:
-        print(f"⚠️ Aviso o Error al subir {destination_name}: {e}")
+        print(f"Aviso subida {destination_name}: {e}")
 
     safe_bucket = urllib.parse.quote(BUCKET_NAME)
     safe_file = urllib.parse.quote(destination_name)
     return f"{SUPABASE_URL}/storage/v1/object/public/{safe_bucket}/{safe_file}"
+
+def extract_video_frame(video_path, output_jpg):
+    try:
+        cap = cv2.VideoCapture(video_path)
+        # Saltamos al frame 15 para evitar que la miniatura quede en negro al inicio
+        cap.set(cv2.CAP_PROP_POS_FRAMES, 15)
+        success, frame = cap.read()
+        if not success:
+            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+            success, frame = cap.read()
+        
+        if success:
+            cv2.imwrite(output_jpg, frame)
+        cap.release()
+        return success
+    except Exception as e:
+        print(f"Error en miniatura para {video_path}: {e}")
+        return False
 
 def detect_category(filename):
     name = filename.lower()
@@ -111,8 +121,6 @@ archivos = [
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
 ]
 
-print(f"Archivos encontrados en /img: {len(archivos)}")
-
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
     es_vip = archivo.lower().startswith("vip_")
@@ -126,8 +134,19 @@ for i, archivo in enumerate(archivos):
     )
 
     if es_video:
+        # Generar miniatura JPG para que la app no muestre el cuadro plomo vacio
+        nombre_base = os.path.splitext(archivo)[0]
+        thumb_file = f"thumb_{nombre_base}.jpg"
+        thumb_path = os.path.join(folder, thumb_file)
+
+        if not os.path.exists(thumb_path):
+            extract_video_frame(ruta_completa, thumb_path)
+
+        safe_thumb = urllib.parse.quote(thumb_file)
+        url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_thumb}"
+
+        # Subir video a Supabase
         hd_url = upload_to_supabase(ruta_completa, archivo)
-        url_thumbnail = hd_url
     else:
         safe_img = urllib.parse.quote(archivo)
         url_thumbnail = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{safe_img}"
@@ -149,5 +168,5 @@ for i, archivo in enumerate(archivos):
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"--- PROCESO FINALIZADO: {len(data['wallpapers'])} Elementos grabados en wallpapers.json ---")
+print(f"Proceso finalizado. Registrados {len(data['wallpapers'])} wallpapers.")
 
