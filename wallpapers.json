@@ -23,6 +23,18 @@
     },
     {
       "id": "2",
+      "title": "Your Name",
+      "type": "video",
+      "is_video": true,
+      "category": "Live Video",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_vip_Your_Name.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_Your_Name.mp4",
+      "resolution": "1080p Full HD",
+      "is_vip": true
+    },
+    {
+      "id": "3",
       "title": "Hiyuki 4K",
       "type": "video",
       "is_video": true,
@@ -34,7 +46,7 @@
       "is_vip": false
     },
     {
-      "id": "3",
+      "id": "4",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "is_video": false,
@@ -46,7 +58,7 @@
       "is_vip": false
     },
     {
-      "id": "4",
+      "id": "5",
       "title": "God Nise",
       "type": "image",
       "is_video": false,
@@ -58,7 +70,7 @@
       "is_vip": true
     },
     {
-      "id": "5",
+      "id": "6",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
       "is_video": false,
@@ -70,7 +82,7 @@
       "is_vip": false
     },
     {
-      "id": "6",
+      "id": "7",
       "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
       "type": "image",
       "is_video": false,
@@ -82,7 +94,7 @@
       "is_vip": true
     },
     {
-      "id": "7",
+      "id": "8",
       "title": "Chainsawman Girl",
       "type": "video",
       "is_video": true,
@@ -94,7 +106,7 @@
       "is_vip": true
     },
     {
-      "id": "8",
+      "id": "9",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "is_video": false,
@@ -106,7 +118,7 @@
       "is_vip": true
     },
     {
-      "id": "9",
+      "id": "10",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "is_video": false,
@@ -118,7 +130,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "11",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "is_video": false,
@@ -130,7 +142,7 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "12",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "is_video": false,
@@ -142,7 +154,7 @@
       "is_vip": false
     },
     {
-      "id": "12",
+      "id": "13",
       "title": "The Garden Of Words",
       "type": "video",
       "is_video": true,
@@ -154,7 +166,7 @@
       "is_vip": false
     },
     {
-      "id": "13",
+      "id": "14",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "is_video": false,
@@ -166,7 +178,7 @@
       "is_vip": false
     },
     {
-      "id": "14",
+      "id": "15",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "is_video": false,
@@ -178,7 +190,19 @@
       "is_vip": false
     },
     {
-      "id": "15",
+      "id": "16",
+      "title": "Jujutsu Kaisen 4K",
+      "type": "video",
+      "is_video": true,
+      "category": "Live Video",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumb_vip_Jujutsu_Kaisen_4K.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_Jujutsu_Kaisen_4K.mp4",
+      "resolution": "1080p Full HD",
+      "is_vip": true
+    },
+    {
+      "id": "17",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "is_video": false,
