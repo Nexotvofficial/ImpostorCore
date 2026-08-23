@@ -1,10 +1,10 @@
 import json
 import os
 import re
-import cv2  # Extrae fotogramas de video
+import subprocess
+import cv2
 from PIL import Image
 
-# Configuración de carpetas y categorías
 folder = "./img"
 categories = [
     "Todos",
@@ -16,33 +16,46 @@ categories = [
     "Live Video",
 ]
 
-# Función para extraer automáticamente una miniatura JPG del video
+# Comprime el video a 1080p con bitrate bajo usando FFmpeg
+def optimize_video(input_path):
+    temp_path = input_path + ".opt.mp4"
+    command = [
+        "ffmpeg", "-y", "-i", input_path,
+        "-vf", "scale='min(1080,iw)':-2",
+        "-c:v", "libx264", "-crf", "26", "-preset", "fast",
+        "-c:a", "aac", "-b:a", "128k",
+        temp_path
+    ]
+    try:
+        subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        os.replace(temp_path, input_path)
+        print(f"Video optimizado exitosamente: {input_path}")
+    except Exception as e:
+        print(f"No se pudo optimizar el video {input_path}: {e}")
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+# Extrae miniatura JPG liviana del video
 def extract_video_frame(video_path, output_jpg):
     try:
         cap = cv2.VideoCapture(video_path)
         success, frame = cap.read()
         if success:
-            cv2.imwrite(output_jpg, frame)
+            cv2.imwrite(output_jpg, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 85])
         cap.release()
         return success
     except Exception as e:
         print(f"Error generando miniatura para {video_path}: {e}")
         return False
 
-# Obtiene la resolución de fotos y asigna la de videos de forma segura sin romper Pillow
 def get_media_info(file_path):
     ext = file_path.lower().rsplit(".", 1)[-1]
-
-    # Si es video, asignamos resolución estándar directamente
     if ext in ["mp4", "webm", "gif"]:
         return "1080p Full HD"
-
-    # Si es imagen, leemos sus píxeles reales con Pillow
     try:
         with Image.open(file_path) as img:
             width, height = img.size
             max_dim = max(width, height)
-
             if max_dim >= 7680:
                 return "8K Ultra HD"
             elif max_dim >= 3840:
@@ -61,7 +74,7 @@ def get_media_info(file_path):
 def detect_category(filename):
     name = filename.lower()
     if name.startswith("vip_"):
-        name = name[4:]  # Omitir el prefijo vip_ para detectar bien la categoría
+        name = name[4:]
 
     if name.startswith("fa_") or "fantasia" in name or "fantasía" in name:
         return "Fantasía"
@@ -73,18 +86,12 @@ def detect_category(filename):
         return "Naturaleza"
     if name.startswith("an_") or "anime" in name:
         return "Anime"
-    if (
-        name.startswith("lv_")
-        or "live" in name
-        or name.endswith((".mp4", ".webm"))
-    ):
+    if name.startswith("lv_") or "live" in name or name.endswith((".mp4", ".webm")):
         return "Live Video"
     return "Todos"
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
-
-    # Limpiar primero el prefijo vip_ si lo tiene
     if name.lower().startswith("vip_"):
         name = name[4:]
 
@@ -103,46 +110,39 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Live Wallpaper"
 
-# Estructura principal
 data = {"categories": categories, "wallpapers": []}
 
 if not os.path.exists(folder):
     os.makedirs(folder)
 
-# Acepta imágenes y videos, ignorando las miniaturas autogeneradas que empiezan con "thumb_"
 valid_extensions = (".jpg", ".jpeg", ".png", ".mp4", ".webm")
 archivos = [
-    f
-    for f in os.listdir(folder)
+    f for f in os.listdir(folder)
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
 ]
 
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
-
-    # Detección de VIP basada en el prefijo
     es_vip = archivo.lower().startswith("vip_")
-
-    # Información y categoría
     resolucion_real = get_media_info(ruta_completa)
     cat_detectada = detect_category(archivo)
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
 
-    # Detecta si es un archivo de video
     es_video = (
         archivo.lower().endswith((".mp4", ".webm"))
         or "live" in archivo.lower()
         or "lv_" in archivo.lower()
     )
 
-    # Lógica para la miniatura
     if es_video:
+        # Optimiza el archivo de video pesado
+        optimize_video(ruta_completa)
+        
         nombre_base = os.path.splitext(archivo)[0]
         thumb_file = f"thumb_{nombre_base}.jpg"
         thumb_path = os.path.join(folder, thumb_file)
 
-        # Si no existe la miniatura, se extrae el primer frame automáticamente
         if not os.path.exists(thumb_path):
             extract_video_frame(ruta_completa, thumb_path)
 
