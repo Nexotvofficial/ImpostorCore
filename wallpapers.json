@@ -63,6 +63,18 @@
     },
     {
       "id": "5",
+      "title": "Rick Y Morty 2540X4500 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Fantasía",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/rick-y-morty_2540x4500_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/rick-y-morty_2540x4500_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "6",
       "title": "Cyberpunk Hombre Arana Fanart 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -74,7 +86,7 @@
       "is_vip": false
     },
     {
-      "id": "6",
+      "id": "7",
       "title": "Ciri The Witcher 3 Cosplay 1450X2559 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -86,7 +98,7 @@
       "is_vip": true
     },
     {
-      "id": "7",
+      "id": "8",
       "title": "Lamborghini Aventador Roadster Xago Edition 2920X5160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -98,7 +110,7 @@
       "is_vip": true
     },
     {
-      "id": "8",
+      "id": "9",
       "title": "Deadpool Y Wolverine Pelicula 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -110,7 +122,7 @@
       "is_vip": false
     },
     {
-      "id": "9",
+      "id": "10",
       "title": "El Hombre Arana 2099 3X 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -122,7 +134,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "11",
       "title": "Spider Man En La Ciudad Cosplay 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -134,7 +146,7 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "12",
       "title": "Chainsawman Girl",
       "type": "video",
       "is_video": true,
@@ -146,7 +158,7 @@
       "is_vip": true
     },
     {
-      "id": "12",
+      "id": "13",
       "title": "Batman 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -158,7 +170,7 @@
       "is_vip": false
     },
     {
-      "id": "13",
+      "id": "14",
       "title": "Goku 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -170,7 +182,19 @@
       "is_vip": false
     },
     {
-      "id": "14",
+      "id": "15",
+      "title": "Watch Dogs Legion Personajes Mascara 3910X6912 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara_3910x6912_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara_3910x6912_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "16",
       "title": "Luffy De One Piece 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -182,7 +206,7 @@
       "is_vip": true
     },
     {
-      "id": "15",
+      "id": "17",
       "title": "La Odisea Pelicula 2026 Reeditado 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -194,7 +218,7 @@
       "is_vip": false
     },
     {
-      "id": "16",
+      "id": "18",
       "title": "Chica Anime Rosa Pink Kiwi 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -206,7 +230,7 @@
       "is_vip": true
     },
     {
-      "id": "17",
+      "id": "19",
       "title": "Ojos Red",
       "type": "video",
       "is_video": true,
@@ -218,7 +242,7 @@
       "is_vip": false
     },
     {
-      "id": "18",
+      "id": "20",
       "title": "Astronauta Cayendo 2440X4321 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -230,7 +254,7 @@
       "is_vip": false
     },
     {
-      "id": "19",
+      "id": "21",
       "title": "Kyojuro Flame Hashira 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -242,7 +266,7 @@
       "is_vip": true
     },
     {
-      "id": "20",
+      "id": "22",
       "title": "Spider Man Miles Morales 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -254,7 +278,7 @@
       "is_vip": false
     },
     {
-      "id": "21",
+      "id": "23",
       "title": "Your Name",
       "type": "video",
       "is_video": true,
@@ -266,7 +290,7 @@
       "is_vip": true
     },
     {
-      "id": "22",
+      "id": "24",
       "title": "Snoopy Caminando En Ruta Sobre Montanas 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -278,7 +302,19 @@
       "is_vip": false
     },
     {
-      "id": "23",
+      "id": "25",
+      "title": "Samurai Futurista Con Luces En Katana Y Armadura 3090X5472 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Cyberpunk",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/samurai-futurista-con-luces-en-katana-y-armadura_3090x5472_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/samurai-futurista-con-luces-en-katana-y-armadura_3090x5472_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
+    },
+    {
+      "id": "26",
       "title": "Kishibe Chainsaw Man 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -290,7 +326,7 @@
       "is_vip": true
     },
     {
-      "id": "24",
+      "id": "27",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "is_video": false,
@@ -302,7 +338,19 @@
       "is_vip": true
     },
     {
-      "id": "25",
+      "id": "28",
+      "title": "Samurai Futurista Con Katana Y Luces En Armadura 3090X5472 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Cyberpunk",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/samurai-futurista-con-katana-y-luces-en-armadura_3090x5472_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/samurai-futurista-con-katana-y-luces-en-armadura_3090x5472_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
+    },
+    {
+      "id": "29",
       "title": "Denji De Chainsaw Man 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -314,7 +362,19 @@
       "is_vip": true
     },
     {
-      "id": "26",
+      "id": "30",
+      "title": "Stitch Pelicula 2025 Live Action 2440X4320 Xtrafondos.Com",
+      "type": "video",
+      "is_video": true,
+      "category": "Live Video",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/stitch-pelicula-2025-live-action_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/stitch-pelicula-2025-live-action_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "31",
       "title": "Miles Morales Spider Man Across The Spider Verse Movie 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -326,7 +386,7 @@
       "is_vip": true
     },
     {
-      "id": "27",
+      "id": "32",
       "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
       "type": "image",
       "is_video": false,
@@ -338,7 +398,7 @@
       "is_vip": true
     },
     {
-      "id": "28",
+      "id": "33",
       "title": "Olas En La Playa Al Atardecer 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -350,7 +410,7 @@
       "is_vip": true
     },
     {
-      "id": "29",
+      "id": "34",
       "title": "Cerezo A La Luz De La Noche 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -362,7 +422,7 @@
       "is_vip": false
     },
     {
-      "id": "30",
+      "id": "35",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "is_video": false,
@@ -374,7 +434,7 @@
       "is_vip": true
     },
     {
-      "id": "31",
+      "id": "36",
       "title": "Logo De One Piece En Mancha De Pintura Roja 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -386,7 +446,7 @@
       "is_vip": false
     },
     {
-      "id": "32",
+      "id": "37",
       "title": "Chimuelo Furia Nocturna De Como Entrenar A Tu Dragon 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -398,7 +458,19 @@
       "is_vip": false
     },
     {
-      "id": "33",
+      "id": "38",
+      "title": "Spider Man 2099 Oscuro 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Cyberpunk",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-2099-oscuro_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-2099-oscuro_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
+    },
+    {
+      "id": "39",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "is_video": false,
@@ -410,7 +482,7 @@
       "is_vip": false
     },
     {
-      "id": "34",
+      "id": "40",
       "title": "Jujutsu Kaisen 4K",
       "type": "video",
       "is_video": true,
@@ -422,7 +494,7 @@
       "is_vip": true
     },
     {
-      "id": "35",
+      "id": "41",
       "title": "Deadpool 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -434,7 +506,31 @@
       "is_vip": false
     },
     {
-      "id": "36",
+      "id": "42",
+      "title": "Spider Man Ps5 Juego 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-ps5-juego_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-ps5-juego_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "43",
+      "title": "Watch Dogs Legion Personajes Mascara London Big Ben 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Cyberpunk",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara-london-big-ben_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara-london-big-ben_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
+    },
+    {
+      "id": "44",
       "title": "Goku Monkey D Luffy Y Naruto En Jump Force 3960X7016 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -446,7 +542,7 @@
       "is_vip": true
     },
     {
-      "id": "37",
+      "id": "45",
       "title": "Leon Resident Evil 4 Remake 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -458,7 +554,19 @@
       "is_vip": true
     },
     {
-      "id": "38",
+      "id": "46",
+      "title": "Snoopy Y Pajarito Woodstock Emilio En Jardin 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Fantasía",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/snoopy-y-pajarito-woodstock-emilio-en-jardin_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/snoopy-y-pajarito-woodstock-emilio-en-jardin_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "47",
       "title": "Paisaje Digital En Atardecer 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -470,7 +578,7 @@
       "is_vip": false
     },
     {
-      "id": "39",
+      "id": "48",
       "title": "Paisaje Luna Vista Desde Planeta 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -482,7 +590,7 @@
       "is_vip": false
     },
     {
-      "id": "40",
+      "id": "49",
       "title": "Puente En El Mar 610X1080 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -494,7 +602,7 @@
       "is_vip": false
     },
     {
-      "id": "41",
+      "id": "50",
       "title": "Demon Slayer Kyojuro Rengoku Vs Akaza 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -506,7 +614,7 @@
       "is_vip": true
     },
     {
-      "id": "42",
+      "id": "51",
       "title": "Hiyuki 4K",
       "type": "video",
       "is_video": true,
@@ -518,7 +626,7 @@
       "is_vip": false
     },
     {
-      "id": "43",
+      "id": "52",
       "title": "Casa En El Campo Anime 2580X4560 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -530,7 +638,7 @@
       "is_vip": true
     },
     {
-      "id": "44",
+      "id": "53",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "is_video": false,
@@ -542,7 +650,31 @@
       "is_vip": true
     },
     {
-      "id": "45",
+      "id": "54",
+      "title": "Spider Man Ps4 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Fantasía",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-ps4_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-ps4_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "55",
+      "title": "Toy Story 4 Woody Y Forky 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Fantasía",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/toy-story-4-woody-y-forky_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/toy-story-4-woody-y-forky_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "56",
       "title": "Lamborghini Aventador Roadster Xago Edition 2920X5160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -554,7 +686,7 @@
       "is_vip": true
     },
     {
-      "id": "46",
+      "id": "57",
       "title": "Hermoso Atardecer En La Playa 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -566,7 +698,19 @@
       "is_vip": false
     },
     {
-      "id": "47",
+      "id": "58",
+      "title": "Supra Forgestar Wheels Rojo 3000X5304 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Autos",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/supra-forgestar-wheels-rojo_3000x5304_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/supra-forgestar-wheels-rojo_3000x5304_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "59",
       "title": "El Hombre Arana Y Doctor Strange En Sin Camino A Casa 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -578,7 +722,7 @@
       "is_vip": false
     },
     {
-      "id": "48",
+      "id": "60",
       "title": "Chica Con Katana A La Luz De La Luna 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -590,7 +734,19 @@
       "is_vip": false
     },
     {
-      "id": "49",
+      "id": "61",
+      "title": "The Legend Of Zelda Minimalista 2540X4500 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Minimalista",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/the-legend-of-zelda-minimalista_2540x4500_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/the-legend-of-zelda-minimalista_2540x4500_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "62",
       "title": "Choso De Jjk 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -602,7 +758,7 @@
       "is_vip": false
     },
     {
-      "id": "50",
+      "id": "63",
       "title": "Personajes De Hora De Aventura 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -614,7 +770,7 @@
       "is_vip": true
     },
     {
-      "id": "51",
+      "id": "64",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "is_video": false,
@@ -626,7 +782,7 @@
       "is_vip": false
     },
     {
-      "id": "52",
+      "id": "65",
       "title": "Silueta De Arboles En Ambiente Oscuro 1360X2400 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -638,7 +794,7 @@
       "is_vip": false
     },
     {
-      "id": "53",
+      "id": "66",
       "title": "Goku Estilo Universo De Bleach 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -650,7 +806,7 @@
       "is_vip": true
     },
     {
-      "id": "54",
+      "id": "67",
       "title": "Lamborghini Centenario Gris 2021 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -662,7 +818,7 @@
       "is_vip": true
     },
     {
-      "id": "55",
+      "id": "68",
       "title": "Dodge Challenger En Atardecer En El Desierto 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -674,7 +830,7 @@
       "is_vip": false
     },
     {
-      "id": "56",
+      "id": "69",
       "title": "Demonio De Tasmania Space Jam A New Legacy 2440X4320 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
@@ -686,7 +842,19 @@
       "is_vip": false
     },
     {
-      "id": "57",
+      "id": "70",
+      "title": "Makima Chainsaw Man Opening 2440X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/makima-chainsaw-man-opening_2440x4320_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/makima-chainsaw-man-opening_2440x4320_xtrafondos.com.jpg",
+      "resolution": "4K Ultra HD",
+      "is_vip": true
+    },
+    {
+      "id": "71",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "is_video": false,
@@ -698,7 +866,19 @@
       "is_vip": true
     },
     {
-      "id": "58",
+      "id": "72",
+      "title": "Watch Dogs Legion Personajes Mascara 2020X3579 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Cyberpunk",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara_2020x3579_xtrafondos.com.webp",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara_2020x3579_xtrafondos.com.jpg",
+      "resolution": "2K Quad HD",
+      "is_vip": true
+    },
+    {
+      "id": "73",
       "title": "The Garden Of Words",
       "type": "video",
       "is_video": true,
