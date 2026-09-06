@@ -3,7 +3,8 @@ import os
 import re
 import subprocess
 import cv2
-from PIL import Image
+import numpy as np
+from PIL import Image, ImageEnhance, ImageFilter
 from transformers import pipeline
 
 folder = "./img"
@@ -23,6 +24,24 @@ categories = [
 
 print("Cargando modelo de Clasificación de IA (CLIP)...")
 classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
+
+def enhance_image_quality(image_path):
+    """Aplica enfoque de bordes y mejora ligera de contraste a las imágenes"""
+    try:
+        with Image.open(image_path) as img:
+            img = img.convert("RGB")
+            
+            # 1. Aplicar filtro de nitidez / enfoque (Unsharp Mask)
+            enhanced_img = img.filter(ImageFilter.UnsharpMask(radius=2, percent=150, threshold=3))
+            
+            # 2. Ajuste ligero de contraste para hacer los colores más vivos
+            enhancer = ImageEnhance.Contrast(enhanced_img)
+            enhanced_img = enhancer.enhance(1.15)
+            
+            enhanced_img.save(image_path, quality=95, optimize=True)
+            print(f"  └ Nitidez y calidad visual mejoradas en {image_path}")
+    except Exception as e:
+        print(f"  └ No se pudo aplicar mejora visual a {image_path}: {e}")
 
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
@@ -162,15 +181,21 @@ for i, archivo in enumerate(archivos):
     thumb_filename = f"{nombre_base}.webp"
     thumb_path = os.path.join(thumbs_folder, thumb_filename)
 
+    print(f"[{i+1}/{len(archivos)}] Procesando: {archivo}")
+
     if es_video:
         optimize_video(ruta_completa)
         temp_frame = os.path.join(thumbs_folder, f"temp_{nombre_base}.jpg")
         
         if extract_video_frame(ruta_completa, temp_frame):
+            enhance_image_quality(temp_frame)  # Mejora la nitidez del frame extraído
             generate_webp_thumbnail(temp_frame, thumb_path)
             if os.path.exists(temp_frame):
                 os.remove(temp_frame)
     else:
+        # Aplicar mejora visual de nitidez y contraste a la imagen original
+        enhance_image_quality(ruta_completa)
+        # Generar miniatura WebP ligera a partir de la imagen mejorada
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
     cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video)
