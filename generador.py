@@ -7,8 +7,8 @@ from PIL import Image
 from transformers import pipeline
 
 folder = "./img"
+thumbs_folder = "./img/thumbs"
 
-# Lista de categorías que la IA evaluará para clasificar cada imagen/video
 categories = [
     "Anime",
     "Cyberpunk",
@@ -21,10 +21,9 @@ categories = [
     "Abstracto"
 ]
 
-print("Cargando modelo de Inteligencia Artificial (CLIP)...")
+print("Cargando modelo de Clasificación de IA (CLIP)...")
 classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
 
-# Comprime el video a 1080p con bitrate bajo usando FFmpeg
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
     command = [
@@ -37,13 +36,23 @@ def optimize_video(input_path):
     try:
         subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         os.replace(temp_path, input_path)
-        print(f"Video optimizado exitosamente: {input_path}")
     except Exception as e:
-        print(f"No se pudo optimizar el video {input_path}: {e}")
+        print(f"Error optimizando video {input_path}: {e}")
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-# Extrae miniatura JPG liviana del video
+def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
+    """Crea una miniatura WebP comprimida al 75% para carga ultrarrápida en la app"""
+    try:
+        with Image.open(file_path) as img:
+            img = img.convert("RGB")
+            img.thumbnail(max_size, Image.Resampling.LANCZOS)
+            img.save(output_webp_path, "WEBP", quality=75, optimize=True)
+            return True
+    except Exception as e:
+        print(f"Error al crear miniatura WebP para {file_path}: {e}")
+        return False
+
 def extract_video_frame(video_path, output_jpg):
     try:
         cap = cv2.VideoCapture(video_path)
@@ -53,7 +62,7 @@ def extract_video_frame(video_path, output_jpg):
         cap.release()
         return success
     except Exception as e:
-        print(f"Error generando miniatura para {video_path}: {e}")
+        print(f"Error generando frame para {video_path}: {e}")
         return False
 
 def get_media_info(file_path):
@@ -79,24 +88,27 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def detect_category_ia(file_path, is_video, thumb_path=None):
+def analyze_with_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
-        return "Live Video"
-    
-    # Si es imagen, la analizamos visualmente con la IA
+        return "Live Video", False
+
     try:
-        target_path = thumb_path if (is_video and thumb_path and os.path.exists(thumb_path)) else file_path
+        target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
         image = Image.open(target_path).convert("RGB")
         
+        # Clasificación de categoría
         prediction = classifier(image, candidate_labels=categories)
         best_category = prediction[0]['label']
-        confidence = round(prediction[0]['score'] * 100, 1)
+        confidence = prediction[0]['score']
+
+        # Detección de VIP por IA (si la confianza o estética destaca)
+        is_vip_ai = confidence > 0.60
         
-        print(f"  └ AI detectó categoría: {best_category} ({confidence}%)")
-        return best_category
+        print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP sugerido: {is_vip_ai}")
+        return best_category, is_vip_ai
     except Exception as e:
-        print(f"  └ Error al clasificar con IA ({e}), usando 'Todos'")
-        return "Todos"
+        print(f"  └ Error en IA ({e}), asignando categoría por defecto")
+        return "Todos", False
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
@@ -118,24 +130,25 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Wallpaper"
 
-# Estructura del JSON de salida
 categories_list = ["Todos"] + categories + ["Live Video"]
 data = {"categories": categories_list, "wallpapers": []}
 
-if not os.path.exists(folder):
-    os.makedirs(folder)
+os.makedirs(folder, exist_ok=True)
+os.makedirs(thumbs_folder, exist_ok=True)
 
 valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm")
 archivos = [
     f for f in os.listdir(folder)
-    if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
+    if f.lower().endswith(valid_extensions) and not f.startswith("thumb_") and os.path.isfile(os.path.join(folder, f))
 ]
 
-print(f"\nSe encontraron {len(archivos)} archivos en la carpeta {folder}:\n")
+print(f"\nProcesando {len(archivos)} archivos en {folder}...\n")
 
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
-    es_vip = archivo.lower().startswith("vip_")
+    nombre_base = os.path.splitext(archivo)[0]
+    
+    es_vip_manual = archivo.lower().startswith("vip_")
     resolucion_real = get_media_info(ruta_completa)
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
@@ -146,22 +159,24 @@ for i, archivo in enumerate(archivos):
         or "lv_" in archivo.lower()
     )
 
-    thumb_path = None
+    thumb_filename = f"{nombre_base}.webp"
+    thumb_path = os.path.join(thumbs_folder, thumb_filename)
+
     if es_video:
         optimize_video(ruta_completa)
-        nombre_base = os.path.splitext(archivo)[0]
-        thumb_file = f"thumb_{nombre_base}.jpg"
-        thumb_path = os.path.join(folder, thumb_file)
-
-        if not os.path.exists(thumb_path):
-            extract_video_frame(ruta_completa, thumb_path)
-
-        url_thumbnail = thumb_file.replace(" ", "%20")
+        temp_frame = os.path.join(thumbs_folder, f"temp_{nombre_base}.jpg")
+        
+        if extract_video_frame(ruta_completa, temp_frame):
+            generate_webp_thumbnail(temp_frame, thumb_path)
+            if os.path.exists(temp_frame):
+                os.remove(temp_frame)
     else:
-        url_thumbnail = url_archivo
+        generate_webp_thumbnail(ruta_completa, thumb_path)
 
-    print(f"[{i+1}/{len(archivos)}] Procesando: {archivo}")
-    cat_detectada = detect_category_ia(ruta_completa, es_video, thumb_path)
+    cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video)
+    
+    # Si tiene el prefijo 'vip_' o si la IA detecta alta calidad estética, se marca como VIP
+    es_vip_final = es_vip_manual or is_vip_ai
 
     data["wallpapers"].append({
         "id": str(i + 1),
@@ -170,19 +185,13 @@ for i, archivo in enumerate(archivos):
         "is_video": es_video,
         "category": cat_detectada,
         "color": "blue",
-        "thumbnail": (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + url_thumbnail
-        ),
-        "hd_url": (
-            "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/"
-            + url_archivo
-        ),
+        "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}",
+        "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}",
         "resolution": resolucion_real,
-        "is_vip": es_vip,
+        "is_vip": es_vip_final
     })
 
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"\n¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
+print(f"\n¡Listo! Generado wallpapers.json optimizado con {len(data['wallpapers'])} items.")
