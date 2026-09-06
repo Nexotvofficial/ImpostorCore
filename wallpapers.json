@@ -15,6 +15,30 @@
   "wallpapers": [
     {
       "id": "1",
+      "title": "Planeta En El Cielo Rodeado De Montanas Y Un Valle V2 8192X4560 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Naturaleza",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.jpg",
+      "resolution": "8K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "2",
+      "title": "Bugatti Chiron Cgi 7680X4320 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Autos",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/bugatti-chiron-cgi_7680x4320_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/bugatti-chiron-cgi_7680x4320_xtrafondos.com.jpg",
+      "resolution": "8K Ultra HD",
+      "is_vip": false
+    },
+    {
+      "id": "3",
       "title": "Chainsawman Girl",
       "type": "video",
       "is_video": true,
@@ -26,7 +50,31 @@
       "is_vip": true
     },
     {
-      "id": "2",
+      "id": "4",
+      "title": "Goku 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/goku_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/goku_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "5",
+      "title": "Luffy De One Piece 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-de-one-piece_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-de-one-piece_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "6",
       "title": "Ojos Red",
       "type": "video",
       "is_video": true,
@@ -38,7 +86,7 @@
       "is_vip": false
     },
     {
-      "id": "3",
+      "id": "7",
       "title": "Your Name",
       "type": "video",
       "is_video": true,
@@ -50,7 +98,19 @@
       "is_vip": true
     },
     {
-      "id": "4",
+      "id": "8",
+      "title": "Kishibe Chainsaw Man 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/kishibe-chainsaw-man_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/kishibe-chainsaw-man_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "9",
       "title": "Dabi De My Hero Academia",
       "type": "image",
       "is_video": false,
@@ -62,7 +122,7 @@
       "is_vip": false
     },
     {
-      "id": "5",
+      "id": "10",
       "title": "Satoru Gojo Unleashed Power Of The Six Eyes De Jjk",
       "type": "image",
       "is_video": false,
@@ -74,7 +134,7 @@
       "is_vip": true
     },
     {
-      "id": "6",
+      "id": "11",
       "title": "Itachi Uchiha De Anime Naruto",
       "type": "image",
       "is_video": false,
@@ -86,7 +146,19 @@
       "is_vip": false
     },
     {
-      "id": "7",
+      "id": "12",
+      "title": "Logo De One Piece En Mancha De Pintura Roja 1630X2880 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Espacio",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.jpg",
+      "resolution": "2K Quad HD",
+      "is_vip": false
+    },
+    {
+      "id": "13",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "is_video": false,
@@ -98,7 +170,7 @@
       "is_vip": false
     },
     {
-      "id": "8",
+      "id": "14",
       "title": "Jujutsu Kaisen 4K",
       "type": "video",
       "is_video": true,
@@ -110,7 +182,7 @@
       "is_vip": true
     },
     {
-      "id": "9",
+      "id": "15",
       "title": "Jensenartofficial Ai Generated 7628305 1920",
       "type": "image",
       "is_video": false,
@@ -122,7 +194,7 @@
       "is_vip": false
     },
     {
-      "id": "10",
+      "id": "16",
       "title": "Jensenartofficial Backpacker 7628303 1920",
       "type": "image",
       "is_video": false,
@@ -134,7 +206,19 @@
       "is_vip": false
     },
     {
-      "id": "11",
+      "id": "17",
+      "title": "Demon Slayer Kyojuro Rengoku Vs Akaza 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/demon-slayer-kyojuro-rengoku-vs-akaza_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/demon-slayer-kyojuro-rengoku-vs-akaza_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "18",
       "title": "Hiyuki 4K",
       "type": "video",
       "is_video": true,
@@ -146,7 +230,7 @@
       "is_vip": false
     },
     {
-      "id": "12",
+      "id": "19",
       "title": "Makima De Chainsaw Man",
       "type": "image",
       "is_video": false,
@@ -158,7 +242,7 @@
       "is_vip": false
     },
     {
-      "id": "13",
+      "id": "20",
       "title": "God Nise",
       "type": "image",
       "is_video": false,
@@ -170,7 +254,31 @@
       "is_vip": true
     },
     {
-      "id": "14",
+      "id": "21",
+      "title": "Chica Con Katana A La Luz De La Luna 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Fantasía",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/chica-con-katana-a-la-luz-de-la-luna_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/chica-con-katana-a-la-luz-de-la-luna_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "22",
+      "title": "Choso De Jjk 1220X2160 Xtrafondos.Com",
+      "type": "image",
+      "is_video": false,
+      "category": "Anime",
+      "color": "blue",
+      "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/choso-de-jjk_1220x2160_xtrafondos.com.jpg",
+      "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/choso-de-jjk_1220x2160_xtrafondos.com.jpg",
+      "resolution": "1080p Full HD",
+      "is_vip": false
+    },
+    {
+      "id": "23",
       "title": "Akaza De Kimetsu No Yaiba",
       "type": "image",
       "is_video": false,
@@ -182,7 +290,7 @@
       "is_vip": false
     },
     {
-      "id": "15",
+      "id": "24",
       "title": "Satoru Gojode Jjk",
       "type": "image",
       "is_video": false,
@@ -194,7 +302,7 @@
       "is_vip": true
     },
     {
-      "id": "16",
+      "id": "25",
       "title": "Vandesart Anime 8788959 1920",
       "type": "image",
       "is_video": false,
@@ -206,7 +314,7 @@
       "is_vip": false
     },
     {
-      "id": "17",
+      "id": "26",
       "title": "The Garden Of Words",
       "type": "video",
       "is_video": true,
