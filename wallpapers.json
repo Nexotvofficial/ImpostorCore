@@ -35,7 +35,7 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.jpg",
       "resolution": "8K Ultra HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "3",
@@ -59,7 +59,7 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/luffy-gear-5-nika-dios-del-sol_1590x2812_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-gear-5-nika-dios-del-sol_1590x2812_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "5",
@@ -78,7 +78,7 @@
       "title": "El Hombre Arana 2099 3X 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
+      "category": "Abstracto",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/el-hombre-arana-2099-3x_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/el-hombre-arana-2099-3x_1220x2160_xtrafondos.com.jpg",
@@ -90,7 +90,7 @@
       "title": "Spider Man En La Ciudad Cosplay 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
+      "category": "Urbano",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-en-la-ciudad-cosplay_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-en-la-ciudad-cosplay_1630x2880_xtrafondos.com.jpg",
@@ -275,7 +275,7 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/olas-en-la-playa-al-atardecer_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/olas-en-la-playa-al-atardecer_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "23",
@@ -311,14 +311,14 @@
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "26",
       "title": "Mihai Gv8Pbdjfof4 Unsplash",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
+      "category": "Abstracto",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/mihai-GV8PBDjFOf4-unsplash.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/mihai-GV8PBDjFOf4-unsplash.jpg",
@@ -342,7 +342,7 @@
       "title": "Paisaje Digital En Atardecer 1220X2160 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
+      "category": "Naturaleza",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/paisaje-digital-en-atardecer_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/paisaje-digital-en-atardecer_1220x2160_xtrafondos.com.jpg",
@@ -354,7 +354,7 @@
       "title": "Paisaje Luna Vista Desde Planeta 1630X2880 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
-      "category": "Espacio",
+      "category": "Fantasía",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/paisaje-luna-vista-desde-planeta_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/paisaje-luna-vista-desde-planeta_1630x2880_xtrafondos.com.jpg",
@@ -366,7 +366,7 @@
       "title": "Puente En El Mar 610X1080 Xtrafondos.Com",
       "type": "image",
       "is_video": false,
-      "category": "Naturaleza",
+      "category": "Fantasía",
       "color": "blue",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/puente-en-el-mar_610x1080_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/puente-en-el-mar_610x1080_xtrafondos.com.jpg",
