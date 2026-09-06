@@ -16,26 +16,24 @@ jobs:
       - name: Descargar codigo
         uses: actions/checkout@v4
 
-      - name: Instalar FFmpeg en el sistema
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Instalar librerias de imagenes y video
-        run: pip install Pillow opencv-python-headless
+      - name: Instalar librerias de IA y procesamiento de imagenes
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install Pillow transformers pyyaml
 
-      - name: Ejecutar script generador
+      - name: Ejecutar script generador con IA
         run: python generador.py
 
-      - name: Guardar wallpapers.json y miniaturas en GitHub
+      - name: Guardar wallpapers.json en GitHub
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add wallpapers.json img/
-          git commit -m "Auto-actualizacion y optimizacion de wallpapers" || echo "Sin cambios"
+          git add wallpapers.json
+          git commit -m "Auto-clasificación de fondos con IA y actualización de JSON" || echo "Sin cambios"
           git push
