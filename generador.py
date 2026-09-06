@@ -4,17 +4,25 @@ import re
 import subprocess
 import cv2
 from PIL import Image
+from transformers import pipeline
 
 folder = "./img"
+
+# Lista de categorías que la IA evaluará para clasificar cada imagen/video
 categories = [
-    "Todos",
     "Anime",
     "Cyberpunk",
     "Naturaleza",
     "Fantasía",
     "Minimalista",
-    "Live Video",
+    "Autos",
+    "Urbano",
+    "Espacio",
+    "Abstracto"
 ]
+
+print("Cargando modelo de Inteligencia Artificial (CLIP)...")
+classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
 
 # Comprime el video a 1080p con bitrate bajo usando FFmpeg
 def optimize_video(input_path):
@@ -71,24 +79,24 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def detect_category(filename):
-    name = filename.lower()
-    if name.startswith("vip_"):
-        name = name[4:]
-
-    if name.startswith("fa_") or "fantasia" in name or "fantasía" in name:
-        return "Fantasía"
-    if name.startswith("mi_") or "minimal" in name:
-        return "Minimalista"
-    if name.startswith("cy_") or "cyber" in name:
-        return "Cyberpunk"
-    if name.startswith("na_") or "naturaleza" in name:
-        return "Naturaleza"
-    if name.startswith("an_") or "anime" in name:
-        return "Anime"
-    if name.startswith("lv_") or "live" in name or name.endswith((".mp4", ".webm")):
+def detect_category_ia(file_path, is_video, thumb_path=None):
+    if is_video:
         return "Live Video"
-    return "Todos"
+    
+    # Si es imagen, la analizamos visualmente con la IA
+    try:
+        target_path = thumb_path if (is_video and thumb_path and os.path.exists(thumb_path)) else file_path
+        image = Image.open(target_path).convert("RGB")
+        
+        prediction = classifier(image, candidate_labels=categories)
+        best_category = prediction[0]['label']
+        confidence = round(prediction[0]['score'] * 100, 1)
+        
+        print(f"  └ AI detectó categoría: {best_category} ({confidence}%)")
+        return best_category
+    except Exception as e:
+        print(f"  └ Error al clasificar con IA ({e}), usando 'Todos'")
+        return "Todos"
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
@@ -108,24 +116,27 @@ def format_title(filename):
         name = re.sub(r"\b" + word + r"\b", "", name, flags=re.IGNORECASE)
 
     title = " ".join(name.split()).title()
-    return title if title else "Live Wallpaper"
+    return title if title else "Wallpaper"
 
-data = {"categories": categories, "wallpapers": []}
+# Estructura del JSON de salida
+categories_list = ["Todos"] + categories + ["Live Video"]
+data = {"categories": categories_list, "wallpapers": []}
 
 if not os.path.exists(folder):
     os.makedirs(folder)
 
-valid_extensions = (".jpg", ".jpeg", ".png", ".mp4", ".webm")
+valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm")
 archivos = [
     f for f in os.listdir(folder)
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_")
 ]
 
+print(f"\nSe encontraron {len(archivos)} archivos en la carpeta {folder}:\n")
+
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
     es_vip = archivo.lower().startswith("vip_")
     resolucion_real = get_media_info(ruta_completa)
-    cat_detectada = detect_category(archivo)
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
 
@@ -135,10 +146,9 @@ for i, archivo in enumerate(archivos):
         or "lv_" in archivo.lower()
     )
 
+    thumb_path = None
     if es_video:
-        # Optimiza el archivo de video pesado
         optimize_video(ruta_completa)
-        
         nombre_base = os.path.splitext(archivo)[0]
         thumb_file = f"thumb_{nombre_base}.jpg"
         thumb_path = os.path.join(folder, thumb_file)
@@ -149,6 +159,9 @@ for i, archivo in enumerate(archivos):
         url_thumbnail = thumb_file.replace(" ", "%20")
     else:
         url_thumbnail = url_archivo
+
+    print(f"[{i+1}/{len(archivos)}] Procesando: {archivo}")
+    cat_detectada = detect_category_ia(ruta_completa, es_video, thumb_path)
 
     data["wallpapers"].append({
         "id": str(i + 1),
@@ -172,5 +185,4 @@ for i, archivo in enumerate(archivos):
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
-
+print(f"\n¡Listo! JSON generado con éxito. Procesados {len(data['wallpapers'])} archivos.")
