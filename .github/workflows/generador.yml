@@ -2,9 +2,6 @@ name: Generar Wallpapers JSON Automatico
 
 on:
   push:
-    paths-ignore:
-      - 'wallpapers.json'
-      - 'img/thumbs/**'
     paths:
       - 'img/**'
       - '*.jpg'
@@ -12,6 +9,8 @@ on:
       - '*.png'
       - '*.webp'
       - '*.mp4'
+      - '!wallpapers.json'
+      - '!img/thumbs/**'
   workflow_dispatch:
 
 jobs:
