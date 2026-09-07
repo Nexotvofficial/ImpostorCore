@@ -43,6 +43,8 @@ jobs:
       - name: Ejecutar script generador
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_REST_KEY: ${{ secrets.ONESIGNAL_REST_KEY }}
         run: python generador.py
 
       - name: Guardar cambios en GitHub
@@ -50,5 +52,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/
-          git commit -m "Auto-clasificación IA y miniaturas WebP [skip ci]" || echo "Sin cambios"
+          git commit -m "Auto-clasificación IA, miniaturas WebP y Push OneSignal [skip ci]" || echo "Sin cambios"
           git push
