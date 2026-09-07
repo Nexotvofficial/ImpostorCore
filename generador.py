@@ -58,6 +58,48 @@ def send_discord_notification(total_items, total_vips, total_videos):
     except Exception as e:
         print(f"Excepción al conectar con Discord: {e}")
 
+def send_onesignal_notification(total_items, latest_item):
+    app_id = os.environ.get("ONESIGNAL_APP_ID", "782f3005-fc46-45ab-a98a-f44a07537b65")
+    rest_key = os.environ.get("ONESIGNAL_REST_KEY")
+
+    if not rest_key:
+        print("⚠️ No se encontró ONESIGNAL_REST_KEY, omitiendo notificación Push.")
+        return
+
+    if total_items <= 0 or not latest_item:
+        print("ℹ️ No hay items nuevos para enviar notificación Push.")
+        return
+
+    heading = "🔥 ¡Nuevo fondo de pantalla subido!"
+    message = f"Se ha añadido '{latest_item.get('title', 'un nuevo fondo')}' a la colección."
+
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Authorization": f"Basic {rest_key}"
+    }
+
+    payload = {
+        "app_id": app_id,
+        "included_segments": ["All"],  # Notificar a todos los usuarios suscritos
+        "headings": {"es": heading, "en": heading},
+        "contents": {"es": message, "en": message},
+        "big_picture": latest_item.get("thumbnail", ""),      # Miniatura para la barra de Android
+        "chrome_web_image": latest_item.get("thumbnail", ""),
+        "data": {
+            "wallpaper_id": str(latest_item.get("id", "")),
+            "category": str(latest_item.get("category", ""))
+        }
+    }
+
+    try:
+        response = requests.post("https://onesignal.com/api/v1/notifications", headers=headers, json=payload)
+        if response.status_code == 200:
+            print(f"✅ Notificación Push enviada a OneSignal con éxito para '{latest_item.get('title')}'.")
+        else:
+            print(f"❌ Error enviando Push a OneSignal: {response.status_code} - {response.text}")
+    except Exception as e:
+        print(f"❌ Excepción conectando con OneSignal: {e}")
+
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
     command = [
@@ -235,7 +277,12 @@ with open("wallpapers.json", "w", encoding="utf-8") as f:
 
 print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
 
-# Enviar reporte a Discord
+# 1. Enviar reporte a Discord
 total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
 total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
 send_discord_notification(len(data["wallpapers"]), total_vips, total_videos)
+
+# 2. Enviar Notificación Push a OneSignal
+if len(data["wallpapers"]) > 0:
+    ultimo_item = data["wallpapers"][-1]
+    send_onesignal_notification(len(data["wallpapers"]), ultimo_item)
