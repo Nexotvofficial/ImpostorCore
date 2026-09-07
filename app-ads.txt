@@ -155,10 +155,3 @@ newtonsmobi.com, 6aa7783282d8f1ca, RESELLER
 seedtag.com, 674f42e4de70100007eeab9d, RESELLER
 smartadserver.com, 5791, RESELLER, 060d053dcf45cbf3
 sharethrough.com, 5791, RESELLER, 060d053dcf45cbf3
-pubmatic.com, 166063, reseller, 5d62403b186f2ace
-wovenaudience.com, 1008, reseller
-rubiconproject.com, 28673, reseller, 0bfd66d529a55807
-triplelift.com, 14858, reseller, 6c33edb13117fd86
-newtonsmobi.com, 6aa7783282d8f1ca, reseller
-seedtag.com, 674f42e4de70100007eeab9d, reseller
-sharethrough.com, 5791, reseller, 060d053dcf45cbf3
