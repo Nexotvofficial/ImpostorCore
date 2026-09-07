@@ -9,17 +9,21 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-categories = [
-    "Anime",
-    "Cyberpunk",
-    "Naturaleza",
-    "Fantasía",
-    "Minimalista",
-    "Autos",
-    "Urbano",
-    "Espacio",
-    "Abstracto"
-]
+# Mapeo de descripciones detalladas hacia las categorías finales
+category_prompts = {
+    "an anime illustration, manga style, or animated character": "Anime",
+    "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
+    "a natural landscape, forest, mountains, beach, or nature scene": "Naturaleza",
+    "a fantasy concept art, magic, mythical creature, or surreal world": "Fantasía",
+    "a minimalist simple wallpaper with flat colors and minimal details": "Minimalista",
+    "a sports car, luxury vehicle, motorcycle, or automotive": "Autos",
+    "a real world urban city street, buildings, or street photography": "Urbano",
+    "outer space, galaxy, cosmos, nebula, stars, and planets": "Espacio",
+    "an abstract digital art pattern, 3d fluid render, or geometric shape": "Abstracto"
+}
+
+candidate_prompts = list(category_prompts.keys())
+categories_clean = list(category_prompts.values())
 
 print("Cargando modelo de Clasificación de IA (CLIP)...")
 classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
@@ -42,7 +46,6 @@ def optimize_video(input_path):
             os.remove(temp_path)
 
 def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
-    """Crea una miniatura WebP comprimida al 75% para carga ultrarrápida en la app"""
     try:
         with Image.open(file_path) as img:
             img = img.convert("RGB")
@@ -96,13 +99,19 @@ def analyze_with_ai(file_path, is_video, temp_frame_path=None):
         target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
         image = Image.open(target_path).convert("RGB")
         
-        # Clasificación de categoría
-        prediction = classifier(image, candidate_labels=categories)
-        best_category = prediction[0]['label']
+        # Clasificación con frases contextuales
+        prediction = classifier(image, candidate_labels=candidate_prompts)
+        best_prompt = prediction[0]['label']
         confidence = prediction[0]['score']
 
-        # Detección de VIP por IA
-        is_vip_ai = confidence > 0.60
+        # Umbral de confianza: si es menor al 35%, asigna Abstracto para evitar fallos
+        if confidence < 0.35:
+            best_category = "Abstracto"
+        else:
+            best_category = category_prompts[best_prompt]
+
+        # Detección VIP por alta confianza/estética
+        is_vip_ai = confidence > 0.65
         
         print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP sugerido: {is_vip_ai}")
         return best_category, is_vip_ai
@@ -130,13 +139,13 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Wallpaper"
 
-categories_list = ["Todos"] + categories + ["Live Video"]
+categories_list = ["Todos"] + categories_clean + ["Live Video"]
 data = {"categories": categories_list, "wallpapers": []}
 
 os.makedirs(folder, exist_ok=True)
 os.makedirs(thumbs_folder, exist_ok=True)
 
-# Mueve automáticamente archivos subidos por error a la raíz hacia img/
+# Mover automáticamente archivos sueltos en la raíz hacia img/
 valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm")
 for item in os.listdir("."):
     if item.lower().endswith(valid_extensions) and os.path.isfile(item):
