@@ -3,13 +3,14 @@ import os
 import re
 import subprocess
 import cv2
+import requests
 from PIL import Image
 from transformers import pipeline
 
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Mapeo de descripciones detalladas hacia las categorías finales
+# Mapeo de descripciones detalladas para guiar a la IA
 category_prompts = {
     "an anime illustration, manga style, or animated character": "Anime",
     "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
@@ -27,6 +28,35 @@ categories_clean = list(category_prompts.values())
 
 print("Cargando modelo de Clasificación de IA (CLIP)...")
 classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
+
+def send_discord_notification(total_items, total_vips, total_videos):
+    webhook_url = os.environ.get("DISCORD_WEBHOOK")
+    if not webhook_url:
+        print("No se encontró DISCORD_WEBHOOK, omitiendo notificación.")
+        return
+
+    payload = {
+        "embeds": [{
+            "title": "🚀 Wallpaper Pipeline Actualizado",
+            "color": 3447003, # Azul
+            "fields": [
+                {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
+                {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
+                {"name": "Live Videos", "value": str(total_videos), "inline": True},
+                {"name": "Estado", "value": "✅ JSON generado y publicado en CDN correctamente.", "inline": False}
+            ],
+            "footer": {"text": "ImpostorCore Auto-System"}
+        }]
+    }
+
+    try:
+        response = requests.post(webhook_url, json=payload)
+        if response.status_code == 204:
+            print("Notificación enviada a Discord con éxito.")
+        else:
+            print(f"Error enviando notificación a Discord: {response.status_code}")
+    except Exception as e:
+        print(f"Excepción al conectar con Discord: {e}")
 
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
@@ -53,7 +83,7 @@ def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
             img.save(output_webp_path, "WEBP", quality=75, optimize=True)
             return True
     except Exception as e:
-        print(f"Error al crear miniatura WebP para {file_path}: {e}")
+        print(f"Error creando miniatura WebP {file_path}: {e}")
         return False
 
 def extract_video_frame(video_path, output_jpg):
@@ -65,7 +95,7 @@ def extract_video_frame(video_path, output_jpg):
         cap.release()
         return success
     except Exception as e:
-        print(f"Error generando frame para {video_path}: {e}")
+        print(f"Error extrayendo frame {video_path}: {e}")
         return False
 
 def get_media_info(file_path):
@@ -99,21 +129,18 @@ def analyze_with_ai(file_path, is_video, temp_frame_path=None):
         target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
         image = Image.open(target_path).convert("RGB")
         
-        # Clasificación con frases contextuales
         prediction = classifier(image, candidate_labels=candidate_prompts)
         best_prompt = prediction[0]['label']
         confidence = prediction[0]['score']
 
-        # Umbral de confianza: si es menor al 35%, asigna Abstracto para evitar fallos
         if confidence < 0.35:
             best_category = "Abstracto"
         else:
             best_category = category_prompts[best_prompt]
 
-        # Detección VIP por alta confianza/estética
         is_vip_ai = confidence > 0.65
         
-        print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP sugerido: {is_vip_ai}")
+        print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP: {is_vip_ai}")
         return best_category, is_vip_ai
     except Exception as e:
         print(f"  └ Error en IA ({e}), asignando categoría por defecto")
@@ -145,7 +172,6 @@ data = {"categories": categories_list, "wallpapers": []}
 os.makedirs(folder, exist_ok=True)
 os.makedirs(thumbs_folder, exist_ok=True)
 
-# Mover automáticamente archivos sueltos en la raíz hacia img/
 valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm")
 for item in os.listdir("."):
     if item.lower().endswith(valid_extensions) and os.path.isfile(item):
@@ -207,4 +233,9 @@ for i, archivo in enumerate(archivos):
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
-print(f"\n¡Listo! Generado wallpapers.json optimizado con {len(data['wallpapers'])} items.")
+print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
+
+# Enviar reporte a Discord
+total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
+total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
+send_discord_notification(len(data["wallpapers"]), total_vips, total_videos)
