@@ -6,33 +6,14 @@ import subprocess
 import cv2
 import requests
 from PIL import Image
-from transformers import pipeline
+from google import genai
 
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Mapeo de descripciones detalladas para guiar a la IA (CLIP)
-category_prompts = {
-    "an anime illustration, manga style, or animated character": "Anime",
-    "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
-    "a natural landscape, forest, mountains, beach, or nature scene": "Naturaleza",
-    "a fantasy concept art, magic, mythical creature, or surreal world": "Fantasía",
-    "a minimalist simple wallpaper with flat colors and minimal details": "Minimalista",
-    "a sports car, luxury vehicle, motorcycle, or automotive": "Autos",
-    "a real world urban city street, buildings, or street photography": "Urbano",
-    "outer space, galaxy, cosmos, nebula, stars, and planets": "Espacio",
-    "an abstract digital art pattern, 3d fluid render, or geometric shape": "Abstracto"
-}
-
-candidate_prompts = list(category_prompts.keys())
-categories_clean = list(category_prompts.values())
-
-print("⏳ Cargando modelo de Clasificación de IA (CLIP)...")
-try:
-    classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32", device=-1)
-except Exception as e:
-    print(f"⚠️ No se pudo cargar el modelo CLIP: {e}. Se asignará categoría por defecto.")
-    classifier = None
+# Inicializar cliente de Google Gemini
+gemini_key = os.environ.get("GEMINI_API_KEY")
+client = genai.Client(api_key=gemini_key) if gemini_key else None
 
 def send_discord_notification(total_items, total_vips, total_videos, new_count):
     webhook_url = os.environ.get("DISCORD_WEBHOOK")
@@ -42,14 +23,14 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado",
-            "color": 3447003,  # Azul
+            "title": "🚀 Wallpaper Pipeline Actualizado (Google Gemini AI)",
+            "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado y publicado correctamente.", "inline": False}
+                {"name": "Estado", "value": "✅ JSON generado, analizado por IA y publicado.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -59,47 +40,22 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
         response = requests.post(webhook_url, json=payload)
         if response.status_code in [200, 204]:
             print("✅ Notificación enviada a Discord con éxito.")
-        else:
-            print(f"❌ Error enviando notificación a Discord: {response.status_code}")
     except Exception as e:
-        print(f"❌ Excepción al conectar con Discord: {e}")
+        print(f"❌ Error enviando a Discord: {e}")
 
 def send_onesignal_notification(new_count, latest_item):
     app_id = os.environ.get("ONESIGNAL_APP_ID", "782f3005-fc46-45ab-a98a-f44a07537b65")
     rest_key = os.environ.get("ONESIGNAL_REST_KEY")
 
-    if not rest_key:
-        print("⚠️ No se encontró ONESIGNAL_REST_KEY, omitiendo notificación Push.")
+    if not rest_key or new_count <= 0 or not latest_item:
+        print("ℹ️ Omitiendo notificación Push de OneSignal.")
         return
 
-    if new_count <= 0 or not latest_item:
-        print("ℹ️ No hay ítems nuevos para enviar notificación Push.")
-        return
+    titles_es = ["🔥 ¡Tu pantalla merece un cambio!", "✨ ¡Nuevo Fondo Exclusivo!", "🚀 ¡Renueva tu estilo ahora!", "🎨 ¡Nuevos Wallpapers Disponibles!"]
+    titles_en = ["🔥 Upgrade Your Screen Now!", "✨ Exclusive New Wallpaper!", "🚀 Fresh Style Update!", "🎨 New Wallpapers Available!"]
 
-    # Mensajes llamativos aleatorios para captar la atención
-    titles_es = [
-        "🔥 ¡Tu pantalla merece un cambio!",
-        "✨ ¡Nuevo Fondo Exclusivo!",
-        "🚀 ¡Renueva tu estilo ahora!",
-        "🎨 ¡Nuevos Wallpapers Disponibles!"
-    ]
-    
-    titles_en = [
-        "🔥 Upgrade Your Screen Now!",
-        "✨ Exclusive New Wallpaper!",
-        "🚀 Fresh Style Update!",
-        "🎨 New Wallpapers Available!"
-    ]
-
-    selected_title_es = random.choice(titles_es)
-    selected_title_en = random.choice(titles_en)
-
-    if new_count == 1:
-        msg_es = f"😍 Agregamos '{latest_item.get('title', 'un nuevo fondo')}'. ¡Toca para verlo antes que nadie!"
-        msg_en = f"😍 Just added '{latest_item.get('title', 'a new wallpaper')}'. Tap to check it out!"
-    else:
-        msg_es = f"⚡ Agregamos {new_count} nuevos fondos HD y AMOLED. ¡Entra y renueva tu pantalla!"
-        msg_en = f"⚡ Added {new_count} new HD & AMOLED wallpapers. Check them out!"
+    msg_es = f"😍 Agregamos '{latest_item.get('title', 'un nuevo fondo')}'. ¡Toca para verlo!" if new_count == 1 else f"⚡ Agregamos {new_count} nuevos fondos HD y AMOLED."
+    msg_en = f"😍 Just added '{latest_item.get('title', 'a new wallpaper')}'. Check it out!" if new_count == 1 else f"⚡ Added {new_count} new HD wallpapers."
 
     headers = {
         "Content-Type": "application/json; charset=utf-8",
@@ -109,7 +65,7 @@ def send_onesignal_notification(new_count, latest_item):
     payload = {
         "app_id": app_id,
         "included_segments": ["All"],
-        "headings": {"es": selected_title_es, "en": selected_title_en},
+        "headings": {"es": random.choice(titles_es), "en": random.choice(titles_en)},
         "contents": {"es": msg_es, "en": msg_en},
         "big_picture": latest_item.get("thumbnail", ""),
         "large_icon": latest_item.get("thumbnail", ""),
@@ -124,10 +80,17 @@ def send_onesignal_notification(new_count, latest_item):
         response = requests.post("https://onesignal.com/api/v1/notifications", headers=headers, json=payload)
         if response.status_code == 200:
             print(f"🚀 Notificación Push enviada a OneSignal con éxito ({new_count} nuevo/s).")
-        else:
-            print(f"❌ Error enviando Push a OneSignal: {response.status_code} - {response.text}")
     except Exception as e:
-        print(f"❌ Excepción conectando con OneSignal: {e}")
+        print(f"❌ Error con OneSignal: {e}")
+
+def get_dominant_hex_color(image_path):
+    try:
+        with Image.open(image_path) as img:
+            img = img.convert("RGB").resize((1, 1))
+            color = img.getpixel((0, 0))
+            return f"#{color[0]:02x}{color[1]:02x}{color[2]:02x}"
+    except Exception:
+        return "#121212"
 
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
@@ -142,7 +105,6 @@ def optimize_video(input_path):
         subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         os.replace(temp_path, input_path)
     except Exception as e:
-        print(f"Error optimizando video {input_path}: {e}")
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
@@ -166,7 +128,6 @@ def extract_video_frame(video_path, output_jpg):
         cap.release()
         return success
     except Exception as e:
-        print(f"Error extrayendo frame {video_path}: {e}")
         return False
 
 def get_media_info(file_path):
@@ -192,33 +153,41 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def analyze_with_ai(file_path, is_video, temp_frame_path=None):
+def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
-        return "Live Video", False
+        return {"category": "Live Video", "is_vip": True, "tags": ["live", "video", "animado"]}
 
-    if not classifier:
-        return "Todos", False
+    if not client:
+        print("⚠️ GEMINI_API_KEY no configurada. Asignando valores por defecto.")
+        return {"category": "Todos", "is_vip": False, "tags": []}
 
     try:
         target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
-        image = Image.open(target_path).convert("RGB")
-        
-        prediction = classifier(image, candidate_labels=candidate_prompts)
-        best_prompt = prediction[0]['label']
-        confidence = prediction[0]['score']
+        image = Image.open(target_path)
 
-        if confidence < 0.35:
-            best_category = "Abstracto"
-        else:
-            best_category = category_prompts[best_prompt]
+        prompt = """
+        Analiza esta imagen para un catálogo de fondos de pantalla (wallpapers).
+        Responde ÚNICAMENTE un JSON estricto sin bloques markdown:
+        {
+            "category": "Selecciona UNA sola de estas opciones exactas: [Anime, Cyberpunk, Naturaleza, Fantasía, Minimalista, Autos, Urbano, Espacio, Abstracto, Gaming]",
+            "is_vip": true o false (true si la calidad artística, resolución o nivel de detalle es extremadamente alto),
+            "tags": ["tag1", "tag2", "tag3"] (3 a 5 palabras clave sobre elementos visuales en español)
+        }
+        """
 
-        is_vip_ai = confidence > 0.65
-        
-        print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP: {is_vip_ai}")
-        return best_category, is_vip_ai
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=[image, prompt]
+        )
+
+        clean_json = response.text.strip().replace("```json", "").replace("```", "").strip()
+        result = json.loads(clean_json)
+
+        print(f"  └ Google AI -> Cat: {result.get('category')} | VIP: {result.get('is_vip')} | Tags: {result.get('tags')}")
+        return result
     except Exception as e:
-        print(f"  └ Error en IA ({e}), asignando categoría por defecto")
-        return "Todos", False
+        print(f"  └ Error analizando con Google AI: {e}")
+        return {"category": "Todos", "is_vip": False, "tags": []}
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
@@ -260,7 +229,7 @@ if os.path.exists("wallpapers.json"):
     except Exception as e:
         print(f"⚠️ No se pudo leer wallpapers.json previo: {e}")
 
-categories_list = ["Todos"] + categories_clean + ["Live Video"]
+categories_list = ["Todos", "Anime", "Cyberpunk", "Naturaleza", "Fantasía", "Minimalista", "Autos", "Urbano", "Espacio", "Abstracto", "Gaming", "Live Video"]
 data = {"categories": categories_list, "wallpapers": []}
 
 archivos = [
@@ -268,7 +237,7 @@ archivos = [
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_") and os.path.isfile(os.path.join(folder, f))
 ]
 
-print(f"\nProcesando {len(archivos)} archivos en {folder}...\n")
+print(f"\nProcesando {len(archivos)} archivos en {folder} con Google Gemini AI...\n")
 
 new_items = []
 
@@ -281,28 +250,28 @@ for i, archivo in enumerate(archivos):
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
 
-    es_video = (
-        archivo.lower().endswith((".mp4", ".webm"))
-        or "live" in archivo.lower()
-        or "lv_" in archivo.lower()
-    )
+    es_video = archivo.lower().endswith((".mp4", ".webm")) or "live" in archivo.lower() or "lv_" in archivo.lower()
 
     thumb_filename = f"{nombre_base}.webp"
     thumb_path = os.path.join(thumbs_folder, thumb_filename)
 
+    temp_frame = None
     if es_video:
         optimize_video(ruta_completa)
         temp_frame = os.path.join(thumbs_folder, f"temp_{nombre_base}.jpg")
-        
         if extract_video_frame(ruta_completa, temp_frame):
             generate_webp_thumbnail(temp_frame, thumb_path)
-            if os.path.exists(temp_frame):
-                os.remove(temp_frame)
+            hex_color = get_dominant_hex_color(temp_frame)
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
+        hex_color = get_dominant_hex_color(ruta_completa)
 
-    cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video)
-    es_vip_final = es_vip_manual or is_vip_ai
+    ai_data = analyze_with_google_ai(ruta_completa, es_video, temp_frame)
+    
+    if temp_frame and os.path.exists(temp_frame):
+        os.remove(temp_frame)
+
+    es_vip_final = es_vip_manual or ai_data.get("is_vip", False)
 
     item_obj = {
         "id": str(i + 1),
@@ -310,8 +279,9 @@ for i, archivo in enumerate(archivos):
         "file_name": archivo,
         "type": "video" if es_video else "image",
         "is_video": es_video,
-        "category": cat_detectada,
-        "color": "blue",
+        "category": ai_data.get("category", "Todos"),
+        "tags": ai_data.get("tags", []),
+        "color": hex_color,
         "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}",
         "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}",
         "resolution": resolucion_real,
@@ -320,7 +290,6 @@ for i, archivo in enumerate(archivos):
 
     data["wallpapers"].append(item_obj)
 
-    # Si el archivo no estaba en el JSON previo, se marca como NUEVO
     if archivo not in existing_file_names:
         new_items.append(item_obj)
 
@@ -333,12 +302,11 @@ print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.
 total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
 total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
 
-# 1. Enviar reporte a Discord
+# Enviar reporte a Discord
 send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
 
-# 2. Enviar Notificación Push a OneSignal ÚNICAMENTE si hay archivos NUEVOS
+# Enviar Notificación Push a OneSignal si hay archivos nuevos
 if len(new_items) > 0:
-    ultimo_nuevo = new_items[-1]
-    send_onesignal_notification(len(new_items), ultimo_nuevo)
+    send_onesignal_notification(len(new_items), new_items[-1])
 else:
-    print("ℹ️ No hay imágenes o videos nuevos en este despliegue. Se omite el envío de notificaciones Push.")
+    print("ℹ️ No hay imágenes o videos nuevos en este despliegue. Se omite la notificación Push.")
