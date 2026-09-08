@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import re
 import subprocess
 import cv2
@@ -10,7 +11,7 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Mapeo de descripciones detalladas para guiar a la IA
+# Mapeo de descripciones detalladas para guiar a la IA (CLIP)
 category_prompts = {
     "an anime illustration, manga style, or animated character": "Anime",
     "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
@@ -26,24 +27,29 @@ category_prompts = {
 candidate_prompts = list(category_prompts.keys())
 categories_clean = list(category_prompts.values())
 
-print("Cargando modelo de Clasificación de IA (CLIP)...")
-classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32")
+print("⏳ Cargando modelo de Clasificación de IA (CLIP)...")
+try:
+    classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32", device=-1)
+except Exception as e:
+    print(f"⚠️ No se pudo cargar el modelo CLIP: {e}. Se asignará categoría por defecto.")
+    classifier = None
 
-def send_discord_notification(total_items, total_vips, total_videos):
+def send_discord_notification(total_items, total_vips, total_videos, new_count):
     webhook_url = os.environ.get("DISCORD_WEBHOOK")
     if not webhook_url:
-        print("No se encontró DISCORD_WEBHOOK, omitiendo notificación.")
+        print("ℹ️ No se encontró DISCORD_WEBHOOK, omitiendo notificación a Discord.")
         return
 
     payload = {
         "embeds": [{
             "title": "🚀 Wallpaper Pipeline Actualizado",
-            "color": 3447003, # Azul
+            "color": 3447003,  # Azul
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
+                {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado y publicado en CDN correctamente.", "inline": False}
+                {"name": "Estado", "value": "✅ JSON generado y publicado correctamente.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -51,14 +57,14 @@ def send_discord_notification(total_items, total_vips, total_videos):
 
     try:
         response = requests.post(webhook_url, json=payload)
-        if response.status_code == 204:
-            print("Notificación enviada a Discord con éxito.")
+        if response.status_code in [200, 204]:
+            print("✅ Notificación enviada a Discord con éxito.")
         else:
-            print(f"Error enviando notificación a Discord: {response.status_code}")
+            print(f"❌ Error enviando notificación a Discord: {response.status_code}")
     except Exception as e:
-        print(f"Excepción al conectar con Discord: {e}")
+        print(f"❌ Excepción al conectar con Discord: {e}")
 
-def send_onesignal_notification(total_items, latest_item):
+def send_onesignal_notification(new_count, latest_item):
     app_id = os.environ.get("ONESIGNAL_APP_ID", "782f3005-fc46-45ab-a98a-f44a07537b65")
     rest_key = os.environ.get("ONESIGNAL_REST_KEY")
 
@@ -66,12 +72,34 @@ def send_onesignal_notification(total_items, latest_item):
         print("⚠️ No se encontró ONESIGNAL_REST_KEY, omitiendo notificación Push.")
         return
 
-    if total_items <= 0 or not latest_item:
-        print("ℹ️ No hay items nuevos para enviar notificación Push.")
+    if new_count <= 0 or not latest_item:
+        print("ℹ️ No hay ítems nuevos para enviar notificación Push.")
         return
 
-    heading = "🔥 ¡Nuevo fondo de pantalla subido!"
-    message = f"Se ha añadido '{latest_item.get('title', 'un nuevo fondo')}' a la colección."
+    # Mensajes llamativos aleatorios para captar la atención
+    titles_es = [
+        "🔥 ¡Tu pantalla merece un cambio!",
+        "✨ ¡Nuevo Fondo Exclusivo!",
+        "🚀 ¡Renueva tu estilo ahora!",
+        "🎨 ¡Nuevos Wallpapers Disponibles!"
+    ]
+    
+    titles_en = [
+        "🔥 Upgrade Your Screen Now!",
+        "✨ Exclusive New Wallpaper!",
+        "🚀 Fresh Style Update!",
+        "🎨 New Wallpapers Available!"
+    ]
+
+    selected_title_es = random.choice(titles_es)
+    selected_title_en = random.choice(titles_en)
+
+    if new_count == 1:
+        msg_es = f"😍 Agregamos '{latest_item.get('title', 'un nuevo fondo')}'. ¡Toca para verlo antes que nadie!"
+        msg_en = f"😍 Just added '{latest_item.get('title', 'a new wallpaper')}'. Tap to check it out!"
+    else:
+        msg_es = f"⚡ Agregamos {new_count} nuevos fondos HD y AMOLED. ¡Entra y renueva tu pantalla!"
+        msg_en = f"⚡ Added {new_count} new HD & AMOLED wallpapers. Check them out!"
 
     headers = {
         "Content-Type": "application/json; charset=utf-8",
@@ -80,10 +108,11 @@ def send_onesignal_notification(total_items, latest_item):
 
     payload = {
         "app_id": app_id,
-        "included_segments": ["All"],  # Notificar a todos los usuarios suscritos
-        "headings": {"es": heading, "en": heading},
-        "contents": {"es": message, "en": message},
-        "big_picture": latest_item.get("thumbnail", ""),      # Miniatura para la barra de Android
+        "included_segments": ["All"],
+        "headings": {"es": selected_title_es, "en": selected_title_en},
+        "contents": {"es": msg_es, "en": msg_en},
+        "big_picture": latest_item.get("thumbnail", ""),
+        "large_icon": latest_item.get("thumbnail", ""),
         "chrome_web_image": latest_item.get("thumbnail", ""),
         "data": {
             "wallpaper_id": str(latest_item.get("id", "")),
@@ -94,7 +123,7 @@ def send_onesignal_notification(total_items, latest_item):
     try:
         response = requests.post("https://onesignal.com/api/v1/notifications", headers=headers, json=payload)
         if response.status_code == 200:
-            print(f"✅ Notificación Push enviada a OneSignal con éxito para '{latest_item.get('title')}'.")
+            print(f"🚀 Notificación Push enviada a OneSignal con éxito ({new_count} nuevo/s).")
         else:
             print(f"❌ Error enviando Push a OneSignal: {response.status_code} - {response.text}")
     except Exception as e:
@@ -167,6 +196,9 @@ def analyze_with_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
         return "Live Video", False
 
+    if not classifier:
+        return "Todos", False
+
     try:
         target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
         image = Image.open(target_path).convert("RGB")
@@ -208,16 +240,28 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Wallpaper"
 
-categories_list = ["Todos"] + categories_clean + ["Live Video"]
-data = {"categories": categories_list, "wallpapers": []}
-
+# Creación de carpetas
 os.makedirs(folder, exist_ok=True)
 os.makedirs(thumbs_folder, exist_ok=True)
 
+# Mover archivos sueltos a la carpeta /img
 valid_extensions = (".jpg", ".jpeg", ".png", ".webp", ".mp4", ".webm")
 for item in os.listdir("."):
     if item.lower().endswith(valid_extensions) and os.path.isfile(item):
         os.rename(item, os.path.join(folder, item))
+
+# Leer el catálogo JSON anterior para identificar archivos NUEVOS
+existing_file_names = set()
+if os.path.exists("wallpapers.json"):
+    try:
+        with open("wallpapers.json", "r", encoding="utf-8") as f:
+            old_data = json.load(f)
+            existing_file_names = {item.get("file_name") for item in old_data.get("wallpapers", []) if "file_name" in item}
+    except Exception as e:
+        print(f"⚠️ No se pudo leer wallpapers.json previo: {e}")
+
+categories_list = ["Todos"] + categories_clean + ["Live Video"]
+data = {"categories": categories_list, "wallpapers": []}
 
 archivos = [
     f for f in os.listdir(folder)
@@ -225,6 +269,8 @@ archivos = [
 ]
 
 print(f"\nProcesando {len(archivos)} archivos en {folder}...\n")
+
+new_items = []
 
 for i, archivo in enumerate(archivos):
     ruta_completa = os.path.join(folder, archivo)
@@ -256,12 +302,12 @@ for i, archivo in enumerate(archivos):
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
     cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video)
-    
     es_vip_final = es_vip_manual or is_vip_ai
 
-    data["wallpapers"].append({
+    item_obj = {
         "id": str(i + 1),
         "title": titulo_bonito,
+        "file_name": archivo,
         "type": "video" if es_video else "image",
         "is_video": es_video,
         "category": cat_detectada,
@@ -270,19 +316,29 @@ for i, archivo in enumerate(archivos):
         "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}",
         "resolution": resolucion_real,
         "is_vip": es_vip_final
-    })
+    }
 
+    data["wallpapers"].append(item_obj)
+
+    # Si el archivo no estaba en el JSON previo, se marca como NUEVO
+    if archivo not in existing_file_names:
+        new_items.append(item_obj)
+
+# Guardar catálogo actualizado
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
 
 print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
 
-# 1. Enviar reporte a Discord
 total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
 total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
-send_discord_notification(len(data["wallpapers"]), total_vips, total_videos)
 
-# 2. Enviar Notificación Push a OneSignal
-if len(data["wallpapers"]) > 0:
-    ultimo_item = data["wallpapers"][-1]
-    send_onesignal_notification(len(data["wallpapers"]), ultimo_item)
+# 1. Enviar reporte a Discord
+send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
+
+# 2. Enviar Notificación Push a OneSignal ÚNICAMENTE si hay archivos NUEVOS
+if len(new_items) > 0:
+    ultimo_nuevo = new_items[-1]
+    send_onesignal_notification(len(new_items), ultimo_nuevo)
+else:
+    print("ℹ️ No hay imágenes o videos nuevos en este despliegue. Se omite el envío de notificaciones Push.")
