@@ -88,7 +88,6 @@ def upload_video_to_publitio(file_path):
         timestamp = str(int(time.time()))
         nonce = str(random.randint(10000000, 99999999))
         
-        # Generar firma SHA-1 requerida por la API de Publit.io
         str_to_sign = f"{timestamp}{nonce}{PUBLITIO_SECRET}"
         signature = hashlib.sha1(str_to_sign.encode('utf-8')).hexdigest()
         
@@ -166,14 +165,14 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (ImgBB & Publit.io)",
+            "title": "🚀 Wallpaper Pipeline Actualizado (Ultra-Fast CDN)",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado con URLs de ImgBB, Publit.io y Score IA.", "inline": False}
+                {"name": "Estado", "value": "✅ Miniaturas optimizadas y enlaces CDN ultrarrápidos listos.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -212,11 +211,13 @@ def send_onesignal_notification(new_count, latest_item):
         pass
 
 def optimize_video(input_path):
+    """Optimización de video con faststart habilitado para streaming instantáneo"""
     temp_path = input_path + ".opt.mp4"
     command = [
         "ffmpeg", "-y", "-i", input_path,
         "-vf", "scale='min(1080,iw)':-2",
         "-c:v", "libx264", "-crf", "26", "-preset", "fast",
+        "-movflags", "+faststart",  # <--- PERMITE REPRODUCCIÓN INSTANTÁNEA EN LA APP
         "-c:a", "aac", "-b:a", "128k",
         temp_path
     ]
@@ -227,12 +228,13 @@ def optimize_video(input_path):
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
+def generate_webp_thumbnail(file_path, output_webp_path, max_size=(360, 640)):
+    """Genera miniaturas ultraligeras WebP (20-30KB) para que la cuadrícula de la app vuele"""
     try:
         with Image.open(file_path) as img:
             img = img.convert("RGB")
             img.thumbnail(max_size, Image.Resampling.LANCZOS)
-            img.save(output_webp_path, "WEBP", quality=75, optimize=True)
+            img.save(output_webp_path, "WEBP", quality=65, method=6)
             return True
     except Exception:
         return False
@@ -242,7 +244,7 @@ def extract_video_frame(video_path, output_jpg):
         cap = cv2.VideoCapture(video_path)
         success, frame = cap.read()
         if success:
-            cv2.imwrite(output_jpg, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 85])
+            cv2.imwrite(output_jpg, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
         cap.release()
         return success
     except Exception:
@@ -364,10 +366,8 @@ for i, archivo in enumerate(archivos):
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
-    # Subidas según el tipo de archivo (Publit.io para videos / ImgBB para imágenes)
+    # Subidas según el tipo de archivo
     url_hd = None
-    url_thumb_imgbb = None
-
     if es_video:
         print(f"🎬 Subiendo video a Publit.io: {archivo}")
         url_hd = upload_video_to_publitio(ruta_completa)
@@ -375,15 +375,12 @@ for i, archivo in enumerate(archivos):
         print(f"📤 Subiendo imagen a ImgBB: {archivo}")
         url_hd = upload_to_imgbb(ruta_completa)
 
-    if os.path.exists(thumb_path):
-        url_thumb_imgbb = upload_to_imgbb(thumb_path)
-
-    # Fallbacks a jsDelivr
+    # CDN Ultrarrápido de Cloudflare/jsDelivr para las miniaturas del repositorio de GitHub
+    jsdelivr_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}"
     fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}"
-    fallback_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}"
 
     final_hd_url = url_hd if url_hd else fallback_hd
-    final_thumb_url = url_thumb_imgbb if url_thumb_imgbb else fallback_thumb
+    final_thumb_url = jsdelivr_thumb  # Servido desde CDN Edge ultra veloz para la cuadrícula
 
     # Detección de Orientación y Colores
     orientation, aspect_ratio = get_orientation_and_ratio(temp_frame if (es_video and temp_frame) else ruta_completa)
