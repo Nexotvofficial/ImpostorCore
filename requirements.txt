@@ -1,0 +1,7 @@
+torch
+torchvision
+Pillow
+opencv-python-headless
+transformers
+pyyaml
+requests
