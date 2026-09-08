@@ -6,12 +6,33 @@ import subprocess
 import cv2
 import requests
 from PIL import Image
+from transformers import pipeline
 
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# URL de la API Gratuita de Clasificación de Imágenes de Hugging Face
-HF_MODEL_URL = "https://api-inference.huggingface.co/models/google/vit-base-patch16-224"
+# Mapeo de descripciones detalladas para guiar a la IA (CLIP)
+category_prompts = {
+    "an anime illustration, manga style, or animated character": "Anime",
+    "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
+    "a natural landscape, forest, mountains, beach, or nature scene": "Naturaleza",
+    "a fantasy concept art, magic, mythical creature, or surreal world": "Fantasía",
+    "a minimalist simple wallpaper with flat colors and minimal details": "Minimalista",
+    "a sports car, luxury vehicle, motorcycle, or automotive": "Autos",
+    "a real world urban city street, buildings, or street photography": "Urbano",
+    "outer space, galaxy, cosmos, nebula, stars, and planets": "Espacio",
+    "an abstract digital art pattern, 3d fluid render, or geometric shape": "Abstracto"
+}
+
+candidate_prompts = list(category_prompts.keys())
+categories_clean = list(category_prompts.values())
+
+print("⏳ Cargando modelo de Clasificación de IA (CLIP)...")
+try:
+    classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32", device=-1)
+except Exception as e:
+    print(f"⚠️ No se pudo cargar el modelo CLIP: {e}. Se asignará categoría por defecto.")
+    classifier = None
 
 def send_discord_notification(total_items, total_vips, total_videos, new_count):
     webhook_url = os.environ.get("DISCORD_WEBHOOK")
@@ -21,39 +42,63 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (Hugging Face Vision AI)",
-            "color": 3447003,
+            "title": "🚀 Wallpaper Pipeline Actualizado",
+            "color": 3447003,  # Azul
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado, analizado por IA y publicado.", "inline": False}
+                {"name": "Estado", "value": "✅ JSON generado y publicado correctamente.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
     }
 
     try:
-        response = requests.post(webhook_url, json=payload)
+        response = requests.post(webhook_url, json=payload, timeout=10)
         if response.status_code in [200, 204]:
             print("✅ Notificación enviada a Discord con éxito.")
+        else:
+            print(f"❌ Error enviando notificación a Discord: {response.status_code}")
     except Exception as e:
-        print(f"❌ Error enviando a Discord: {e}")
+        print(f"❌ Excepción al conectar con Discord: {e}")
 
 def send_onesignal_notification(new_count, latest_item):
     app_id = os.environ.get("ONESIGNAL_APP_ID", "782f3005-fc46-45ab-a98a-f44a07537b65")
     rest_key = os.environ.get("ONESIGNAL_REST_KEY")
 
-    if not rest_key or new_count <= 0 or not latest_item:
-        print("ℹ️ Omitiendo notificación Push de OneSignal.")
+    if not rest_key:
+        print("⚠️ No se encontró ONESIGNAL_REST_KEY, omitiendo notificación Push.")
         return
 
-    titles_es = ["🔥 ¡Tu pantalla merece un cambio!", "✨ ¡Nuevo Fondo Exclusivo!", "🚀 ¡Renueva tu estilo ahora!", "🎨 ¡Nuevos Wallpapers Disponibles!"]
-    titles_en = ["🔥 Upgrade Your Screen Now!", "✨ Exclusive New Wallpaper!", "🚀 Fresh Style Update!", "🎨 New Wallpapers Available!"]
+    if new_count <= 0 or not latest_item:
+        print("ℹ️ No hay ítems nuevos para enviar notificación Push.")
+        return
 
-    msg_es = f"😍 Agregamos '{latest_item.get('title', 'un nuevo fondo')}'. ¡Toca para verlo!" if new_count == 1 else f"⚡ Agregamos {new_count} nuevos fondos HD y AMOLED."
-    msg_en = f"😍 Just added '{latest_item.get('title', 'a new wallpaper')}'. Check it out!" if new_count == 1 else f"⚡ Added {new_count} new HD wallpapers."
+    titles_es = [
+        "🔥 ¡Tu pantalla merece un cambio!",
+        "✨ ¡Nuevo Fondo Exclusivo!",
+        "🚀 ¡Renueva tu estilo ahora!",
+        "🎨 ¡Nuevos Wallpapers Disponibles!"
+    ]
+    
+    titles_en = [
+        "🔥 Upgrade Your Screen Now!",
+        "✨ Exclusive New Wallpaper!",
+        "🚀 Fresh Style Update!",
+        "🎨 New Wallpapers Available!"
+    ]
+
+    selected_title_es = random.choice(titles_es)
+    selected_title_en = random.choice(titles_en)
+
+    if new_count == 1:
+        msg_es = f"😍 Agregamos '{latest_item.get('title', 'un nuevo fondo')}'. ¡Toca para verlo antes que nadie!"
+        msg_en = f"😍 Just added '{latest_item.get('title', 'a new wallpaper')}'. Tap to check it out!"
+    else:
+        msg_es = f"⚡ Agregamos {new_count} nuevos fondos HD y AMOLED. ¡Entra y renueva tu pantalla!"
+        msg_en = f"⚡ Added {new_count} new HD & AMOLED wallpapers. Check them out!"
 
     headers = {
         "Content-Type": "application/json; charset=utf-8",
@@ -63,7 +108,7 @@ def send_onesignal_notification(new_count, latest_item):
     payload = {
         "app_id": app_id,
         "included_segments": ["All"],
-        "headings": {"es": random.choice(titles_es), "en": random.choice(titles_en)},
+        "headings": {"es": selected_title_es, "en": selected_title_en},
         "contents": {"es": msg_es, "en": msg_en},
         "big_picture": latest_item.get("thumbnail", ""),
         "large_icon": latest_item.get("thumbnail", ""),
@@ -75,20 +120,13 @@ def send_onesignal_notification(new_count, latest_item):
     }
 
     try:
-        response = requests.post("https://onesignal.com/api/v1/notifications", headers=headers, json=payload)
+        response = requests.post("https://onesignal.com/api/v1/notifications", headers=headers, json=payload, timeout=10)
         if response.status_code == 200:
             print(f"🚀 Notificación Push enviada a OneSignal con éxito ({new_count} nuevo/s).")
+        else:
+            print(f"❌ Error enviando Push a OneSignal: {response.status_code} - {response.text}")
     except Exception as e:
-        print(f"❌ Error con OneSignal: {e}")
-
-def get_dominant_hex_color(image_path):
-    try:
-        with Image.open(image_path) as img:
-            img = img.convert("RGB").resize((1, 1))
-            color = img.getpixel((0, 0))
-            return f"#{color[0]:02x}{color[1]:02x}{color[2]:02x}"
-    except Exception:
-        return "#121212"
+        print(f"❌ Excepción conectando con OneSignal: {e}")
 
 def optimize_video(input_path):
     temp_path = input_path + ".opt.mp4"
@@ -103,6 +141,7 @@ def optimize_video(input_path):
         subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         os.replace(temp_path, input_path)
     except Exception as e:
+        print(f"Error optimizando video {input_path}: {e}")
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
@@ -126,6 +165,7 @@ def extract_video_frame(video_path, output_jpg):
         cap.release()
         return success
     except Exception as e:
+        print(f"Error extrayendo frame {video_path}: {e}")
         return False
 
 def get_media_info(file_path):
@@ -151,66 +191,33 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def analyze_with_free_ai(file_path, is_video, temp_frame_path=None):
+def analyze_with_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
-        print("  └ Archivo de video detectado -> Categoría automática: Live Video")
-        return {
-            "category": "Live Video",
-            "is_vip": True,
-            "tags": ["live", "video", "animado", "4k", "fondo animado"]
-        }
+        return "Live Video", False
 
-    target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
+    if not classifier:
+        return "Todos", False
 
     try:
-        with open(target_path, "rb") as f:
-            img_bytes = f.read()
+        target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
+        image = Image.open(target_path).convert("RGB")
+        
+        prediction = classifier(image, candidate_labels=candidate_prompts)
+        best_prompt = prediction[0]['label']
+        confidence = prediction[0]['score']
 
-        # Llamada a la API pública y gratuita de Hugging Face
-        response = requests.post(HF_MODEL_URL, data=img_bytes, timeout=12)
+        if confidence < 0.35:
+            best_category = "Abstracto"
+        else:
+            best_category = category_prompts[best_prompt]
 
-        if response.status_code == 200:
-            predictions = response.json()
-            raw_labels = [p.get("label", "").lower() for p in predictions[:5]]
-            top_score = predictions[0].get("score", 0) if predictions else 0
-            combined_labels = " ".join(raw_labels)
-
-            # Mapeo a las categorías de tu app
-            category = "Todos"
-            if any(w in combined_labels for w in ["car", "racer", "sports car", "vehicle", "wheel", "racer"]):
-                category = "Autos"
-            elif any(w in combined_labels for w in ["comic", "cartoon", "anime", "illustration", "manga", "mask"]):
-                category = "Anime"
-            elif any(w in combined_labels for w in ["mountain", "valley", "lake", "forest", "tree", "nature", "landscape", "seashore", "cliff"]):
-                category = "Naturaleza"
-            elif any(w in combined_labels for w in ["space", "astronomy", "star", "galaxy", "planet", "nebula"]):
-                category = "Espacio"
-            elif any(w in combined_labels for w in ["building", "city", "street", "urban", "skyscraper", "tower"]):
-                category = "Urbano"
-            elif any(w in combined_labels for w in ["neon", "cyberpunk", "futuristic", "robot"]):
-                category = "Cyberpunk"
-            elif any(w in combined_labels for w in ["dragon", "monster", "fantasy", "magic"]):
-                category = "Fantasía"
-            elif any(w in combined_labels for w in ["game", "console", "joystick"]):
-                category = "Gaming"
-            elif any(w in combined_labels for w in ["minimal", "simple"]):
-                category = "Minimalista"
-            elif any(w in combined_labels for w in ["abstract", "art", "pattern", "graphics"]):
-                category = "Abstracto"
-
-            # Marcar VIP si la confianza de la detección es muy alta
-            is_vip = top_score > 0.80
-
-            # Convertir etiquetas en tags limpios para la app
-            tags = [label.split(",")[0].strip() for label in raw_labels[:4]]
-
-            print(f"  └ Free AI -> Cat: {category} | VIP: {is_vip} | Tags: {tags}")
-            return {"category": category, "is_vip": is_vip, "tags": tags}
-
+        is_vip_ai = confidence > 0.65
+        
+        print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP: {is_vip_ai}")
+        return best_category, is_vip_ai
     except Exception as e:
-        print(f"  └ Error analizando con Hugging Face: {e}")
-
-    return {"category": "Todos", "is_vip": False, "tags": []}
+        print(f"  └ Error en IA ({e}), asignando categoría por defecto")
+        return "Todos", False
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
@@ -252,7 +259,7 @@ if os.path.exists("wallpapers.json"):
     except Exception as e:
         print(f"⚠️ No se pudo leer wallpapers.json previo: {e}")
 
-categories_list = ["Todos", "Anime", "Cyberpunk", "Naturaleza", "Fantasía", "Minimalista", "Autos", "Urbano", "Espacio", "Abstracto", "Gaming", "Live Video"]
+categories_list = ["Todos"] + categories_clean + ["Live Video"]
 data = {"categories": categories_list, "wallpapers": []}
 
 archivos = [
@@ -260,7 +267,7 @@ archivos = [
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_") and os.path.isfile(os.path.join(folder, f))
 ]
 
-print(f"\nProcesando {len(archivos)} archivos en {folder} con Hugging Face Free Vision AI...\n")
+print(f"\nProcesando {len(archivos)} archivos en {folder}...\n")
 
 new_items = []
 
@@ -273,7 +280,11 @@ for i, archivo in enumerate(archivos):
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
 
-    es_video = archivo.lower().endswith((".mp4", ".webm")) or "live" in archivo.lower() or "lv_" in archivo.lower()
+    es_video = (
+        archivo.lower().endswith((".mp4", ".webm"))
+        or "live" in archivo.lower()
+        or "lv_" in archivo.lower()
+    )
 
     thumb_filename = f"{nombre_base}.webp"
     thumb_path = os.path.join(thumbs_folder, thumb_filename)
@@ -282,19 +293,18 @@ for i, archivo in enumerate(archivos):
     if es_video:
         optimize_video(ruta_completa)
         temp_frame = os.path.join(thumbs_folder, f"temp_{nombre_base}.jpg")
+        
         if extract_video_frame(ruta_completa, temp_frame):
             generate_webp_thumbnail(temp_frame, thumb_path)
-            hex_color = get_dominant_hex_color(temp_frame)
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
-        hex_color = get_dominant_hex_color(ruta_completa)
 
-    ai_data = analyze_with_free_ai(ruta_completa, es_video, temp_frame)
-    
+    cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video, temp_frame)
+
     if temp_frame and os.path.exists(temp_frame):
         os.remove(temp_frame)
 
-    es_vip_final = es_vip_manual or ai_data.get("is_vip", False)
+    es_vip_final = es_vip_manual or is_vip_ai
 
     item_obj = {
         "id": str(i + 1),
@@ -302,9 +312,8 @@ for i, archivo in enumerate(archivos):
         "file_name": archivo,
         "type": "video" if es_video else "image",
         "is_video": es_video,
-        "category": ai_data.get("category", "Todos"),
-        "tags": ai_data.get("tags", []),
-        "color": hex_color,
+        "category": cat_detectada,
+        "color": "blue",
         "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}",
         "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}",
         "resolution": resolucion_real,
@@ -313,6 +322,7 @@ for i, archivo in enumerate(archivos):
 
     data["wallpapers"].append(item_obj)
 
+    # Si el archivo no estaba en el JSON previo, se marca como NUEVO
     if archivo not in existing_file_names:
         new_items.append(item_obj)
 
@@ -325,11 +335,12 @@ print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.
 total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
 total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
 
-# Enviar reporte a Discord
+# 1. Enviar reporte a Discord
 send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
 
-# Enviar Notificación Push a OneSignal si hay archivos nuevos
+# 2. Enviar Notificación Push a OneSignal ÚNICAMENTE si hay archivos NUEVOS
 if len(new_items) > 0:
-    send_onesignal_notification(len(new_items), new_items[-1])
+    ultimo_nuevo = new_items[-1]
+    send_onesignal_notification(len(new_items), ultimo_nuevo)
 else:
-    print("ℹ️ No hay imágenes o videos nuevos en este despliegue. Se omite la notificación Push.")
+    print("ℹ️ No hay imágenes o videos nuevos en este despliegue. Se omite el envío de notificaciones Push.")
