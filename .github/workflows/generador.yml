@@ -37,7 +37,6 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
-      # CACHÉ DEL MODELO IA (Hugging Face)
       - name: Cache de Modelo CLIP Hugging Face
         uses: actions/cache@v4
         with:
@@ -67,5 +66,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/thumbs/
-          git commit -m "Optimización CDN ultra-rápida de imágenes/videos [skip ci]" || echo "Sin cambios para guardar"
+          git commit -m "Actualización automática de catálogo y miniaturas HD [skip ci]" || echo "Sin cambios para guardar"
           git push
