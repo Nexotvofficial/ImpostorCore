@@ -1,7 +1,5 @@
-torch
-torchvision
+google-genai
 Pillow
 opencv-python-headless
-transformers
-pyyaml
 requests
+pyyaml
