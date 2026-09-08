@@ -11,27 +11,41 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Mapeo de descripciones detalladas para guiar a la IA (CLIP)
+# Mapeo de prefijos manuales (Tienen prioridad absoluta sobre la IA)
+PREFIX_MAP = {
+    "an_": "Anime",
+    "cy_": "Cyberpunk",
+    "na_": "Naturaleza",
+    "fa_": "Fantasía",
+    "mi_": "Minimalista",
+    "au_": "Autos",
+    "ur_": "Urbano",
+    "es_": "Espacio",
+    "ab_": "Abstracto"
+}
+
+# Prompts descriptivos optimizados para CLIP (Evitan confusiones con trajes, cosplays y renders 3D)
 category_prompts = {
-    "an anime illustration, manga style, or animated character": "Anime",
-    "a cyberpunk futuristic neon city, sci-fi scene, or high tech": "Cyberpunk",
-    "a natural landscape, forest, mountains, beach, or nature scene": "Naturaleza",
-    "a fantasy concept art, magic, mythical creature, or surreal world": "Fantasía",
-    "a minimalist simple wallpaper with flat colors and minimal details": "Minimalista",
-    "a sports car, luxury vehicle, motorcycle, or automotive": "Autos",
-    "a real world urban city street, buildings, or street photography": "Urbano",
-    "outer space, galaxy, cosmos, nebula, stars, and planets": "Espacio",
-    "an abstract digital art pattern, 3d fluid render, or geometric shape": "Abstracto"
+    "an anime illustration, 2d Japanese animation, manga drawing, or animated character artwork": "Anime",
+    "a cyberpunk futuristic neon city, glowing sci-fi scene, high tech dystopian city": "Cyberpunk",
+    "a realistic natural landscape, green forest, mountains, waterfall, beach, or nature view": "Naturaleza",
+    "a fantasy concept art, mythical dragon, magic spell, dark fantasy monster, or surreal magical world": "Fantasía",
+    "a minimal flat color wallpaper, simple clean background with minimal vectors or isolated object": "Minimalista",
+    "a sports car, super car, luxury vehicle, motorcycle, or automotive photography": "Autos",
+    "a realistic urban city street, real life buildings, architecture, or city photography": "Urbano",
+    "outer space, galaxy, cosmos, nebula, stars, planets, or astronomy photo": "Espacio",
+    "an abstract 3d geometric render, fluid colorful artwork, wallpaper pattern, digital abstract graphics": "Abstracto"
 }
 
 candidate_prompts = list(category_prompts.keys())
 categories_clean = list(category_prompts.values())
 
-print("⏳ Cargando modelo de Clasificación de IA (CLIP)...")
+print("⏳ Cargando modelo de Clasificación de IA de Alta Precisión (CLIP Large)...")
 try:
-    classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-base-patch32", device=-1)
+    # Usamos el modelo Large para máxima precisión de detección
+    classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-large-patch14", device=-1)
 except Exception as e:
-    print(f"⚠️ No se pudo cargar el modelo CLIP: {e}. Se asignará categoría por defecto.")
+    print(f"⚠️ No se pudo cargar el modelo CLIP Large: {e}. Se usará detección por palabras clave/fallback.")
     classifier = None
 
 def send_discord_notification(total_items, total_vips, total_videos, new_count):
@@ -43,7 +57,7 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
     payload = {
         "embeds": [{
             "title": "🚀 Wallpaper Pipeline Actualizado",
-            "color": 3447003,  # Azul
+            "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
@@ -82,7 +96,6 @@ def send_onesignal_notification(new_count, latest_item):
         "🚀 ¡Renueva tu estilo ahora!",
         "🎨 ¡Nuevos Wallpapers Disponibles!"
     ]
-    
     titles_en = [
         "🔥 Upgrade Your Screen Now!",
         "✨ Exclusive New Wallpaper!",
@@ -191,10 +204,18 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def analyze_with_ai(file_path, is_video, temp_frame_path=None):
+def analyze_with_ai(file_name, file_path, is_video, temp_frame_path=None):
     if is_video:
         return "Live Video", False
 
+    # 1. Comprobar si tiene prefijo manual obligatorio
+    fn_lower = file_name.lower()
+    for pref, cat in PREFIX_MAP.items():
+        if fn_lower.startswith(pref) or f"_{pref}" in fn_lower:
+            print(f"  └ Categoría asignada por PREFIJO: {cat}")
+            return cat, fn_lower.startswith("vip_")
+
+    # 2. Análisis mediante IA (CLIP Large)
     if not classifier:
         return "Todos", False
 
@@ -206,17 +227,17 @@ def analyze_with_ai(file_path, is_video, temp_frame_path=None):
         best_prompt = prediction[0]['label']
         confidence = prediction[0]['score']
 
-        if confidence < 0.35:
-            best_category = "Abstracto"
+        # Ajuste de tolerancia
+        if confidence < 0.28:
+            best_category = "Todos"
         else:
             best_category = category_prompts[best_prompt]
 
         is_vip_ai = confidence > 0.65
-        
         print(f"  └ AI Categoría: {best_category} ({round(confidence*100, 1)}%) | VIP: {is_vip_ai}")
         return best_category, is_vip_ai
     except Exception as e:
-        print(f"  └ Error en IA ({e}), asignando categoría por defecto")
+        print(f"  └ Error en IA ({e}), asignando 'Todos'")
         return "Todos", False
 
 def format_title(filename):
@@ -224,7 +245,7 @@ def format_title(filename):
     if name.lower().startswith("vip_"):
         name = name[4:]
 
-    prefixes = ["an_", "cy_", "na_", "fa_", "mi_", "lv_"]
+    prefixes = ["an_", "cy_", "na_", "fa_", "mi_", "au_", "ur_", "es_", "ab_", "lv_"]
     for pref in prefixes:
         if name.lower().startswith(pref):
             name = name[len(pref):]
@@ -293,13 +314,12 @@ for i, archivo in enumerate(archivos):
     if es_video:
         optimize_video(ruta_completa)
         temp_frame = os.path.join(thumbs_folder, f"temp_{nombre_base}.jpg")
-        
         if extract_video_frame(ruta_completa, temp_frame):
             generate_webp_thumbnail(temp_frame, thumb_path)
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
-    cat_detectada, is_vip_ai = analyze_with_ai(ruta_completa, es_video, temp_frame)
+    cat_detectada, is_vip_ai = analyze_with_ai(archivo, ruta_completa, es_video, temp_frame)
 
     if temp_frame and os.path.exists(temp_frame):
         os.remove(temp_frame)
@@ -322,7 +342,6 @@ for i, archivo in enumerate(archivos):
 
     data["wallpapers"].append(item_obj)
 
-    # Si el archivo no estaba en el JSON previo, se marca como NUEVO
     if archivo not in existing_file_names:
         new_items.append(item_obj)
 
@@ -335,10 +354,8 @@ print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.
 total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
 total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
 
-# 1. Enviar reporte a Discord
 send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
 
-# 2. Enviar Notificación Push a OneSignal ÚNICAMENTE si hay archivos NUEVOS
 if len(new_items) > 0:
     ultimo_nuevo = new_items[-1]
     send_onesignal_notification(len(new_items), ultimo_nuevo)
