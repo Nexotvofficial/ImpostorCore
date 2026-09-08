@@ -24,7 +24,7 @@ jobs:
       - name: Descargar codigo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Permite comparar commits para detectar archivos subidos recientemente
+          fetch-depth: 0
 
       - name: Instalar FFmpeg y librerias del sistema
         run: |
@@ -35,13 +35,22 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip' # Acelera las ejecuciones guardando en caché las librerías instaladas
+          cache: 'pip'
 
-      - name: Instalar librerias
+      # CACHÉ DEL MODELO IA (Hugging Face)
+      - name: Cache de Modelo CLIP Hugging Face
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-clip-large-v1
+          restore-keys: |
+            hf-clip-large-
+
+      - name: Instalar librerias de Python
         run: |
           python -m pip install --upgrade pip
           pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-          pip install Pillow opencv-python-headless transformers pyyaml requests
+          pip install Pillow opencv-python-headless transformers pyyaml requests numpy
 
       - name: Ejecutar script generador
         env:
@@ -55,5 +64,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/thumbs/
-          git commit -m "Auto-clasificación IA, miniaturas WebP y Push OneSignal [skip ci]" || echo "Sin cambios para guardar"
+          git commit -m "Auto-clasificación IA con caché y Push OneSignal [skip ci]" || echo "Sin cambios para guardar"
           git push
