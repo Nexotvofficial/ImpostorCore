@@ -6,14 +6,12 @@ import subprocess
 import cv2
 import requests
 from PIL import Image
-from google import genai
 
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Inicializar cliente de Google Gemini
-gemini_key = os.environ.get("GEMINI_API_KEY")
-client = genai.Client(api_key=gemini_key) if gemini_key else None
+# URL de la API Gratuita de Clasificación de Imágenes de Hugging Face
+HF_MODEL_URL = "https://api-inference.huggingface.co/models/google/vit-base-patch16-224"
 
 def send_discord_notification(total_items, total_vips, total_videos, new_count):
     webhook_url = os.environ.get("DISCORD_WEBHOOK")
@@ -23,7 +21,7 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (Google Gemini AI)",
+            "title": "🚀 Wallpaper Pipeline Actualizado (Hugging Face Vision AI)",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
@@ -153,7 +151,7 @@ def get_media_info(file_path):
     except Exception:
         return "1080p Full HD"
 
-def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
+def analyze_with_free_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
         print("  └ Archivo de video detectado -> Categoría automática: Live Video")
         return {
@@ -162,61 +160,57 @@ def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
             "tags": ["live", "video", "animado", "4k", "fondo animado"]
         }
 
-    if not client:
-        print("⚠️ GEMINI_API_KEY no configurada. Asignando valores por defecto.")
-        return {"category": "Todos", "is_vip": False, "tags": []}
+    target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
 
     try:
-        target_path = temp_frame_path if (is_video and temp_frame_path and os.path.exists(temp_frame_path)) else file_path
-        image = Image.open(target_path)
+        with open(target_path, "rb") as f:
+            img_bytes = f.read()
 
-        prompt = """
-        Eres un clasificador experto de fondos de pantalla para una aplicación móvil.
-        Analiza detalladamente la imagen adjunta.
+        # Llamada a la API pública y gratuita de Hugging Face
+        response = requests.post(HF_MODEL_URL, data=img_bytes, timeout=12)
 
-        CATEGORÍAS PERMITIDAS:
-        - Live Video
-        - Anime
-        - Cyberpunk
-        - Naturaleza
-        - Fantasía
-        - Minimalista
-        - Autos
-        - Urbano
-        - Espacio
-        - Abstracto
-        - Gaming
+        if response.status_code == 200:
+            predictions = response.json()
+            raw_labels = [p.get("label", "").lower() for p in predictions[:5]]
+            top_score = predictions[0].get("score", 0) if predictions else 0
+            combined_labels = " ".join(raw_labels)
 
-        REGLAS DE CLASIFICACIÓN EXIGIDAS:
-        1. Selecciona OBLIGATORIAMENTE UNA SOLA categoría de la lista de CATEGORÍAS PERMITIDAS que mejor represente el elemento visual principal de la imagen.
-        2. "is_vip": Asigna true si la ilustración/fotografía tiene un nivel artístico extremadamente alto, efectos de luces complejos, alta densidad visual o estética premium. De lo contrario, false.
-        3. "tags": Genera exactamente entre 3 y 5 etiquetas (palabras clave en español relacionadas con los colores, objetos o estilo visual).
+            # Mapeo a las categorías de tu app
+            category = "Todos"
+            if any(w in combined_labels for w in ["car", "racer", "sports car", "vehicle", "wheel", "racer"]):
+                category = "Autos"
+            elif any(w in combined_labels for w in ["comic", "cartoon", "anime", "illustration", "manga", "mask"]):
+                category = "Anime"
+            elif any(w in combined_labels for w in ["mountain", "valley", "lake", "forest", "tree", "nature", "landscape", "seashore", "cliff"]):
+                category = "Naturaleza"
+            elif any(w in combined_labels for w in ["space", "astronomy", "star", "galaxy", "planet", "nebula"]):
+                category = "Espacio"
+            elif any(w in combined_labels for w in ["building", "city", "street", "urban", "skyscraper", "tower"]):
+                category = "Urbano"
+            elif any(w in combined_labels for w in ["neon", "cyberpunk", "futuristic", "robot"]):
+                category = "Cyberpunk"
+            elif any(w in combined_labels for w in ["dragon", "monster", "fantasy", "magic"]):
+                category = "Fantasía"
+            elif any(w in combined_labels for w in ["game", "console", "joystick"]):
+                category = "Gaming"
+            elif any(w in combined_labels for w in ["minimal", "simple"]):
+                category = "Minimalista"
+            elif any(w in combined_labels for w in ["abstract", "art", "pattern", "graphics"]):
+                category = "Abstracto"
 
-        Responde ÚNICAMENTE un objeto JSON válido, sin formato markdown ni texto adicional:
-        {
-            "category": "Categoría Exacta Elegida",
-            "is_vip": false,
-            "tags": ["etiqueta1", "etiqueta2", "etiqueta3"]
-        }
-        """
+            # Marcar VIP si la confianza de la detección es muy alta
+            is_vip = top_score > 0.80
 
-        response = client.models.generate_content(
-            model='gemini-2.5-flash',
-            contents=[image, prompt]
-        )
+            # Convertir etiquetas en tags limpios para la app
+            tags = [label.split(",")[0].strip() for label in raw_labels[:4]]
 
-        clean_text = response.text.strip()
-        clean_text = re.sub(r"^```json", "", clean_text, flags=re.MULTILINE)
-        clean_text = re.sub(r"^```", "", clean_text, flags=re.MULTILINE).strip()
-
-        result = json.loads(clean_text)
-
-        print(f"  └ Gemini AI -> Cat: {result.get('category')} | VIP: {result.get('is_vip')} | Tags: {result.get('tags')}")
-        return result
+            print(f"  └ Free AI -> Cat: {category} | VIP: {is_vip} | Tags: {tags}")
+            return {"category": category, "is_vip": is_vip, "tags": tags}
 
     except Exception as e:
-        print(f"  └ Error analizando con Google AI: {e}")
-        return {"category": "Todos", "is_vip": False, "tags": []}
+        print(f"  └ Error analizando con Hugging Face: {e}")
+
+    return {"category": "Todos", "is_vip": False, "tags": []}
 
 def format_title(filename):
     name = filename.rsplit(".", 1)[0]
@@ -266,7 +260,7 @@ archivos = [
     if f.lower().endswith(valid_extensions) and not f.startswith("thumb_") and os.path.isfile(os.path.join(folder, f))
 ]
 
-print(f"\nProcesando {len(archivos)} archivos en {folder} con Google Gemini AI...\n")
+print(f"\nProcesando {len(archivos)} archivos en {folder} con Hugging Face Free Vision AI...\n")
 
 new_items = []
 
@@ -295,7 +289,7 @@ for i, archivo in enumerate(archivos):
         generate_webp_thumbnail(ruta_completa, thumb_path)
         hex_color = get_dominant_hex_color(ruta_completa)
 
-    ai_data = analyze_with_google_ai(ruta_completa, es_video, temp_frame)
+    ai_data = analyze_with_free_ai(ruta_completa, es_video, temp_frame)
     
     if temp_frame and os.path.exists(temp_frame):
         os.remove(temp_frame)
