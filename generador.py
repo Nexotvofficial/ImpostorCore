@@ -6,6 +6,8 @@ import subprocess
 import cv2
 import requests
 import base64
+import hashlib
+import time
 import numpy as np
 from PIL import Image
 from transformers import pipeline
@@ -13,7 +15,7 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Claves API obtenidas de tus paneles
+# Claves API obtenidas de variables de entorno
 IMGBB_API_KEY = os.environ.get("IMGBB_API_KEY", "4b0b73663ee43670cab4cec476709bb4")
 PUBLITIO_KEY = os.environ.get("PUBLITIO_KEY", "tyvWN2nvwQDsPRi7yyg7")
 PUBLITIO_SECRET = os.environ.get("PUBLITIO_SECRET", "D8Gj1ASvQtH0x21sP6N7bQT0A98brmVQ")
@@ -79,24 +81,34 @@ def upload_to_imgbb(file_path):
         return None
 
 def upload_video_to_publitio(file_path):
-    """Subida remota directa a Publit.io para videos MP4/WebM"""
+    """Subida remota directa a Publit.io para videos MP4/WebM con firma SHA-1"""
     if not os.path.exists(file_path):
         return None
     try:
+        timestamp = str(int(time.time()))
+        nonce = str(random.randint(10000000, 99999999))
+        
+        # Generar firma SHA-1 requerida por la API de Publit.io
+        str_to_sign = f"{timestamp}{nonce}{PUBLITIO_SECRET}"
+        signature = hashlib.sha1(str_to_sign.encode('utf-8')).hexdigest()
+        
         url = "https://api.publit.io/v1/files/create"
         params = {
             "api_key": PUBLITIO_KEY,
-            "api_secret": PUBLITIO_SECRET,
+            "api_timestamp": timestamp,
+            "api_nonce": nonce,
+            "api_signature": signature,
             "privacy": "1"
         }
+        
         with open(file_path, "rb") as video_file:
             files = {"file": video_file}
-            response = requests.post(url, params=params, files=files, timeout=120)
+            response = requests.post(url, params=params, files=files, timeout=180)
             res_data = response.json()
             if res_data.get("success"):
                 return res_data.get("url")
             else:
-                print(f"⚠️ Error Publit.io en {os.path.basename(file_path)}: {res_data.get('error', {}).get('message')}")
+                print(f"⚠️ Error Publit.io en {os.path.basename(file_path)}: {res_data}")
                 return None
     except Exception as e:
         print(f"⚠️ Excepción subiendo video a Publit.io: {e}")
