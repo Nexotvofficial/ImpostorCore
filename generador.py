@@ -165,14 +165,14 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (Ultra-Fast CDN)",
+            "title": "🚀 Wallpaper Pipeline Actualizado (HD Quality)",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ Miniaturas optimizadas y enlaces CDN ultrarrápidos listos.", "inline": False}
+                {"name": "Estado", "value": "✅ Miniaturas en alta definición y URLs procesadas.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -211,13 +211,13 @@ def send_onesignal_notification(new_count, latest_item):
         pass
 
 def optimize_video(input_path):
-    """Optimización de video con faststart habilitado para streaming instantáneo"""
+    """Optimización de video manteniendo resolución con reproducción fluida"""
     temp_path = input_path + ".opt.mp4"
     command = [
         "ffmpeg", "-y", "-i", input_path,
         "-vf", "scale='min(1080,iw)':-2",
-        "-c:v", "libx264", "-crf", "26", "-preset", "fast",
-        "-movflags", "+faststart",  # <--- PERMITE REPRODUCCIÓN INSTANTÁNEA EN LA APP
+        "-c:v", "libx264", "-crf", "24", "-preset", "fast",
+        "-movflags", "+faststart",
         "-c:a", "aac", "-b:a", "128k",
         temp_path
     ]
@@ -228,13 +228,13 @@ def optimize_video(input_path):
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-def generate_webp_thumbnail(file_path, output_webp_path, max_size=(360, 640)):
-    """Genera miniaturas ultraligeras WebP (20-30KB) para que la cuadrícula de la app vuele"""
+def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
+    """Genera miniaturas HD WebP de alta fidelidad visual"""
     try:
         with Image.open(file_path) as img:
             img = img.convert("RGB")
             img.thumbnail(max_size, Image.Resampling.LANCZOS)
-            img.save(output_webp_path, "WEBP", quality=65, method=6)
+            img.save(output_webp_path, "WEBP", quality=85, optimize=True)
             return True
     except Exception:
         return False
@@ -244,7 +244,7 @@ def extract_video_frame(video_path, output_jpg):
         cap = cv2.VideoCapture(video_path)
         success, frame = cap.read()
         if success:
-            cv2.imwrite(output_jpg, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
+            cv2.imwrite(output_jpg, frame, [int(cv2.IMWRITE_JPEG_QUALITY), 95])
         cap.release()
         return success
     except Exception:
@@ -368,6 +368,8 @@ for i, archivo in enumerate(archivos):
 
     # Subidas según el tipo de archivo
     url_hd = None
+    url_thumb_imgbb = None
+
     if es_video:
         print(f"🎬 Subiendo video a Publit.io: {archivo}")
         url_hd = upload_video_to_publitio(ruta_completa)
@@ -375,65 +377,9 @@ for i, archivo in enumerate(archivos):
         print(f"📤 Subiendo imagen a ImgBB: {archivo}")
         url_hd = upload_to_imgbb(ruta_completa)
 
-    # CDN Ultrarrápido de Cloudflare/jsDelivr para las miniaturas del repositorio de GitHub
-    jsdelivr_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}"
+    if os.path.exists(thumb_path):
+        url_thumb_imgbb = upload_to_imgbb(thumb_path)
+
+    # Fallbacks a jsDelivr
     fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}"
-
-    final_hd_url = url_hd if url_hd else fallback_hd
-    final_thumb_url = jsdelivr_thumb  # Servido desde CDN Edge ultra veloz para la cuadrícula
-
-    # Detección de Orientación y Colores
-    orientation, aspect_ratio = get_orientation_and_ratio(temp_frame if (es_video and temp_frame) else ruta_completa)
-    hex_color, is_amoled = extract_dominant_color_and_amoled(temp_frame if (es_video and temp_frame) else ruta_completa)
-
-    # Análisis con IA (Tags y Aesthetic Score)
-    cat_detectada, is_vip_ai, tags, aesthetic_score = analyze_with_ai(archivo, ruta_completa, es_video, temp_frame)
-
-    if temp_frame and os.path.exists(temp_frame):
-        os.remove(temp_frame)
-
-    es_vip_final = bool(es_vip_manual or is_vip_ai)
-
-    item_obj = {
-        "id": str(i + 1),
-        "title": titulo_bonito,
-        "file_name": archivo,
-        "type": "video" if es_video else "image",
-        "is_video": es_video,
-        "category": cat_detectada,
-        "tags": tags,
-        "color": hex_color,
-        "is_amoled": is_amoled,
-        "orientation": orientation,
-        "aspect_ratio": aspect_ratio,
-        "aesthetic_score": aesthetic_score,
-        "thumbnail": final_thumb_url,
-        "hd_url": final_hd_url,
-        "resolution": resolucion_real,
-        "is_vip": es_vip_final
-    }
-
-    data["wallpapers"].append(item_obj)
-
-    if archivo not in existing_file_names:
-        new_items.append(item_obj)
-
-# Guardar catálogo con conversor seguro de tipos de NumPy
-with open("wallpapers.json", "w", encoding="utf-8") as f:
-    json.dump(
-        data, 
-        f, 
-        indent=2, 
-        ensure_ascii=False, 
-        default=lambda x: x.item() if hasattr(x, 'item') else str(x)
-    )
-
-print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
-
-total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
-total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
-
-send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
-
-if len(new_items) > 0:
-    send_onesignal_notification(len(new_items), new_items[-1])
+    fallback_thumb = f"
