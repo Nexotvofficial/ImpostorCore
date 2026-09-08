@@ -67,5 +67,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/thumbs/
-          git commit -m "Auto-clasificación IA, subida Publit.io/ImgBB y Push OneSignal [skip ci]" || echo "Sin cambios para guardar"
+          git commit -m "Optimización CDN ultra-rápida de imágenes/videos [skip ci]" || echo "Sin cambios para guardar"
           git push
