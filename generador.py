@@ -15,7 +15,6 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Claves API obtenidas de variables de entorno
 IMGBB_API_KEY = os.environ.get("IMGBB_API_KEY", "4b0b73663ee43670cab4cec476709bb4")
 PUBLITIO_KEY = os.environ.get("PUBLITIO_KEY", "tyvWN2nvwQDsPRi7yyg7")
 PUBLITIO_SECRET = os.environ.get("PUBLITIO_SECRET", "D8Gj1ASvQtH0x21sP6N7bQT0A98brmVQ")
@@ -52,7 +51,7 @@ tag_prompts = [
 candidate_prompts = list(category_prompts.keys())
 categories_clean = list(category_prompts.values())
 
-print("⏳ Cargando modelo de Clasificación de IA de Alta Precisión (CLIP Large)...")
+print("⏳ Cargando modelo de Clasificación de IA (CLIP Large)...")
 try:
     classifier = pipeline("zero-shot-image-classification", model="openai/clip-vit-large-patch14", device=-1)
 except Exception as e:
@@ -60,7 +59,6 @@ except Exception as e:
     classifier = None
 
 def upload_to_imgbb(file_path):
-    """Subida remota directa a ImgBB para imágenes"""
     if not os.path.exists(file_path):
         return None
     try:
@@ -81,7 +79,6 @@ def upload_to_imgbb(file_path):
         return None
 
 def upload_video_to_publitio(file_path):
-    """Subida remota directa a Publit.io para videos MP4/WebM con firma SHA-1"""
     if not os.path.exists(file_path):
         return None
     try:
@@ -165,16 +162,16 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (HD Quality)",
+            "title": "🚀 Wallpaper Pipeline Actualizado",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ Miniaturas en alta definición y URLs procesadas.", "inline": False}
+                {"name": "Estado", "value": "✅ Miniaturas en alta definición generadas con éxito.", "inline": False}
             ],
-            "footer": {"text": "ImpostorCore Auto-System"}
+            "footer": {"text": "WallpapersHD System"}
         }]
     }
     try:
@@ -211,7 +208,6 @@ def send_onesignal_notification(new_count, latest_item):
         pass
 
 def optimize_video(input_path):
-    """Optimización de video manteniendo resolución con reproducción fluida"""
     temp_path = input_path + ".opt.mp4"
     command = [
         "ffmpeg", "-y", "-i", input_path,
@@ -229,7 +225,6 @@ def optimize_video(input_path):
             os.remove(temp_path)
 
 def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
-    """Genera miniaturas HD WebP de alta fidelidad visual"""
     try:
         with Image.open(file_path) as img:
             img = img.convert("RGB")
@@ -314,7 +309,6 @@ def format_title(filename):
     title = " ".join(name.split()).title()
     return title if title else "Wallpaper"
 
-# Creación de carpetas
 os.makedirs(folder, exist_ok=True)
 os.makedirs(thumbs_folder, exist_ok=True)
 
@@ -366,7 +360,6 @@ for i, archivo in enumerate(archivos):
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
-    # Subidas según el tipo de archivo
     url_hd = None
     url_thumb_imgbb = None
 
@@ -380,6 +373,61 @@ for i, archivo in enumerate(archivos):
     if os.path.exists(thumb_path):
         url_thumb_imgbb = upload_to_imgbb(thumb_path)
 
-    # Fallbacks a jsDelivr
-    fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}"
-    fallback_thumb = f"
+    fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/WallpapersHD@main/img/{url_archivo}"
+    fallback_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/WallpapersHD@main/img/thumbs/{thumb_filename}"
+
+    final_hd_url = url_hd if url_hd else fallback_hd
+    final_thumb_url = url_thumb_imgbb if url_thumb_imgbb else fallback_thumb
+
+    orientation, aspect_ratio = get_orientation_and_ratio(temp_frame if (es_video and temp_frame) else ruta_completa)
+    hex_color, is_amoled = extract_dominant_color_and_amoled(temp_frame if (es_video and temp_frame) else ruta_completa)
+
+    cat_detectada, is_vip_ai, tags, aesthetic_score = analyze_with_ai(archivo, ruta_completa, es_video, temp_frame)
+
+    if temp_frame and os.path.exists(temp_frame):
+        os.remove(temp_frame)
+
+    es_vip_final = bool(es_vip_manual or is_vip_ai)
+
+    item_obj = {
+        "id": str(i + 1),
+        "title": titulo_bonito,
+        "file_name": archivo,
+        "type": "video" if es_video else "image",
+        "is_video": es_video,
+        "category": cat_detectada,
+        "tags": tags,
+        "color": hex_color,
+        "is_amoled": is_amoled,
+        "orientation": orientation,
+        "aspect_ratio": aspect_ratio,
+        "aesthetic_score": aesthetic_score,
+        "thumbnail": final_thumb_url,
+        "hd_url": final_hd_url,
+        "resolution": resolucion_real,
+        "is_vip": es_vip_final
+    }
+
+    data["wallpapers"].append(item_obj)
+
+    if archivo not in existing_file_names:
+        new_items.append(item_obj)
+
+with open("wallpapers.json", "w", encoding="utf-8") as f:
+    json.dump(
+        data, 
+        f, 
+        indent=2, 
+        ensure_ascii=False, 
+        default=lambda x: x.item() if hasattr(x, 'item') else str(x)
+    )
+
+print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
+
+total_vips = sum(1 for w in data["wallpapers"] if w.get("is_vip"))
+total_videos = sum(1 for w in data["wallpapers"] if w.get("is_video"))
+
+send_discord_notification(len(data["wallpapers"]), total_vips, total_videos, len(new_items))
+
+if len(new_items) > 0:
+    send_onesignal_notification(len(new_items), new_items[-1])
