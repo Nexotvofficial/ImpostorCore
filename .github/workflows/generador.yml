@@ -54,6 +54,9 @@ jobs:
 
       - name: Ejecutar script generador
         env:
+          IMGBB_API_KEY: ${{ secrets.IMGBB_API_KEY }}
+          PUBLITIO_KEY: ${{ secrets.PUBLITIO_KEY }}
+          PUBLITIO_SECRET: ${{ secrets.PUBLITIO_SECRET }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
           ONESIGNAL_REST_KEY: ${{ secrets.ONESIGNAL_REST_KEY }}
@@ -64,5 +67,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add wallpapers.json img/thumbs/
-          git commit -m "Auto-clasificación IA con caché y Push OneSignal [skip ci]" || echo "Sin cambios para guardar"
+          git commit -m "Auto-clasificación IA, subida Publit.io/ImgBB y Push OneSignal [skip ci]" || echo "Sin cambios para guardar"
           git push
