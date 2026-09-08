@@ -169,7 +169,7 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ Miniaturas en alta definición generadas con éxito.", "inline": False}
+                {"name": "Estado", "value": "✅ Miniaturas optimizadas generadas con éxito.", "inline": False}
             ],
             "footer": {"text": "WallpapersHD System"}
         }]
@@ -224,12 +224,12 @@ def optimize_video(input_path):
         if os.path.exists(temp_path):
             os.remove(temp_path)
 
-def generate_webp_thumbnail(file_path, output_webp_path, max_size=(720, 1280)):
+def generate_webp_thumbnail(file_path, output_webp_path, max_size=(480, 854)):
     try:
         with Image.open(file_path) as img:
             img = img.convert("RGB")
             img.thumbnail(max_size, Image.Resampling.LANCZOS)
-            img.save(output_webp_path, "WEBP", quality=85, optimize=True)
+            img.save(output_webp_path, "WEBP", quality=80, optimize=True)
             return True
     except Exception:
         return False
@@ -398,6 +398,7 @@ for i, archivo in enumerate(archivos):
         "category": cat_detectada,
         "tags": tags,
         "color": hex_color,
+        "color_hex": hex_color, # AÑADIDO PARA LA INTERFAZ HTML
         "is_amoled": is_amoled,
         "orientation": orientation,
         "aspect_ratio": aspect_ratio,
