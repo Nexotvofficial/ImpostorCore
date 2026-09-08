@@ -155,7 +155,12 @@ def get_media_info(file_path):
 
 def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
     if is_video:
-        return {"category": "Live Video", "is_vip": True, "tags": ["live", "video", "animado"]}
+        print("  └ Archivo de video detectado -> Categoría automática: Live Video")
+        return {
+            "category": "Live Video",
+            "is_vip": True,
+            "tags": ["live", "video", "animado", "4k", "fondo animado"]
+        }
 
     if not client:
         print("⚠️ GEMINI_API_KEY no configurada. Asignando valores por defecto.")
@@ -166,12 +171,32 @@ def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
         image = Image.open(target_path)
 
         prompt = """
-        Analiza esta imagen para un catálogo de fondos de pantalla (wallpapers).
-        Responde ÚNICAMENTE un JSON estricto sin bloques markdown:
+        Eres un clasificador experto de fondos de pantalla para una aplicación móvil.
+        Analiza detalladamente la imagen adjunta.
+
+        CATEGORÍAS PERMITIDAS:
+        - Live Video
+        - Anime
+        - Cyberpunk
+        - Naturaleza
+        - Fantasía
+        - Minimalista
+        - Autos
+        - Urbano
+        - Espacio
+        - Abstracto
+        - Gaming
+
+        REGLAS DE CLASIFICACIÓN EXIGIDAS:
+        1. Selecciona OBLIGATORIAMENTE UNA SOLA categoría de la lista de CATEGORÍAS PERMITIDAS que mejor represente el elemento visual principal de la imagen.
+        2. "is_vip": Asigna true si la ilustración/fotografía tiene un nivel artístico extremadamente alto, efectos de luces complejos, alta densidad visual o estética premium. De lo contrario, false.
+        3. "tags": Genera exactamente entre 3 y 5 etiquetas (palabras clave en español relacionadas con los colores, objetos o estilo visual).
+
+        Responde ÚNICAMENTE un objeto JSON válido, sin formato markdown ni texto adicional:
         {
-            "category": "Selecciona UNA sola de estas opciones exactas: [Anime, Cyberpunk, Naturaleza, Fantasía, Minimalista, Autos, Urbano, Espacio, Abstracto, Gaming]",
-            "is_vip": true o false (true si la calidad artística, resolución o nivel de detalle es extremadamente alto),
-            "tags": ["tag1", "tag2", "tag3"] (3 a 5 palabras clave sobre elementos visuales en español)
+            "category": "Categoría Exacta Elegida",
+            "is_vip": false,
+            "tags": ["etiqueta1", "etiqueta2", "etiqueta3"]
         }
         """
 
@@ -180,11 +205,15 @@ def analyze_with_google_ai(file_path, is_video, temp_frame_path=None):
             contents=[image, prompt]
         )
 
-        clean_json = response.text.strip().replace("```json", "").replace("```", "").strip()
-        result = json.loads(clean_json)
+        clean_text = response.text.strip()
+        clean_text = re.sub(r"^```json", "", clean_text, flags=re.MULTILINE)
+        clean_text = re.sub(r"^```", "", clean_text, flags=re.MULTILINE).strip()
 
-        print(f"  └ Google AI -> Cat: {result.get('category')} | VIP: {result.get('is_vip')} | Tags: {result.get('tags')}")
+        result = json.loads(clean_text)
+
+        print(f"  └ Gemini AI -> Cat: {result.get('category')} | VIP: {result.get('is_vip')} | Tags: {result.get('tags')}")
         return result
+
     except Exception as e:
         print(f"  └ Error analizando con Google AI: {e}")
         return {"category": "Todos", "is_vip": False, "tags": []}
