@@ -10,6 +10,7 @@
     "Urbano",
     "Espacio",
     "Abstracto",
+    "Gaming",
     "Live Video"
   ],
   "wallpapers": [
@@ -19,12 +20,13 @@
       "file_name": "paisaje-minecraft-arbol-de-cerezo_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#6d666a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/paisaje-minecraft-arbol-de-cerezo_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/paisaje-minecraft-arbol-de-cerezo_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "2",
@@ -32,12 +34,13 @@
       "file_name": "planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#5e6d69",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/planeta-en-el-cielo-rodeado-de-montanas-y-un-valle-v2_8192x4560_xtrafondos.com.jpg",
       "resolution": "8K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "3",
@@ -45,8 +48,9 @@
       "file_name": "spider-man-no-way-home-traje-negro-con-dorado_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#36311e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-no-way-home-traje-negro-con-dorado_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-no-way-home-traje-negro-con-dorado_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -58,12 +62,13 @@
       "file_name": "luffy-gear-5-nika-dios-del-sol_1590x2812_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#948cc7",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/luffy-gear-5-nika-dios-del-sol_1590x2812_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-gear-5-nika-dios-del-sol_1590x2812_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "5",
@@ -71,12 +76,13 @@
       "file_name": "rick-y-morty_2540x4500_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#8a69a4",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/rick-y-morty_2540x4500_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/rick-y-morty_2540x4500_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "6",
@@ -84,12 +90,13 @@
       "file_name": "cyberpunk-hombre-arana-fanart_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#273f53",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/cyberpunk-hombre-arana-fanart_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/cyberpunk-hombre-arana-fanart_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "7",
@@ -97,12 +104,13 @@
       "file_name": "ciri-the-witcher-3-cosplay_1450x2559_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#6c6d66",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/ciri-the-witcher-3-cosplay_1450x2559_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/ciri-the-witcher-3-cosplay_1450x2559_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "8",
@@ -110,8 +118,9 @@
       "file_name": "deadpool-y-wolverine-pelicula_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#76401d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/deadpool-y-wolverine-pelicula_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/deadpool-y-wolverine-pelicula_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -123,12 +132,13 @@
       "file_name": "el-hombre-arana-2099-3x_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Abstracto",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#35333a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/el-hombre-arana-2099-3x_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/el-hombre-arana-2099-3x_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "10",
@@ -136,8 +146,9 @@
       "file_name": "spider-man-en-la-ciudad-cosplay_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#454869",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-en-la-ciudad-cosplay_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-en-la-ciudad-cosplay_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -150,7 +161,12 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#554334",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/vip_Chainsawman_Girl.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_Chainsawman_Girl.mp4",
       "resolution": "1080p Full HD",
@@ -162,12 +178,13 @@
       "file_name": "batman_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4e4433",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/batman_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/batman_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "13",
@@ -175,12 +192,13 @@
       "file_name": "goku_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#48172e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/goku_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/goku_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "14",
@@ -188,8 +206,9 @@
       "file_name": "watch-dogs-legion-personajes-mascara_3910x6912_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#74555a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara_3910x6912_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara_3910x6912_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -201,12 +220,13 @@
       "file_name": "luffy-de-one-piece_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#65667f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/luffy-de-one-piece_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-de-one-piece_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "16",
@@ -214,8 +234,9 @@
       "file_name": "la-odisea-pelicula-2026-reeditado_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#1b3346",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/la-odisea-pelicula-2026-reeditado_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/la-odisea-pelicula-2026-reeditado_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -227,12 +248,13 @@
       "file_name": "chica-anime-rosa-pink-kiwi_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#7b234e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/chica-anime-rosa-pink-kiwi_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/chica-anime-rosa-pink-kiwi_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "18",
@@ -241,11 +263,16 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#22131c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/lv_Ojos_Red.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Ojos_Red.mp4",
       "resolution": "1080p Full HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "19",
@@ -253,8 +280,9 @@
       "file_name": "astronauta-cayendo_2440x4321_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#7b4d6e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/astronauta-cayendo_2440x4321_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/astronauta-cayendo_2440x4321_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -266,12 +294,13 @@
       "file_name": "kyojuro-flame-hashira_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#3f2b20",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/kyojuro-flame-hashira_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/kyojuro-flame-hashira_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "21",
@@ -279,12 +308,13 @@
       "file_name": "spider-man-miles-morales_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#948081",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-miles-morales_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-miles-morales_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "22",
@@ -293,7 +323,12 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#000000",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/vip_Your_Name.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_Your_Name.mp4",
       "resolution": "1080p Full HD",
@@ -305,8 +340,9 @@
       "file_name": "snoopy-caminando-en-ruta-sobre-montanas_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#62786c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/snoopy-caminando-en-ruta-sobre-montanas_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/snoopy-caminando-en-ruta-sobre-montanas_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
@@ -318,12 +354,13 @@
       "file_name": "samurai-futurista-con-luces-en-katana-y-armadura_3090x5472_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#464465",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/samurai-futurista-con-luces-en-katana-y-armadura_3090x5472_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/samurai-futurista-con-luces-en-katana-y-armadura_3090x5472_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "25",
@@ -331,12 +368,13 @@
       "file_name": "kishibe-chainsaw-man_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#45685a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/kishibe-chainsaw-man_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/kishibe-chainsaw-man_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "26",
@@ -344,12 +382,13 @@
       "file_name": "an_dabi-de-my-hero-academia.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#71112b",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/an_dabi-de-my-hero-academia.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_dabi-de-my-hero-academia.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "27",
@@ -357,12 +396,13 @@
       "file_name": "samurai-futurista-con-katana-y-luces-en-armadura_3090x5472_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#425565",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/samurai-futurista-con-katana-y-luces-en-armadura_3090x5472_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/samurai-futurista-con-katana-y-luces-en-armadura_3090x5472_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "28",
@@ -370,12 +410,13 @@
       "file_name": "spider-man_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#55393b",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "29",
@@ -383,12 +424,13 @@
       "file_name": "denji-de-chainsaw-man_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#56464c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/denji-de-chainsaw-man_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/denji-de-chainsaw-man_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "30",
@@ -396,8 +438,9 @@
       "file_name": "miles-morales-spider-man-3d_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#492625",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/miles-morales-spider-man-3d_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/miles-morales-spider-man-3d_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -410,11 +453,16 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#849095",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/stitch-pelicula-2025-live-action_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/stitch-pelicula-2025-live-action_2440x4320_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "32",
@@ -422,8 +470,9 @@
       "file_name": "miles-morales-spider-man-across-the-spider-verse-movie_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#3d2b3d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/miles-morales-spider-man-across-the-spider-verse-movie_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/miles-morales-spider-man-across-the-spider-verse-movie_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
@@ -435,8 +484,9 @@
       "file_name": "vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4f2a33",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru-gojo-unleashed-power-of-the-six-eyes-de-jjk.jpg",
       "resolution": "2K Quad HD",
@@ -448,12 +498,13 @@
       "file_name": "olas-en-la-playa-al-atardecer_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Naturaleza",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#86715f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/olas-en-la-playa-al-atardecer_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/olas-en-la-playa-al-atardecer_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "35",
@@ -461,8 +512,9 @@
       "file_name": "cerezo-a-la-luz-de-la-noche_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#6d2c59",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/cerezo-a-la-luz-de-la-noche_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/cerezo-a-la-luz-de-la-noche_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -474,12 +526,13 @@
       "file_name": "an_itachi-uchiha-de-anime-naruto.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#461922",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/an_itachi-uchiha-de-anime-naruto.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_itachi-uchiha-de-anime-naruto.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "37",
@@ -487,12 +540,13 @@
       "file_name": "logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#92403f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/logo-de-one-piece-en-mancha-de-pintura-roja_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "38",
@@ -500,12 +554,13 @@
       "file_name": "chimuelo-furia-nocturna-de-como-entrenar-a-tu-dragon_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#222622",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/chimuelo-furia-nocturna-de-como-entrenar-a-tu-dragon_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/chimuelo-furia-nocturna-de-como-entrenar-a-tu-dragon_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "39",
@@ -513,8 +568,9 @@
       "file_name": "spider-man-2099-oscuro_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#19131c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-2099-oscuro_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-2099-oscuro_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -527,7 +583,12 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#000000",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/vip_Jujutsu_Kaisen_4K.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_Jujutsu_Kaisen_4K.mp4",
       "resolution": "1080p Full HD",
@@ -539,8 +600,9 @@
       "file_name": "deadpool_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Minimalista",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#6b464d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/deadpool_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/deadpool_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -552,12 +614,13 @@
       "file_name": "akaza-de-kimetsu-no-yaiba_1620x2870_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4b2d3d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/akaza-de-kimetsu-no-yaiba_1620x2870_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/akaza-de-kimetsu-no-yaiba_1620x2870_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "43",
@@ -565,12 +628,13 @@
       "file_name": "spider-man-ps5-juego_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#672a33",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-ps5-juego_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-ps5-juego_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "44",
@@ -578,12 +642,13 @@
       "file_name": "watch-dogs-legion-personajes-mascara-london-big-ben_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#524b65",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara-london-big-ben_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara-london-big-ben_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "45",
@@ -591,12 +656,13 @@
       "file_name": "goku-monkey-d-luffy-y-naruto-en-jump-force_3960x7016_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#54696c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/goku-monkey-d-luffy-y-naruto-en-jump-force_3960x7016_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/goku-monkey-d-luffy-y-naruto-en-jump-force_3960x7016_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "46",
@@ -604,12 +670,13 @@
       "file_name": "luffy-de-one-piece_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#a2665c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/luffy-de-one-piece_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luffy-de-one-piece_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "47",
@@ -617,12 +684,13 @@
       "file_name": "leon-resident-evil-4-remake_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#2c160e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/leon-resident-evil-4-remake_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/leon-resident-evil-4-remake_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "48",
@@ -630,12 +698,13 @@
       "file_name": "snoopy-y-pajarito-woodstock-emilio-en-jardin_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#a8a560",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/snoopy-y-pajarito-woodstock-emilio-en-jardin_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/snoopy-y-pajarito-woodstock-emilio-en-jardin_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "49",
@@ -643,12 +712,13 @@
       "file_name": "paisaje-digital-en-atardecer_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#58347e",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/paisaje-digital-en-atardecer_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/paisaje-digital-en-atardecer_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "50",
@@ -656,8 +726,9 @@
       "file_name": "paisaje-luna-vista-desde-planeta_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Abstracto",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#212222",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/paisaje-luna-vista-desde-planeta_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/paisaje-luna-vista-desde-planeta_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -669,12 +740,13 @@
       "file_name": "minion-potter_900x1600_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4f4637",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/minion-potter_900x1600_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/minion-potter_900x1600_xtrafondos.com.jpg",
       "resolution": "720p HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "52",
@@ -682,8 +754,9 @@
       "file_name": "luz-de-neon-roja-sobre-muro-oscuro-minimalista_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Minimalista",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#66070a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/luz-de-neon-roja-sobre-muro-oscuro-minimalista_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/luz-de-neon-roja-sobre-muro-oscuro-minimalista_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -695,12 +768,13 @@
       "file_name": "puente-en-el-mar_610x1080_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Naturaleza",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#686f7d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/puente-en-el-mar_610x1080_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/puente-en-el-mar_610x1080_xtrafondos.com.jpg",
       "resolution": "SD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "54",
@@ -708,12 +782,13 @@
       "file_name": "demon-slayer-kyojuro-rengoku-vs-akaza_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#9d693a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/demon-slayer-kyojuro-rengoku-vs-akaza_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/demon-slayer-kyojuro-rengoku-vs-akaza_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "55",
@@ -722,11 +797,16 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#726c6a",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/lv_Hiyuki_4k.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_Hiyuki_4k.mp4",
       "resolution": "1080p Full HD",
-      "is_vip": false
+      "is_vip": true
     },
     {
       "id": "56",
@@ -734,8 +814,9 @@
       "file_name": "gta-6-portada_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Abstracto",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#8c768d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/gta-6-portada_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/gta-6-portada_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
@@ -747,8 +828,9 @@
       "file_name": "casa-en-el-campo-anime_2580x4560_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#6c848b",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/casa-en-el-campo-anime_2580x4560_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/casa-en-el-campo-anime_2580x4560_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -760,12 +842,13 @@
       "file_name": "an_makima-de-chainsaw-man_.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#462f3d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/an_makima-de-chainsaw-man_.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_makima-de-chainsaw-man_.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "59",
@@ -773,12 +856,13 @@
       "file_name": "spider-man-ps4_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#891317",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/spider-man-ps4_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/spider-man-ps4_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "60",
@@ -786,12 +870,13 @@
       "file_name": "toy-story-4-woody-y-forky_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#11284d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/toy-story-4-woody-y-forky_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/toy-story-4-woody-y-forky_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "61",
@@ -799,12 +884,13 @@
       "file_name": "lamborghini-aventador-roadster-xago-edition_2920x5160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Autos",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#2b212f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/lamborghini-aventador-roadster-xago-edition_2920x5160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lamborghini-aventador-roadster-xago-edition_2920x5160_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "62",
@@ -812,8 +898,9 @@
       "file_name": "hermoso-atardecer-en-la-playa_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Naturaleza",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#7f5c66",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/hermoso-atardecer-en-la-playa_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/hermoso-atardecer-en-la-playa_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
@@ -825,12 +912,13 @@
       "file_name": "supra-forgestar-wheels-rojo_3000x5304_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Autos",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#69534c",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/supra-forgestar-wheels-rojo_3000x5304_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/supra-forgestar-wheels-rojo_3000x5304_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "64",
@@ -838,8 +926,9 @@
       "file_name": "el-hombre-arana-y-doctor-strange-en-sin-camino-a-casa_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#907b7f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/el-hombre-arana-y-doctor-strange-en-sin-camino-a-casa_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/el-hombre-arana-y-doctor-strange-en-sin-camino-a-casa_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
@@ -851,12 +940,13 @@
       "file_name": "chica-con-katana-a-la-luz-de-la-luna_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#2c3140",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/chica-con-katana-a-la-luz-de-la-luna_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/chica-con-katana-a-la-luz-de-la-luna_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "66",
@@ -864,12 +954,13 @@
       "file_name": "the-legend-of-zelda-minimalista_2540x4500_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#22211d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/the-legend-of-zelda-minimalista_2540x4500_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/the-legend-of-zelda-minimalista_2540x4500_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "67",
@@ -877,12 +968,13 @@
       "file_name": "choso-de-jjk_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#0c2c29",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/choso-de-jjk_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/choso-de-jjk_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "68",
@@ -890,12 +982,13 @@
       "file_name": "personajes-de-hora-de-aventura_1220x2160_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#7d4e36",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/personajes-de-hora-de-aventura_1220x2160_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/personajes-de-hora-de-aventura_1220x2160_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "69",
@@ -903,12 +996,13 @@
       "file_name": "an_akaza_de_kimetsu_no_yaiba.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#120b35",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/an_akaza_de_kimetsu_no_yaiba.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/an_akaza_de_kimetsu_no_yaiba.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "70",
@@ -916,8 +1010,9 @@
       "file_name": "silueta-de-arboles-en-ambiente-oscuro_1360x2400_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Fantasía",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#727272",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/silueta-de-arboles-en-ambiente-oscuro_1360x2400_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/silueta-de-arboles-en-ambiente-oscuro_1360x2400_xtrafondos.com.jpg",
       "resolution": "1080p Full HD",
@@ -929,12 +1024,13 @@
       "file_name": "deadpool-minimalista_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#482328",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/deadpool-minimalista_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/deadpool-minimalista_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "72",
@@ -942,12 +1038,13 @@
       "file_name": "goku-estilo-universo-de-bleach_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#5f4d71",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/goku-estilo-universo-de-bleach_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/goku-estilo-universo-de-bleach_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "73",
@@ -955,12 +1052,13 @@
       "file_name": "lamborghini-centenario-gris-2021_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Autos",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#353e4f",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/lamborghini-centenario-gris-2021_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lamborghini-centenario-gris-2021_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "74",
@@ -968,12 +1066,13 @@
       "file_name": "dodge-challenger-en-atardecer-en-el-desierto_1630x2880_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Autos",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#924c08",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/dodge-challenger-en-atardecer-en-el-desierto_1630x2880_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/dodge-challenger-en-atardecer-en-el-desierto_1630x2880_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "75",
@@ -981,12 +1080,13 @@
       "file_name": "demonio-de-tasmania-space-jam-a-new-legacy_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#562333",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/demonio-de-tasmania-space-jam-a-new-legacy_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/demonio-de-tasmania-space-jam-a-new-legacy_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "76",
@@ -994,12 +1094,13 @@
       "file_name": "makima-chainsaw-man-opening_2440x4320_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#cfa39d",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/makima-chainsaw-man-opening_2440x4320_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/makima-chainsaw-man-opening_2440x4320_xtrafondos.com.jpg",
       "resolution": "4K Ultra HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "77",
@@ -1007,8 +1108,9 @@
       "file_name": "vip_satoru_gojode_jjk.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Anime",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4c3331",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/vip_satoru_gojode_jjk.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/vip_satoru_gojode_jjk.jpg",
       "resolution": "4K Ultra HD",
@@ -1020,12 +1122,13 @@
       "file_name": "watch-dogs-legion-personajes-mascara_2020x3579_xtrafondos.com.jpg",
       "type": "image",
       "is_video": false,
-      "category": "Cyberpunk",
-      "color": "blue",
+      "category": "Todos",
+      "tags": [],
+      "color": "#4b4473",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/watch-dogs-legion-personajes-mascara_2020x3579_xtrafondos.com.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/watch-dogs-legion-personajes-mascara_2020x3579_xtrafondos.com.jpg",
       "resolution": "2K Quad HD",
-      "is_vip": true
+      "is_vip": false
     },
     {
       "id": "79",
@@ -1034,11 +1137,16 @@
       "type": "video",
       "is_video": true,
       "category": "Live Video",
-      "color": "blue",
+      "tags": [
+        "live",
+        "video",
+        "animado"
+      ],
+      "color": "#495261",
       "thumbnail": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/lv_The_Garden_of_Words.webp",
       "hd_url": "https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/lv_The_Garden_of_Words.mp4",
       "resolution": "1080p Full HD",
-      "is_vip": false
+      "is_vip": true
     }
   ]
 }
