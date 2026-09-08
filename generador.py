@@ -13,8 +13,10 @@ from transformers import pipeline
 folder = "./img"
 thumbs_folder = "./img/thumbs"
 
-# Clave API tomada directamente de tu panel de ImgBB
+# Claves API obtenidas de tus paneles
 IMGBB_API_KEY = os.environ.get("IMGBB_API_KEY", "4b0b73663ee43670cab4cec476709bb4")
+PUBLITIO_KEY = os.environ.get("PUBLITIO_KEY", "tyvWN2nvwQDsPRi7yyg7")
+PUBLITIO_SECRET = os.environ.get("PUBLITIO_SECRET", "D8Gj1ASvQtH0x21sP6N7bQT0A98brmVQ")
 
 PREFIX_MAP = {
     "an_": "Anime",
@@ -56,7 +58,7 @@ except Exception as e:
     classifier = None
 
 def upload_to_imgbb(file_path):
-    """Subida remota directa a ImgBB para obtener URL pública CDN"""
+    """Subida remota directa a ImgBB para imágenes"""
     if not os.path.exists(file_path):
         return None
     try:
@@ -74,6 +76,30 @@ def upload_to_imgbb(file_path):
                 return None
     except Exception as e:
         print(f"⚠️ Excepción al subir {os.path.basename(file_path)} a ImgBB: {e}")
+        return None
+
+def upload_video_to_publitio(file_path):
+    """Subida remota directa a Publit.io para videos MP4/WebM"""
+    if not os.path.exists(file_path):
+        return None
+    try:
+        url = "https://api.publit.io/v1/files/create"
+        params = {
+            "api_key": PUBLITIO_KEY,
+            "api_secret": PUBLITIO_SECRET,
+            "privacy": "1"
+        }
+        with open(file_path, "rb") as video_file:
+            files = {"file": video_file}
+            response = requests.post(url, params=params, files=files, timeout=120)
+            res_data = response.json()
+            if res_data.get("success"):
+                return res_data.get("url")
+            else:
+                print(f"⚠️ Error Publit.io en {os.path.basename(file_path)}: {res_data.get('error', {}).get('message')}")
+                return None
+    except Exception as e:
+        print(f"⚠️ Excepción subiendo video a Publit.io: {e}")
         return None
 
 def get_orientation_and_ratio(file_path):
@@ -128,14 +154,14 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado (ImgBB CDN)",
+            "title": "🚀 Wallpaper Pipeline Actualizado (ImgBB & Publit.io)",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado con URLs de ImgBB y Score IA.", "inline": False}
+                {"name": "Estado", "value": "✅ JSON generado con URLs de ImgBB, Publit.io y Score IA.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -326,22 +352,25 @@ for i, archivo in enumerate(archivos):
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
-    # Subida remota a ImgBB (Solo imágenes estáticas o miniaturas)
-    url_hd_imgbb = None
+    # Subidas según el tipo de archivo (Publit.io para videos / ImgBB para imágenes)
+    url_hd = None
     url_thumb_imgbb = None
 
-    if not es_video:
-        print(f"📤 Subiendo a ImgBB: {archivo}")
-        url_hd_imgbb = upload_to_imgbb(ruta_completa)
+    if es_video:
+        print(f"🎬 Subiendo video a Publit.io: {archivo}")
+        url_hd = upload_video_to_publitio(ruta_completa)
+    else:
+        print(f"📤 Subiendo imagen a ImgBB: {archivo}")
+        url_hd = upload_to_imgbb(ruta_completa)
 
     if os.path.exists(thumb_path):
         url_thumb_imgbb = upload_to_imgbb(thumb_path)
 
-    # Fallbacks a jsDelivr en caso de que sea video o falle la subida
+    # Fallbacks a jsDelivr
     fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}"
     fallback_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}"
 
-    final_hd_url = url_hd_imgbb if url_hd_imgbb else fallback_hd
+    final_hd_url = url_hd if url_hd else fallback_hd
     final_thumb_url = url_thumb_imgbb if url_thumb_imgbb else fallback_thumb
 
     # Detección de Orientación y Colores
