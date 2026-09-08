@@ -5,12 +5,16 @@ import re
 import subprocess
 import cv2
 import requests
+import base64
 import numpy as np
 from PIL import Image
 from transformers import pipeline
 
 folder = "./img"
 thumbs_folder = "./img/thumbs"
+
+# Clave API tomada directamente de tu panel de ImgBB
+IMGBB_API_KEY = os.environ.get("IMGBB_API_KEY", "4b0b73663ee43670cab4cec476709bb4")
 
 PREFIX_MAP = {
     "an_": "Anime",
@@ -36,7 +40,6 @@ category_prompts = {
     "an abstract 3d geometric render, fluid colorful artwork, wallpaper pattern, digital abstract graphics": "Abstracto"
 }
 
-# Prompts para generación de Tags inteligentes
 tag_prompts = [
     "dark theme", "neon lights", "colorful", "character", "landscape", 
     "futuristic", "retro", "amoled black", "detailed artwork", "minimalist"
@@ -52,8 +55,28 @@ except Exception as e:
     print(f"⚠️ No se pudo cargar el modelo CLIP Large: {e}. Se usará fallback.")
     classifier = None
 
+def upload_to_imgbb(file_path):
+    """Subida remota directa a ImgBB para obtener URL pública CDN"""
+    if not os.path.exists(file_path):
+        return None
+    try:
+        with open(file_path, "rb") as file:
+            payload = {
+                "key": IMGBB_API_KEY,
+                "image": base64.b64encode(file.read()),
+            }
+            response = requests.post("https://api.imgbb.com/1/upload", payload, timeout=30)
+            res_data = response.json()
+            if res_data.get("success"):
+                return res_data["data"]["url"]
+            else:
+                print(f"⚠️ Error ImgBB en {os.path.basename(file_path)}: {res_data.get('error', {}).get('message')}")
+                return None
+    except Exception as e:
+        print(f"⚠️ Excepción al subir {os.path.basename(file_path)} a ImgBB: {e}")
+        return None
+
 def get_orientation_and_ratio(file_path):
-    """Detección de Orientación y Relación de Aspecto"""
     try:
         with Image.open(file_path) as img:
             width, height = img.size
@@ -77,7 +100,6 @@ def extract_dominant_color_and_amoled(file_path):
             
             black_pixels = np.sum(np.all(arr <= [15, 15, 15], axis=-1))
             total_pixels = 100 * 100
-            # Se convierte explícitamente a bool nativo de Python para evitar np.bool_
             is_amoled = bool((black_pixels / total_pixels) >= 0.35)
 
             avg_color = arr.mean(axis=(0, 1)).astype(int)
@@ -88,7 +110,6 @@ def extract_dominant_color_and_amoled(file_path):
         return "#121212", False
 
 def generate_tags_and_score(image, confidence):
-    """Buscador por Etiquetas de IA y Puntuación Estética (Aesthetic Score)"""
     tags = []
     if classifier:
         try:
@@ -107,14 +128,14 @@ def send_discord_notification(total_items, total_vips, total_videos, new_count):
 
     payload = {
         "embeds": [{
-            "title": "🚀 Wallpaper Pipeline Actualizado",
+            "title": "🚀 Wallpaper Pipeline Actualizado (ImgBB CDN)",
             "color": 3447003,
             "fields": [
                 {"name": "Total Wallpapers", "value": str(total_items), "inline": True},
                 {"name": "Fondos Nuevos", "value": str(new_count), "inline": True},
                 {"name": "Fondos VIP", "value": str(total_vips), "inline": True},
                 {"name": "Live Videos", "value": str(total_videos), "inline": True},
-                {"name": "Estado", "value": "✅ JSON generado con Score IA, Tags y Orientación.", "inline": False}
+                {"name": "Estado", "value": "✅ JSON generado con URLs de ImgBB y Score IA.", "inline": False}
             ],
             "footer": {"text": "ImpostorCore Auto-System"}
         }]
@@ -305,6 +326,24 @@ for i, archivo in enumerate(archivos):
     else:
         generate_webp_thumbnail(ruta_completa, thumb_path)
 
+    # Subida remota a ImgBB (Solo imágenes estáticas o miniaturas)
+    url_hd_imgbb = None
+    url_thumb_imgbb = None
+
+    if not es_video:
+        print(f"📤 Subiendo a ImgBB: {archivo}")
+        url_hd_imgbb = upload_to_imgbb(ruta_completa)
+
+    if os.path.exists(thumb_path):
+        url_thumb_imgbb = upload_to_imgbb(thumb_path)
+
+    # Fallbacks a jsDelivr en caso de que sea video o falle la subida
+    fallback_hd = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}"
+    fallback_thumb = f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}"
+
+    final_hd_url = url_hd_imgbb if url_hd_imgbb else fallback_hd
+    final_thumb_url = url_thumb_imgbb if url_thumb_imgbb else fallback_thumb
+
     # Detección de Orientación y Colores
     orientation, aspect_ratio = get_orientation_and_ratio(temp_frame if (es_video and temp_frame) else ruta_completa)
     hex_color, is_amoled = extract_dominant_color_and_amoled(temp_frame if (es_video and temp_frame) else ruta_completa)
@@ -330,8 +369,8 @@ for i, archivo in enumerate(archivos):
         "orientation": orientation,
         "aspect_ratio": aspect_ratio,
         "aesthetic_score": aesthetic_score,
-        "thumbnail": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/thumbs/{thumb_filename}",
-        "hd_url": f"https://cdn.jsdelivr.net/gh/Nexotvofficial/ImpostorCore@main/img/{url_archivo}",
+        "thumbnail": final_thumb_url,
+        "hd_url": final_hd_url,
         "resolution": resolucion_real,
         "is_vip": es_vip_final
     }
@@ -341,7 +380,7 @@ for i, archivo in enumerate(archivos):
     if archivo not in existing_file_names:
         new_items.append(item_obj)
 
-# Conversión automática de tipos NumPy a tipos nativos durante la serialización a JSON
+# Guardar catálogo con conversor seguro de tipos de NumPy
 with open("wallpapers.json", "w", encoding="utf-8") as f:
     json.dump(
         data, 
