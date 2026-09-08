@@ -77,7 +77,8 @@ def extract_dominant_color_and_amoled(file_path):
             
             black_pixels = np.sum(np.all(arr <= [15, 15, 15], axis=-1))
             total_pixels = 100 * 100
-            is_amoled = (black_pixels / total_pixels) >= 0.35
+            # Se convierte explícitamente a bool nativo de Python para evitar np.bool_
+            is_amoled = bool((black_pixels / total_pixels) >= 0.35)
 
             avg_color = arr.mean(axis=(0, 1)).astype(int)
             hex_color = f"#{avg_color[0]:02x}{avg_color[1]:02x}{avg_color[2]:02x}"
@@ -96,7 +97,7 @@ def generate_tags_and_score(image, confidence):
         except Exception:
             pass
 
-    score = round(min(9.9, max(5.0, (confidence * 4.0) + 5.5)), 1)
+    score = round(min(9.9, max(5.0, (float(confidence) * 4.0) + 5.5)), 1)
     return tags, score
 
 def send_discord_notification(total_items, total_vips, total_videos, new_count):
@@ -223,11 +224,11 @@ def analyze_with_ai(file_name, file_path, is_video, temp_frame_path=None):
         image = Image.open(target_path).convert("RGB")
         
         prediction = classifier(image, candidate_labels=candidate_prompts)
-        confidence = prediction[0]['score']
+        confidence = float(prediction[0]['score'])
         best_category = "Todos" if confidence < 0.28 else category_prompts[prediction[0]['label']]
 
         tags, aesthetic_score = generate_tags_and_score(image, confidence)
-        is_vip_ai = confidence > 0.65 or aesthetic_score >= 8.8
+        is_vip_ai = bool(confidence > 0.65 or aesthetic_score >= 8.8)
 
         return best_category, is_vip_ai, tags, aesthetic_score
     except Exception:
@@ -290,7 +291,7 @@ for i, archivo in enumerate(archivos):
     titulo_bonito = format_title(archivo)
     url_archivo = archivo.replace(" ", "%20")
 
-    es_video = archivo.lower().endswith((".mp4", ".webm")) or "live" in archivo.lower() or "lv_" in archivo.lower()
+    es_video = bool(archivo.lower().endswith((".mp4", ".webm")) or "live" in archivo.lower() or "lv_" in archivo.lower())
 
     thumb_filename = f"{nombre_base}.webp"
     thumb_path = os.path.join(thumbs_folder, thumb_filename)
@@ -314,7 +315,7 @@ for i, archivo in enumerate(archivos):
     if temp_frame and os.path.exists(temp_frame):
         os.remove(temp_frame)
 
-    es_vip_final = es_vip_manual or is_vip_ai
+    es_vip_final = bool(es_vip_manual or is_vip_ai)
 
     item_obj = {
         "id": str(i + 1),
@@ -340,8 +341,15 @@ for i, archivo in enumerate(archivos):
     if archivo not in existing_file_names:
         new_items.append(item_obj)
 
+# Conversión automática de tipos NumPy a tipos nativos durante la serialización a JSON
 with open("wallpapers.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, indent=2, ensure_ascii=False)
+    json.dump(
+        data, 
+        f, 
+        indent=2, 
+        ensure_ascii=False, 
+        default=lambda x: x.item() if hasattr(x, 'item') else str(x)
+    )
 
 print(f"\n¡Listo! Generado wallpapers.json con {len(data['wallpapers'])} items.")
 
